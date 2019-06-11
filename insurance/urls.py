@@ -20,7 +20,8 @@ from django.conf.urls import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    re_path(r'^$', view.getform),
-    re_path(r'^index.*/$', view.getform),
+    path('', view.getIndex),
+    re_path(r'^index.html/$', view.getIndex),
+    re_path(r'^about-us.html/$', view.getAbout_us),
     re_path(r'^testdb/$', testdb.testdb),
 ]
