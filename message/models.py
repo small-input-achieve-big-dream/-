@@ -64,9 +64,9 @@ class trade_Records(models.Model):
 	#交易金额
 	trade_money = models.IntegerField()
 	#创建时间
-	startTime = models.DateTimeField('保存日期', default = timezone.now)
+	startTime = models.DateTimeField(default = timezone.now)
 	#修改时间
-	changeTime = models.DateTimeField('修改时间', auto_now = True)
+	changeTime = models.DateTimeField(auto_now = True)
 	#经办人ID
 	changerID = models.IntegerField()
 	#修改内容
@@ -102,9 +102,9 @@ class table(models.Model):
 	#被投保人身份证
 	recognizee_ID = models.IntegerField()
 	#生效日期
-	effectDate = models.DateTimeField('生效日期',auto_now = True)
+	effectDate = models.DateTimeField(auto_now = True)
 	#失效日期
-	loseDate = models.DateTimeField('失效日期', default = timezone.now)
+	loseDate = models.DateTimeField(default = timezone.now)
 	#交费周期
 	payCycle = models.CharField(max_length = 30)
 	#投入金额
@@ -142,7 +142,7 @@ class applicant(models.Model):
 	#类型
 	style = models.IntegerField()
 	#生日
-	birth = models.DateTimeField('生日', auto_now = True)
+	birth = models.DateTimeField(auto_now = True)
 	#性别
 	sex = models.BooleanField()
 	#电话
@@ -204,8 +204,8 @@ class complainInfor(models.Model):
 	# 反馈内容
 	Return = models.CharField(max_length = 60)
 	# 投诉时间
-	startTime = models.DateTimeField('保存日期', default = timezone.now)
+	startTime = models.DateTimeField(default = timezone.now)
 	# 处理时间
-	changeTime = models.DateTimeField('修改时间', auto_now = True)
+	changeTime = models.DateTimeField(auto_now = True)
 	class Meta:
 		db_table = "complainInfor"
