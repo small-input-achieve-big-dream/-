@@ -5,3 +5,6 @@ def getIndex(request):
 
 def getAbout_us(request):
 	return render(request, 'about-us.html')
+
+def get404(request):
+	return render(request, '404.html')

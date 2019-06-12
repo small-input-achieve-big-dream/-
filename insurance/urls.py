@@ -15,13 +15,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, re_path
-from . import testdb, view
+from . import testdb, view, settings
+from django.conf.urls.static import static
 from django.conf.urls import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path(r'index.html/', view.getIndex),
     path('', view.getIndex),
-    re_path(r'^index.html/$', view.getIndex),
-    re_path(r'^about-us.html/$', view.getAbout_us),
+    re_path(r'.*about-us.html/$', view.getAbout_us),
+    re_path(r'.*404.html/$', view.get404),
     re_path(r'^testdb/$', testdb.testdb),
 ]
+
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS)
