@@ -58,7 +58,7 @@ class products(models.Model):
 #交易记录表
 class trade_Records(models.Model):
 	#保单ID
-	tableID = models.CharField(max_length = 30)
+	tableID = models.CharField(max_length = 30, unique = True)
 	#交易金额
 	trade_money = models.CharField(max_length = 30)
 	#创建时间
