@@ -1,0 +1,107 @@
+﻿<!doctype html>
+<html class="no-js" lang="zxx">
+{% include "head.html" %}
+<body>
+        {% include "topBar.html" %}
+        <!-- Breacrumb Area -->
+        <div class="breadcrumb-area" data-black-overlay="2">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+                        <div class="cr-breadcrumb text-center">
+                            <h1>Services</h1>
+                            <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration passages of Lorem Ipsum available, but the majority</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--// Breacrumb Area -->
+        <div class="myform fr">
+						<h3>保费测算</h3>
+
+						<form action="https://www.cignacmb.com/lib/saveFormLG.php" id="myform" method="post" name="myform" target="myiframe">
+							<div class="form-item form-age clearfix"><label>宝宝年龄：</label>
+
+								<div class="selectbox">
+									<select id="age" name="age" tip="请选择宝宝的年龄" tabindex="-1" class="select2-hidden-accessible" aria-hidden="true">
+										<option value="">请选择</option>
+										<option value="0岁">0岁</option>
+										<option value="1岁">1岁</option>
+										<option value="2岁">2岁</option>
+										<option value="3岁">3岁</option>
+										<option value="4岁">4岁</option>
+										<option value="5岁">5岁</option>
+										<option value="6岁">6岁</option>
+										<option value="7岁">7岁</option>
+										<option value="8岁">8岁</option>
+										<option value="9岁">9岁</option>
+										<option value="10岁">10岁</option>
+									</select><span class="select2 select2-container select2-container--default" dir="ltr" style="width: 240px;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-age-container"><span class="select2-selection__rendered" id="select2-age-container" title="请选择">请选择</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+								</div>
+							</div>
+
+							<div class="form-item form-gender clearfix"><label>宝宝性别：</label>
+
+								<div class="textbox" id="gender">
+									<div class="radio-box1"><span class="radio-bg radio-bg2">男</span> <input checked="checked" name="gender" type="radio" value="M"></div>
+
+									<div class="radio-box2"><span class="radio-bg">女</span> <input name="gender" type="radio" value="F"></div>
+								</div>
+
+								<div class="icon-true" id="icon-jffs"></div>
+							</div>
+
+							<div class="form-item form-gender clearfix"><label>交费方式：</label>
+
+								<div class="textbox" id="paymentfreq">
+									<div class="radio-box1"><span class="radio-bg radio-bg2">年交</span> <input checked="checked" name="paymentfreq" type="radio" value="0"></div>
+
+									<div class="radio-box2"><span class="radio-bg">月交</span> <input name="paymentfreq" type="radio" value="1"></div>
+								</div>
+
+								<div class="icon-true" id="icon-jffs"></div>
+							</div>
+
+							<div class="form-item form-remark1 clearfix"><label>基本保额：</label>
+
+								<div class="selectbox">
+									<select id="remark1" name="remark1" tip="请输入您的保额" tabindex="-1" class="select2-hidden-accessible" aria-hidden="true">
+										<option value="">请选择</option>
+										<option value="1-10万">1-10万</option>
+										<option value="10-20万">10-20万</option>
+										<option value="20-30万">20-30万</option>
+										<option value="30-50万">30-50万</option>
+										<option value="50万以上">50万以上</option>
+									</select><span class="select2 select2-container select2-container--default" dir="ltr" style="width: 240px;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-remark1-container"><span class="select2-selection__rendered" id="select2-remark1-container" title="请选择">请选择</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+								</div>
+							</div>
+
+							<div class="form-item form-name clearfix"><label>您的姓名：</label>
+
+								<div class="textbox"><input class="text" id="name" name="name" placeholder="您的信息将被严格保密" tip="请填写您的姓名" type="text" value=""></div>
+							</div>
+
+							<div class="form-item form-mobile clearfix"><label>您的手机：</label>
+
+								<div class="textbox"><input class="text" id="mobile" maxlength="11" name="mobile" onkeyup="this.value=this.value.replace(/D/g,'')" placeholder="用于接收精准报价" tip="请正确填写您的电话" type="text" value=""></div>
+							</div>
+							<!--必填--><input id="iqId" name="iqId" type="hidden" value="13970373"> <input id="campaignCode" name="campaignCode" type="hidden" value="1GG8DOSEO1HXJYN16"> <input id="product" name="product" type="hidden" value="DTCSEON16"><!--PageUrl--><input type="hidden" id="PageUrl" name="PageUrl" value="https://www.cignacmb.com/insurance/jiaoyujin2018.html"><!--PageUrl_Parameter--><input type="hidden" id="PageUrl_Parameter" name="PageUrl_Parameter" value=""> <input id="ChannelID" name="ChannelID" type="hidden" value="5"> <input id="subUrl" type="hidden" value="/campaign/hd/success.html?product=DTCSEON16">
+							<!--选填--><input id="url" name="url" type="hidden" value="https://www.cignacmb.com/include_form/get.php"> <input id="IsToLG" name="IsToLG" type="hidden" value="1"> <input id="wtmcId" name="wtmcId" type="hidden" value="DWDMR"> <input id="searchWords" name="searchWords" type="hidden" value=""> <input id="remark" name="remark" type="hidden" value="| SEO核心类：预约咨询宝贝启航2018"> <input id="pyid" name="pyid" type="hidden" value="60452032ysm7nz88"> <input id="gridsumid" name="gridsumid" type="hidden" value="60452032atiuu488">
+							<div class="form-item form-submit"><input class="submit_form" id="submit_form" type="button" value="立即测算"></div>
+
+							<div class="form-clause shouquan-html"><input class="clause check-shouquan" id="clause" name="clause" tip="请确认个人信息使用授权" type="checkbox" value=""> 本人同意招商信诺后续致电联系进行保险产品介绍及精准报价，同意接受
+								<a class="btn-shouquan" href="javascript:void(0)">[个人信息使用授权]</a>
+							</div>
+						</form>
+						<iframe id="myiframe" name="myiframe" style="display: none;" __idm_frm__="88"></iframe></div>
+    <!-- JS Files -->
+    <script src="js/vendor/jquery-3.2.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/plugins.js"></script>
+    <script src="js/active.js"></script>
+    <script src="js/scripts.js"></script>
+</body>
+
+</html>

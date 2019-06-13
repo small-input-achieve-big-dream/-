@@ -143,8 +143,6 @@ class applicant(models.Model):
 	style = models.IntegerField()
 	#生日
 	birth = models.DateTimeField(auto_now = True)
-	#性别
-	sex = models.BooleanField()
 	#电话
 	telephone = models.IntegerField()
 	#住址
@@ -160,8 +158,6 @@ class applicant(models.Model):
 class recognizee_Infor(models.Model):
 	#身份证
 	userID = models.IntegerField()
-	#性别
-	sex = models.BooleanField()
 	#年龄
 	age = models.IntegerField()
 	#姓名
@@ -173,8 +169,6 @@ class recognizee_Infor(models.Model):
 class applicant_real(models.Model):
 	#身份证
 	userID = models.IntegerField()
-	#性别
-	sex = models.BooleanField()
 	#年龄
 	age = models.IntegerField()
 	#姓名
