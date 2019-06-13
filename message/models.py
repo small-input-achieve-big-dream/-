@@ -2,7 +2,15 @@
 from django.db import models
 import django.utils.timezone as timezone
 
+#python manage.py runserver 127.0.0.1:8080 启动服务器
+#http://127.0.0.1:8080/admin/ 进入管理员界面
+#python manage.py createsuperuser 创建管理员（admin ,1059117321）
+
+
 # Create your models here
+#django 框架提供ORM
+#创造数据表 定义模型类
+#进行数据迁移
 
 #理赔记录表
 class compensate_Records(models.Model):
@@ -58,7 +66,7 @@ class products(models.Model):
 #交易记录表
 class trade_Records(models.Model):
 	#保单ID
-	tableID = models.CharField(max_length = 30)
+	tableID = models.CharField(max_length = 30, unique = True)
 	#交易金额
 	trade_money = models.CharField(max_length = 30)
 	#创建时间
