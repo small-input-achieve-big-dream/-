@@ -136,7 +136,7 @@ class get_payment(object):
             app_private_key_path=u"privatePwd.txt",               # 设置应用私钥
             alipay_public_key_path="appPwd.txt",           # 支付宝的公钥，验证支付宝回传消息使用，不是你自己的公钥,
             debug=False,  # 默认False,                                   # 设置是否是沙箱环境，True是沙箱环境
-            return_url="http://47.92.87.172:8000/"                      # 同步支付通知url
+            return_url="http://127.0.0.1:8000/finish_pay.html"                      # 同步支付通知url
         )
 
     def get(self, name, num, account):
@@ -151,7 +151,7 @@ class get_payment(object):
             # 订单号生成，一般是当前时间(精确到秒)+用户ID+随机数
             out_trade_no=num,                    # 订单号
             total_amount=account,                               # 支付金额
-            return_url="http://47.92.87.172:8000/"          # 支付成功后，跳转url
+            return_url="http://127.0.0.1:8000/finish_pay.html"          # 支付成功后，跳转url
         )
         # 将前面后的支付参数，拼接到支付网关
         # 注意：下面支付网关是沙箱环境，
