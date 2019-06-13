@@ -1,0 +1,12 @@
+支付宝沙箱message/alipay.py
+接口
+输入
+{
+name: 订单名#str
+num:订单号#str
+account:支付金额#int
+}
+输出
+{
+url:支付网址
+}

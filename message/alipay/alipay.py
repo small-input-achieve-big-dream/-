@@ -123,30 +123,38 @@ class AliPay(object):
         message = "&".join(u"{}={}".format(k, v) for k, v in unsigned_items)
         return self._verify(message, signature)
 
+class get_payment(object):
+    """
+    获取url连接接口
+    """
+    def __init__(self):
+        """支付请求过程"""
+        # 传递参数初始化支付类
+        self.alipay = AliPay(
+            appid="2016092900620537",                                   # 设置签约的appid
+            app_notify_url="http://projectsedus.com/",                  # 异步支付通知url
+            app_private_key_path=u"privatePwd.txt",               # 设置应用私钥
+            alipay_public_key_path="appPwd.txt",           # 支付宝的公钥，验证支付宝回传消息使用，不是你自己的公钥,
+            debug=False,  # 默认False,                                   # 设置是否是沙箱环境，True是沙箱环境
+            return_url="http://47.92.87.172:8000/"                      # 同步支付通知url
+        )
 
-if __name__ == "__main__":
-    """支付请求过程"""
-    # 传递参数初始化支付类
-    alipay = AliPay(
-        appid="2016092900620537",                                   # 设置签约的appid
-        app_notify_url="http://projectsedus.com/",                  # 异步支付通知url
-        app_private_key_path=u"privatePwd.txt",               # 设置应用私钥
-        alipay_public_key_path="appPwd.txt",           # 支付宝的公钥，验证支付宝回传消息使用，不是你自己的公钥,
-        debug=False,  # 默认False,                                   # 设置是否是沙箱环境，True是沙箱环境
-        return_url="http://47.92.87.172:8000/"                      # 同步支付通知url
-    )
-
-    # 传递参数执行支付类里的direct_pay方法，返回签名后的支付参数，
-    url = alipay.direct_pay(
-        subject="机械革命(MECHREVO)X9Ti-R i7 17.3英寸游戏笔记本电脑(i7-9750H 16G 512G PCIE+1T RTX2060 144Hz）",                              # 订单名称
-        # 订单号生成，一般是当前时间(精确到秒)+用户ID+随机数
-        out_trade_no="201702021229",                    # 订单号
-        total_amount=9297,                               # 支付金额
-        return_url="http://47.92.87.172:8000/"          # 支付成功后，跳转url
-    )
-    
-    # 将前面后的支付参数，拼接到支付网关
-    # 注意：下面支付网关是沙箱环境，
-    re_url = "https://openapi.alipaydev.com/gateway.do?{data}".format(data=url)
-    print(re_url)
-    # 最终进行签名后组合成支付宝的url请求
+    def get(self, name, num, account):
+        """
+        name: 订单名称
+        num: 订单号
+        account: 支付金额
+        """
+        # 传递参数执行支付类里的direct_pay方法，返回签名后的支付参数，
+        url = self.alipay.direct_pay(
+            subject=name,                              # 订单名称
+            # 订单号生成，一般是当前时间(精确到秒)+用户ID+随机数
+            out_trade_no=num,                    # 订单号
+            total_amount=account,                               # 支付金额
+            return_url="http://47.92.87.172:8000/"          # 支付成功后，跳转url
+        )
+        # 将前面后的支付参数，拼接到支付网关
+        # 注意：下面支付网关是沙箱环境，
+        re_url = "https://openapi.alipaydev.com/gateway.do?{data}".format(data=url)
+        return (re_url)
+        # 最终进行签名后组合成支付宝的url请求

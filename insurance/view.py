@@ -8,3 +8,6 @@ def getAbout_us(request):
 
 def get404(request):
 	return render(request, '404.html')
+
+def gettest(request):
+	return render(request, 'test.html')
