@@ -1,12 +1,12 @@
-Ö§¸¶±¦É³Ïämessage/alipay.py
-½Ó¿Ú
-ÊäÈë
+æ”¯ä»˜å®æ²™ç®±message/alipay.py
+æ¥å£
+è¾“å…¥
 {
-name: ¶©µ¥Ãû#str
-num:¶©µ¥ºÅ#str
-account:Ö§¸¶½ğ¶î#int
+name: è®¢å•å#str
+num:è®¢å•å·#str
+account:æ”¯ä»˜é‡‘é¢#int
 }
-Êä³ö
+è¾“å‡º
 {
-url:Ö§¸¶ÍøÖ·
+url:æ”¯ä»˜ç½‘å€
 }
