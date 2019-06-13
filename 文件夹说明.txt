@@ -1,0 +1,5 @@
+insurance: 项目
+message：app
+static：静态数据文件夹
+Temp：可供参考html模板
+templats：以选择或做好的页面模板

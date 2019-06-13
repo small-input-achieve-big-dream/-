@@ -65,20 +65,12 @@ class products(models.Model):
 
 #交易记录表
 class trade_Records(models.Model):
-	#交易ID
-	tradeID = models.IntegerField()
 	#保单ID
-	tableID = models.IntegerField()
+	tableID = models.CharField(max_length = 30)
 	#交易金额
-	trade_money = models.IntegerField()
+	trade_money = models.CharField(max_length = 30)
 	#创建时间
 	startTime = models.DateTimeField(default = timezone.now)
-	#修改时间
-	changeTime = models.DateTimeField(auto_now = True)
-	#经办人ID
-	changerID = models.IntegerField()
-	#修改内容
-	content = models.CharField(max_length = 60)
 	class Meta:
 		db_table = "trade_Records"
 
