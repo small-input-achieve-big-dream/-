@@ -11,4 +11,3 @@ class compensate_Records_Admin(admin.ModelAdmin):
 
 # Register your models here.
 admin.site.register([products,trade_Records,profit,table,user_login,applicant,recognizee_Infor,realtionship,complainInfor])
-

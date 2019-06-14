@@ -27,7 +27,8 @@ urlpatterns = [
     re_path(r'.*404.html/$', view.get404),
     re_path(r'^testdb/$', testdb.testdb),
     re_path(r'.*finish_pay.html/$', view.get_finish_pay),
-    path(r'test/', view.gettest)
+    path(r'test/', view.gettest),
+    re_path(r'.*services/$', view.getservices),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS)

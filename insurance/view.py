@@ -10,8 +10,11 @@ def getAbout_us(request):
 def get404(request):
 	return render(request, '404.html')
 
-def gettest(request):
+def gettest(request):	
 	return render(request, 'test.html')
+
+def getservices(request):
+	return render(request, 'services.html')
 
 def get_finish_pay(request):
 	LIST = {}
