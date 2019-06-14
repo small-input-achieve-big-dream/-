@@ -48,16 +48,18 @@ class accident_Application(models.Model):
 
 #保险产品表
 class products(models.Model):
-	#产品ID
-	productsID = models.IntegerField()
 	#产品名
 	productsName = models.CharField(max_length = 30)
 	#产品类型
 	productsStyle = models.CharField(max_length = 30)
 	#产品描述
 	productsDes = models.CharField(max_length = 60)
-	#投保人年龄群
-	group = models.IntegerField()
+	#投投保人年龄范围
+	age_range = models.CharField(max_length = 60)
+	#被保人年龄范围
+	recognizee_age_range = models.CharField(max_length = 60)
+	#保险期间
+	date = models.CharField(max_length = 60)
 	#已成交单数
 	dealCount = models.IntegerField()
 	class Meta:
@@ -91,8 +93,6 @@ class profit(models.Model):
 
 #保单表
 class table(models.Model):
-	#保单ID
-	tableID = models.IntegerField()
 	#产品ID
 	productsID = models.IntegerField()
 	#用户ID
