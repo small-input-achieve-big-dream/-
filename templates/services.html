@@ -100,6 +100,7 @@
 
 					<div class="myform fr">
                         <form action="" method="post">
+                        	{% csrf_token %}
                             <center><label style="color: red; font-size: 50px;">{{ answer }}</label></center>
                             <center>
                                <p><h5>投保人年龄:</h5><input type="text" name="age"/></p> 
