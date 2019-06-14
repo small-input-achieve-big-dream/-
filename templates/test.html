@@ -1,200 +1,415 @@
-<!DOCTYPE html>
-<html lang="zh-cn">
-<head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-         <title>保险</title>
-<link rel="shortcut icon" href="/static/images/favicon.ico" type="image/vnd.microsoft.icon" />
-<meta name="description" content="保险" />
-<meta name="keywords" content="保险" />
-<meta http-equiv="X-UA-Compatible" content="IE=7" />
-<meta name="applicable-device" content="pc">
-<meta name="mobile-agent" content="zabb.html">
-<link rel="stylesheet" type="text/css" href="/static/css/product/ui_base.css" />
-<link rel="stylesheet" type="text/css" href="/static/css/product/ui_comm.css" />
-<script type="text/javascript" src="/static/js/product/jquery-1.9.1.min.js"></script>
-<link rel="stylesheet" type="text/css" href="/static/css/product/list.css" />
-<script type="text/javascript" src="/static/js/product/webtrends.js"></script>
-
-<meta name="applicable-device" content="pc">
-<script type="text/javascript" src="/static/js/product/m.js"></script>
-<script type="text/javascript">browserRedirect("zabb.html");</script>
-<link rel="alternate" media="only screen and(max-width: 640px)" href="zabb.html">
-
-</head>
+<html class="js sizes customelements history pointerevents postmessage webgl websockets cssanimations csscolumns csscolumns-width csscolumns-span csscolumns-fill csscolumns-gap csscolumns-rule csscolumns-rulecolor csscolumns-rulestyle csscolumns-rulewidth csscolumns-breakbefore csscolumns-breakafter csscolumns-breakinside flexbox picture srcset webworkers translated-ltr" lang="zh-CN">
+{% include "head.html" %}
 <body>
-<div class="product-detail">
-<div id="page" class="clearfix">
- <script type='text/javascript'>
-        var _vds = _vds || [];
-        window._vds = _vds;
-        (function(){
-            _vds.push(['setAccountId', '9aba2c231a4dd2df']);
-            (function() {
-                var vds = document.createElement('script');
-                vds.type='text/javascript';
-                vds.async = true;
-                vds.src = '/static/js/product/vds.js';
-                var s = document.getElementsByTagName('script')[0];
-                s.parentNode.insertBefore(vds, s);
-            })();
-        })();
-
-    </script>
-<!-- HEADER END -->
-
-		<!--main 在这里写入代码 START-->
-        {% include "head.html" %}
         {% include "topBar.html" %}
+        <!-- Breacrumb Area -->
         <div class="breadcrumb-area" data-black-overlay="2">
             <div class="container">
                 <div class="row">
                     <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
                         <div class="cr-breadcrumb text-center">
-                            <h1>{{ services_name }}</h1>
-                            <p>{{ descirbe }}</p>
+                            <h1><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">关于我们</font></font></h1>
+                            <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Lorem Ipsum的段落有很多变化，但大多数都有Lorem Ipsum的变更段落，但大多数</font></font></p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
         <!--// Breacrumb Area -->
-		<link rel="stylesheet" type="text/css" href="/static/css/product/select2.min.css">
-		<link rel="stylesheet" type="text/css" href="/static/css/product/style.css">
-		<div class="act-page">
-            <div style="margin: 0px auto; width: 980px; padding: 20px 0px;"><img alt="春日送暖预约咨询教育金送绘本" src="https://www.cignacmb.com/d/file/20190315/55562dcbdcc6bac01956f380819f1658.jpg"></div>
-			-<div style="margin: 0px auto; width: 980px; padding: 20px 0px;"><img alt="预约咨询教育金送书包" src="/static/images/27ed6e896edca63d7759e8b6727b1d08.jpg"></div>
-			<!--6大特色  多重守护-->
-			<div class="floor pro" id="anchor">
-				<h2 class="m-bt">6大特色  多重守护</h2>
-				<div class="boxmain-inner">
-					<div class="pro-l fl">
-						<ul class="pro-ul clearfix">
-							<li class="pro-li">
-								<img class="pro-img" src="/static/images/img01.png" />
-								<h3>教育年金，专款专用</h3>
-								<p>领钱早，15岁起开始领钱，连续11年固定领取，教育深造<br />婚嫁，皆有保障。</p>
-							</li>
-							<li class="pro-li"><img class="pro-img" src="/static/images/img02.png" />
-								<h3>重大疾病，百万保障</h3>
-								<p>保85种重疾，其中白血病、川崎病、深度昏迷、严重脑损伤、<br />严重Ⅲ度烧伤等5种特定重大疾病双倍赔付，最高100万。</p>
-							</li>
-							<li class="pro-li"><img class="pro-img" src="/static/images/img03.png" />
-								<h3>住院津贴，贴心呵护</h3>
-								<p>最高300元/天，补贴天数最多可达600天。社保报销之后还能<br />领取。</p>
-							</li>
-							<li class="pro-li"><img class="pro-img" src="/static/images/img04.png" />
-								<h3>意外医疗，保障更全</h3>
-								<p>附加长期意外医疗，门诊&住院都能赔。保险期间内累计可赔<br />付10倍保额，累计最高20万。 </p>
-							</li>
-								<li class="pro-li"><img class="pro-img" src="/static/images/img05.png" />
-								<h3>豁免保费，延续关爱</h3>
-								<p>如果投保人在等待期后（意外伤害无等待期限制）不幸身故或<br />罹患重疾，可免交后继保费，人性设计更显关爱。</p>
-							</li>
-							<li class="pro-li"><img class="pro-img" src="/static/images/img06.png" />
-								<h3>灵活定制，性价比高</h3>
-								<p>交费年限灵活选择；重疾、住院、意外医疗、定寿、豁免等<br />附加保障可按需自由搭配。</p>
-							</li>
-						</ul>
-					</div>
 
-					<div class="myform fr">
-                        <form action="" method="post">
-                            <center><label style="color: red; font-size: 50px;">{{ answer }}</label></center>
-                            <center>
-                               <p><h5>投保人年龄:</h5><input type="text" name="age"/></p> 
-                                <!-- <p style="height: 10px; margin: 5px 0"></p> -->
-                                <p><h5>投保人投保金额:</h5><input type="text" name="money"/></p>  
-                                <!-- <p style="height: 10px; margin: 5px 0"></p> -->
-                                <p><h5>投保人投保姓名:</h5><input type="text" name="name"/></p> 
-                                <!-- <p style="height: 10px; margin: 5px 0"></p> -->
-                                <p><h5>投保人投保身份证:</h5><input type="text" name="recognizee_ID"/></p> 
-                                <!-- <p style="height: 10px; margin: 5px 0"></p> -->
-                                <p><h5>投保人交费方式:</h5>
-                                    <select name="approach">
-                                        <option value = "one">单次</option>
-                                        <option value = "week">周交</option>
-                                        <option value = "month">月交</option>
-                                        <option value = "year">年交</option>
-                                    </select></p>
-                                <button type="submit" name="measure" style="height: 40px; width: 80px">保费测算</button>
-                                <button type="submit" name="buy" style="height: 40px; width: 80px">购买保单</button>
-                            </center>
-                        </form>
+
+        <!-- Page Content -->
+        <main class="page-content">
+
+            <!-- About Us Area -->
+            <section class="about-us-area pt--80">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-7">
+                            <div class="about-content about-content-4 pb--65 pt--50">
+                                <h3><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">我们</font><span class="secondary-theme-color"><font style="vertical-align: inherit;">是</font></span><font style="vertical-align: inherit;">谁</font></font><span class="secondary-theme-color"><font style="vertical-align: inherit;"></font></span> </h3>
+                                <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Lorem Ipsum的段落有许多变化，但是大多数都有Lorem Ipsum的变化段落，但是Lorem Ipsum的大多数段落都有可用的段落</font></font></p>
+                                <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">但是如果Lorem Ipsum可以获得改变通道，但是大多数段落都遭到了Lebmid的改变。</font></font></p>
+                                <a href="about-us.html" class="cr-btn">
+                                    <span><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">了解更多</font></font></span>
+                                <b></b></a>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-12">
+                                    <div class="counter text-left">
+                                        <h3 class="counter-active">131</h3>
+                                        <h6><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">获奖</font></font></h6>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-12">
+                                    <div class="counter text-left pl--45">
+                                        <h3 class="counter-active">612</h3>
+                                        <h6><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">项目完成</font></font></h6>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-12">
+                                    <div class="counter text-left pl--60">
+                                        <h3 class="counter-active">465</h3>
+                                        <h6><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">满意的客户</font></font></h6>
+                                    </div>
+                                </div>
+                           </div>
+                        </div>
+                        <div class="col-lg-5">
+                           <div class="about-left-image">
+                                <img src="/static/images/about/1.png" alt="">
+                           </div>
+                        </div>
                     </div>
-				</div>
-			</div>
+                </div>
+            </section>
+            <!--// About Us Area -->
 
-			<!--尊享增值服务 · 医疗咨询热线 -->
-			<div class="trump">
-				<h2 class="m-bt">尊享增值服务<span class="dit">&nbsp;</span>医疗咨询热线</h2>
-				<p class="f-bt">由招商信诺专属健康管理团队打造，服务贯穿整个保障期。
-				</p>
-				<div class="boxmain-inner">
-					<ul class="trump-ul clearfix">
-						<li class="trump-li">
-							<div class="item">
-								<img src="/static/images/icon01.png" />
-								<h3>就诊科室推荐</h3>
-								<p>三甲医院背景医生为您病情预判，<br /> 推荐就诊医院及科室</p>
-							</div>
-						</li>
-						<li class="trump-li">
-							<div class="item">
-								<img src="/static/images/icon02.png" />
-								<h3>小病小痛不用上医院排队</h3>
-								<p>专家为您提供饮食养生、运动、疾病<br /> 预防等日常健康咨询</p>
-							</div>
-						</li>
-						<li class="trump-li last">
-							<div class="item">
-								<img src="/static/images/icon03.png" />
-								<h3>紧急情况处理指导</h3>
-								<p>当遭遇紧急情况（如外伤、高热、<br /> 被犬咬伤等），我们第一时间给予<br /> 专业建议与处理指导</p>
-							</div>
-						</li>
-					</ul>
-				</div>
-			</div>
+            <!-- Services Area -->
+            <section class="services-area pt-130 pb-100 bg-grey">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-8 col-lg-10 col-12 offset-0">
+                            <div class="section-title text-left">
+                                <h2><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">我们的</font></font><span class="secondary-theme-color"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">服务</font></font></span> </h2>
+                                <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Lorem Ipsum的段落有很多变化，但大多数都有Lorem Ipsum可用业务咨询的变更段落。</font></font></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
 
-			<!--投保须知-->
-			<div class="floor instructions">
-				<h2 class="m-bt">投保须知</h2>
-				<div class="boxmain-inner">
-					<ul class="clearfix">
-						<li><span>投保人年龄</span>20周岁—60周岁</li>
-						<li><span>被保人年龄</span>出生满28天—13周岁</li>
-						<li><span>保障金额</span>最低1万元</li>
-						<li><span>保障期限</span>至25周岁保单周年日</li>
-						<li><span>交费年限</span>3年/5年/10年</li>
-						<li><span>交费方式</span>年交/半年交/季交/月交</li>
-					</ul>
-					<dl>
-						<dt><p>产品名称：珍爱宝贝少儿教育年金保险产品计划</p></dt>
-						<dd>
-							<p>投保地区：<span id="fname">广东、北京、上海、江苏、浙江、山东、四川、重庆、湖北、陕西、辽宁、湖南、河南、江西、天津</span></p>
-						</dd>
-					</dl>
-				</div>
-			<!--ifooterbj end-->
-			</div>
-		</div>
-	</div>
-	<div id="cacheboostid"></div>
+                        <!-- Signle Service -->
+                        <div class="col-lg-4 col-md-6 col-12">
+                            <div class="service service-style-2 text-center">
+                                <div class="service-thumb">
+                                    <img src="/static/images/service/7.png" alt="组合拇指">
+                                </div>
+                                <div class="service-content">
+                                    <div class="service-content-inner text-center">
+                                        <h6><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">税收和效率</font></font></h6>
+                                        <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Lorem Ipsum的段落有很多变化，但大多数lebmid我们是专业的业务。</font></font></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--// Signle Service -->
+
+                        <!-- Signle Service -->
+                        <div class="col-lg-4 col-md-6 col-12">
+                            <div class="service service-style-2 text-center mb--30">
+                                <div class="service-thumb">
+                                    <img src="/static/images/service/2.png" alt="组合拇指">
+                                </div>
+                                <div class="service-content">
+                                    <div class="service-content-inner text-center">
+                                        <h6><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">企业融资</font></font></h6>
+                                        <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Lorem Ipsum的段落有很多变化，但大多数lebmid我们是专业的业务。</font></font></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--// Signle Service -->
+
+                        <!-- Signle Service -->
+                        <div class="col-lg-4 col-md-6 col-12">
+                            <div class="service service-style-2 text-center mb--30">
+                                <div class="service-thumb">
+                                    <img src="/static/images/service/3.png" alt="组合拇指">
+                                </div>
+                                <div class="service-content">
+                                    <div class="service-content-inner text-center">
+                                        <h6><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">经济咨询</font></font></h6>
+                                        <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Lorem Ipsum的段落有很多变化，但大多数lebmid我们是专业的业务。</font></font></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--// Signle Service -->
+
+                        <!-- Signle Service -->
+                        <div class="col-lg-4 col-md-6 col-12">
+                            <div class="service service-style-2 text-center mb--30">
+                                <div class="service-thumb">
+                                    <img src="/static/images/service/4.png" alt="组合拇指">
+                                </div>
+                                <div class="service-content">
+                                    <div class="service-content-inner text-center">
+                                        <h6><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">法务与诉讼</font></font></h6>
+                                        <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Lorem Ipsum的段落有很多变化，但大多数lebmid我们是专业的业务。</font></font></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--// Signle Service -->
+
+                        <!-- Signle Service -->
+                        <div class="col-lg-4 col-md-6 col-12">
+                            <div class="service service-style-2 text-center mb--30">
+                                <div class="service-thumb">
+                                    <img src="/static/images/service/5.png" alt="组合拇指">
+                                </div>
+                                <div class="service-content">
+                                    <div class="service-content-inner text-center">
+                                        <h6><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">技术咨询</font></font></h6>
+                                        <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Lorem Ipsum的段落有很多变化，但大多数lebmid我们是专业的业务。</font></font></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--// Signle Service -->
+
+                        <!-- Signle Service -->
+                        <div class="col-lg-4 col-md-6 col-12">
+                            <div class="service service-style-2 text-center mb--30">
+                                <div class="service-thumb">
+                                    <img src="/static/images/service/6.png" alt="组合拇指">
+                                </div>
+                                <div class="service-content">
+                                    <div class="service-content-inner text-center">
+                                        <h6><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">商业咨询</font></font></h6>
+                                        <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Lorem Ipsum的段落有很多变化，但大多数lebmid我们是专业的业务。</font></font></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--// Signle Service -->
+
+                    </div>
+                </div>
+            </section>
+            <!--// Services Area -->
+            
+            <!-- Video Area -->
+            <div id="video-area" class="video-area bg-image-7 bg-fixed" data-black-overlay="6">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-12 offset-0">
+                            <div class="video-area-inner text-center">
+                                <a class="video-popup-trigger" href="https://vimeo.com/104509732">
+                                    <i class="flaticon-play-button"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--// Video Area -->
+            
+            <!-- Testimonial Area -->
+            <section class="testimonial-area pt-130 pb-150">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-8 col-lg-10 col-12 offset-0">
+                            <div class="section-title text-left">
+                                <h2><font style="vertical-align: inherit;"><span class="secondary-theme-color"><font style="vertical-align: inherit;">客户的</font></span><font style="vertical-align: inherit;">经验</font></font><span class="secondary-theme-color"><font style="vertical-align: inherit;"></font></span> </h2>
+                                <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Lorem Ipsum的段落有很多变化，但大多数都有Lorem Ipsum可用业务咨询的变更段落。</font></font></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="testimonial-wrap testimonial-style-1 testimonial-slider-active cr-slider-dots-1 slick-initialized slick-slider slick-dotted">
+
+                                <!-- Single Testimonial -->
+                                <div class="slick-list draggable" style="padding: 0px 50px;"><div class="slick-track" style="opacity: 1; width: 6400px; transform: translate3d(-3600px, 0px, 0px); transition: transform 500ms ease 0s;"><div class="testimonial text-center slick-slide slick-cloned" data-slick-index="-4" aria-hidden="true" style="width: 370px;" tabindex="-1">
+                                    <div class="testimonial-thumb">
+                                        <img src="/static/images/testimonial/small-thumb/thumb-4.png" alt="推荐作者">
+                                    </div>
+                                    <div class="testimonial-content">
+                                        <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Lorem Ipsum的段落有许多变化，但是Lorem Ipsum的段落的大多数变化，但大多数</font></font></p>
+                                    </div>
+                                    <div class="testimonial-author">
+                                        <h6><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">理查德马克</font></font></h6>
+                                        <p>Facebook.Inc</p>
+                                    </div>
+                                </div><div class="testimonial text-center slick-slide slick-cloned" data-slick-index="-3" aria-hidden="true" style="width: 370px;" tabindex="-1">
+                                    <div class="testimonial-thumb">
+                                        <img src="/static/images/testimonial/small-thumb/thumb-3.png" alt="推荐作者">
+                                    </div>
+                                    <div class="testimonial-content">
+                                        <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Lorem Ipsum的段落有许多变化，但是Lorem Ipsum的段落的大多数变化，但大多数</font></font></p>
+                                    </div>
+                                    <div class="testimonial-author">
+                                        <h6><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">威廉切斯特</font></font></h6>
+                                        <p>Apple.Inc</p>
+                                    </div>
+                                </div><div class="testimonial text-center slick-slide slick-cloned" data-slick-index="-2" aria-hidden="true" style="width: 370px;" tabindex="-1">
+                                    <div class="testimonial-thumb">
+                                        <img src="/static/images/testimonial/small-thumb/thumb-2.png" alt="推荐作者">
+                                    </div>
+                                    <div class="testimonial-content">
+                                        <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Lorem Ipsum的段落有许多变化，但是Lorem Ipsum的段落的大多数变化，但大多数</font></font></p>
+                                    </div>
+                                    <div class="testimonial-author">
+                                        <h6><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">切斯特本宁顿</font></font></h6>
+                                        <p>Microsoft.Inc</p>
+                                    </div>
+                                </div><div class="testimonial text-center slick-slide slick-cloned slick-active" data-slick-index="-1" aria-hidden="false" style="width: 370px;" tabindex="-1">
+                                    <div class="testimonial-thumb">
+                                        <img src="/static/images/testimonial/small-thumb/thumb-1.png" alt="推荐作者">
+                                    </div>
+                                    <div class="testimonial-content">
+                                        <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Lorem Ipsum的段落有许多变化，但是Lorem Ipsum的段落的大多数变化，但大多数</font></font></p>
+                                    </div>
+                                    <div class="testimonial-author">
+                                        <h6><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">理查德马克</font></font></h6>
+                                        <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Facebook.Inc</font></font></p>
+                                    </div>
+                                </div><div class="testimonial text-center slick-slide slick-current slick-active slick-center" data-slick-index="0" aria-hidden="false" style="width: 370px;" tabindex="-1" role="tabpanel" id="slick-slide00" aria-describedby="slick-slide-control00">
+                                    <div class="testimonial-thumb">
+                                        <img src="/static/images/testimonial/small-thumb/thumb-6.png" alt="推荐作者">
+                                    </div>
+                                    <div class="testimonial-content">
+                                        <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Lorem Ipsum的段落有许多变化，但是Lorem Ipsum的段落的大多数变化，但大多数</font></font></p>
+                                    </div>
+                                    <div class="testimonial-author">
+                                        <h6><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">威廉切斯特</font></font></h6>
+                                        <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Apple.Inc</font></font></p>
+                                    </div>
+                                </div><div class="testimonial text-center slick-slide slick-active" data-slick-index="1" aria-hidden="false" style="width: 370px;" tabindex="-1" role="tabpanel" id="slick-slide01" aria-describedby="slick-slide-control01">
+                                    <div class="testimonial-thumb">
+                                        <img src="/static/images/testimonial/small-thumb/thumb-5.png" alt="推荐作者">
+                                    </div>
+                                    <div class="testimonial-content">
+                                        <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Lorem Ipsum的段落有许多变化，但是Lorem Ipsum的段落的大多数变化，但大多数</font></font></p>
+                                    </div>
+                                    <div class="testimonial-author">
+                                        <h6><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">切斯特本宁顿</font></font></h6>
+                                        <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Microsoft.Inc</font></font></p>
+                                    </div>
+                                </div><div class="testimonial text-center slick-slide" data-slick-index="2" aria-hidden="true" style="width: 370px;" tabindex="-1" role="tabpanel" id="slick-slide02" aria-describedby="slick-slide-control02">
+                                    <div class="testimonial-thumb">
+                                        <img src="/static/images/testimonial/small-thumb/thumb-4.png" alt="推荐作者">
+                                    </div>
+                                    <div class="testimonial-content">
+                                        <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Lorem Ipsum的段落有许多变化，但是Lorem Ipsum的段落的大多数变化，但大多数</font></font></p>
+                                    </div>
+                                    <div class="testimonial-author">
+                                        <h6><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">理查德马克</font></font></h6>
+                                        <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Facebook.Inc</font></font></p>
+                                    </div>
+                                </div><div class="testimonial text-center slick-slide" data-slick-index="3" aria-hidden="true" style="width: 370px;" tabindex="-1" role="tabpanel" id="slick-slide03" aria-describedby="slick-slide-control03">
+                                    <div class="testimonial-thumb">
+                                        <img src="/static/images/testimonial/small-thumb/thumb-3.png" alt="推荐作者">
+                                    </div>
+                                    <div class="testimonial-content">
+                                        <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Lorem Ipsum的段落有许多变化，但是Lorem Ipsum的段落的大多数变化，但大多数</font></font></p>
+                                    </div>
+                                    <div class="testimonial-author">
+                                        <h6><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">威廉切斯特</font></font></h6>
+                                        <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Apple.Inc</font></font></p>
+                                    </div>
+                                </div><div class="testimonial text-center slick-slide" data-slick-index="4" aria-hidden="true" style="width: 370px;" tabindex="-1" role="tabpanel" id="slick-slide04" aria-describedby="slick-slide-control04">
+                                    <div class="testimonial-thumb">
+                                        <img src="/static/images/testimonial/small-thumb/thumb-2.png" alt="推荐作者">
+                                    </div>
+                                    <div class="testimonial-content">
+                                        <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Lorem Ipsum的段落有许多变化，但是Lorem Ipsum的段落的大多数变化，但大多数</font></font></p>
+                                    </div>
+                                    <div class="testimonial-author">
+                                        <h6><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">切斯特本宁顿</font></font></h6>
+                                        <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Microsoft.Inc</font></font></p>
+                                    </div>
+                                </div><div class="testimonial text-center slick-slide" data-slick-index="5" aria-hidden="true" style="width: 370px;" tabindex="0" role="tabpanel" id="slick-slide05" aria-describedby="slick-slide-control05">
+                                    <div class="testimonial-thumb">
+                                        <img src="/static/images/testimonial/small-thumb/thumb-1.png" alt="推荐作者">
+                                    </div>
+                                    <div class="testimonial-content">
+                                        <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Lorem Ipsum的段落有许多变化，但是Lorem Ipsum的段落的大多数变化，但大多数</font></font></p>
+                                    </div>
+                                    <div class="testimonial-author">
+                                        <h6><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">理查德马克</font></font></h6>
+                                        <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Facebook.Inc</font></font></p>
+                                    </div>
+                                </div><div class="testimonial text-center slick-slide slick-cloned" data-slick-index="6" aria-hidden="true" style="width: 370px;" tabindex="-1">
+                                    <div class="testimonial-thumb">
+                                        <img src="/static/images/testimonial/small-thumb/thumb-6.png" alt="推荐作者">
+                                    </div>
+                                    <div class="testimonial-content">
+                                        <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Lorem Ipsum的段落有许多变化，但是Lorem Ipsum的段落的大多数变化，但大多数</font></font></p>
+                                    </div>
+                                    <div class="testimonial-author">
+                                        <h6><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">威廉切斯特</font></font></h6>
+                                        <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Apple.Inc</font></font></p>
+                                    </div>
+                                </div><div class="testimonial text-center slick-slide slick-cloned" data-slick-index="7" aria-hidden="true" style="width: 370px;" tabindex="-1">
+                                    <div class="testimonial-thumb">
+                                        <img src="/static/images/testimonial/small-thumb/thumb-5.png" alt="推荐作者">
+                                    </div>
+                                    <div class="testimonial-content">
+                                        <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Lorem Ipsum的段落有许多变化，但是Lorem Ipsum的段落的大多数变化，但大多数</font></font></p>
+                                    </div>
+                                    <div class="testimonial-author">
+                                        <h6><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">切斯特本宁顿</font></font></h6>
+                                        <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Microsoft.Inc</font></font></p>
+                                    </div>
+                                </div><div class="testimonial text-center slick-slide slick-cloned slick-center" data-slick-index="8" aria-hidden="true" style="width: 370px;" tabindex="-1">
+                                    <div class="testimonial-thumb">
+                                        <img src="/static/images/testimonial/small-thumb/thumb-4.png" alt="推荐作者">
+                                    </div>
+                                    <div class="testimonial-content">
+                                        <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Lorem Ipsum的段落有许多变化，但是Lorem Ipsum的段落的大多数变化，但大多数</font></font></p>
+                                    </div>
+                                    <div class="testimonial-author">
+                                        <h6><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">理查德马克</font></font></h6>
+                                        <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Facebook.Inc</font></font></p>
+                                    </div>
+                                </div><div class="testimonial text-center slick-slide slick-cloned" data-slick-index="9" aria-hidden="true" style="width: 370px;" tabindex="-1">
+                                    <div class="testimonial-thumb">
+                                        <img src="/static/images/testimonial/small-thumb/thumb-3.png" alt="推荐作者">
+                                    </div>
+                                    <div class="testimonial-content">
+                                        <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Lorem Ipsum的段落有许多变化，但是Lorem Ipsum的段落的大多数变化，但大多数</font></font></p>
+                                    </div>
+                                    <div class="testimonial-author">
+                                        <h6><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">威廉切斯特</font></font></h6>
+                                        <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Apple.Inc</font></font></p>
+                                    </div>
+                                </div><div class="testimonial text-center slick-slide slick-cloned" data-slick-index="10" aria-hidden="true" style="width: 370px;" tabindex="-1">
+                                    <div class="testimonial-thumb">
+                                        <img src="/static/images/testimonial/small-thumb/thumb-2.png" alt="推荐作者">
+                                    </div>
+                                    <div class="testimonial-content">
+                                        <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Lorem Ipsum的段落有许多变化，但是Lorem Ipsum的段落的大多数变化，但大多数</font></font></p>
+                                    </div>
+                                    <div class="testimonial-author">
+                                        <h6><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">切斯特本宁顿</font></font></h6>
+                                        <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Microsoft.Inc</font></font></p>
+                                    </div>
+                                </div><div class="testimonial text-center slick-slide slick-cloned" data-slick-index="11" aria-hidden="true" style="width: 370px;" tabindex="-1">
+                                    <div class="testimonial-thumb">
+                                        <img src="/static/images/testimonial/small-thumb/thumb-1.png" alt="推荐作者">
+                                    </div>
+                                    <div class="testimonial-content">
+                                        <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Lorem Ipsum的段落有许多变化，但是Lorem Ipsum的段落的大多数变化，但大多数</font></font></p>
+                                    </div>
+                                    <div class="testimonial-author">
+                                        <h6><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">理查德马克</font></font></h6>
+                                        <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Facebook.Inc</font></font></p>
+                                    </div>
+                                </div></div></div>
+                            <ul class="slick-dots" style="" role="tablist"><li class="slick-active" role="presentation"><button type="button" role="tab" id="slick-slide-control00" aria-controls="slick-slide00" aria-label="1 of 2" tabindex="-1">1</button></li><li role="presentation" class=""><button type="button" role="tab" id="slick-slide-control01" aria-controls="slick-slide01" aria-label="2 of 2" tabindex="-1">2</button></li><li role="presentation" class=""><button type="button" role="tab" id="slick-slide-control02" aria-controls="slick-slide02" aria-label="3 of 2" tabindex="-1">3</button></li><li role="presentation" class=""><button type="button" role="tab" id="slick-slide-control03" aria-controls="slick-slide03" aria-label="4 of 2" tabindex="-1">4</button></li><li role="presentation" class=""><button type="button" role="tab" id="slick-slide-control04" aria-controls="slick-slide04" aria-label="5 of 2" tabindex="-1">5</button></li><li role="presentation" class=""><button type="button" role="tab" id="slick-slide-control05" aria-controls="slick-slide05" aria-label="6 of 2" tabindex="0" aria-selected="true">6</button></li></ul></div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+            <!--// Testimonial Area -->
+
+        </main>
+        <!--// Page Content -->
+
+    <div class="body-overlay"></div></div>
+    <!-- //Main wrapper -->
+
     <!-- JS Files -->
-<script src="js/vendor/jquery-3.2.1.min.js"></script>
-<script src="js/popper.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/plugins.js"></script>
-<script src="js/active.js"></script>
-<script src="js/scripts.js"></script>
-<script type="text/javascript" src="/static/js/product/common2.js"></script><!--控制头部菜单下拉的，勿删-->
-<script type="text/javascript" src="/static/js/product/md5.js"></script>
-<script type="text/javascript" src="/static/js/product/live800.js"></script>
-<script type="text/javascript" src="/static/js/product/common.js"></script>
-<script src="/static/js/product/CountGW_pc.js"></script>
-</div>
-</div>
-</body>
-</html>
+    <script src="/static/js/vendor/jquery-3.2.1.min.js"></script>
+    <script src="/static/js/popper.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/plugins.js"></script>
+    <script src="/static/js/active.js"></script><a id="scrollUp" href="#top" style="display: none; position: fixed; z-index: 2147483647;"><i class="icofont icofont-rounded-up"></i></a>
+    <script src="/static/js/scripts.js"></script><div id="goog-gt-tt" class="skiptranslate" dir="ltr"><div style="padding: 8px;"><div><div class="logo"><img src="https://www.gstatic.com/images/branding/product/1x/translate_24dp.png" width="20" height="20" alt="Google 翻译"></div></div></div><div class="top" style="padding: 8px; float: left; width: 100%;"><h1 class="title gray">原文</h1></div><div class="middle" style="padding: 8px;"><div class="original-text"></div></div><div class="bottom" style="padding: 8px;"><div class="activity-links"><span class="activity-link">提供更好的翻译建议</span><span class="activity-link"></span></div><div class="started-activity-container"><hr style="color: #CCC; background-color: #CCC; height: 1px; border: none;"><div class="activity-root"></div></div></div><div class="status-message" style="display: none;"></div></div>
+
+
+
+<div class="goog-te-spinner-pos"><div class="goog-te-spinner-animation"><svg xmlns="http://www.w3.org/2000/svg" class="goog-te-spinner" width="96px" height="96px" viewBox="0 0 66 66"><circle class="goog-te-spinner-path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle></svg></div></div></body></html>
