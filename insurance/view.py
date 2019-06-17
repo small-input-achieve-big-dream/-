@@ -2,8 +2,9 @@
 from django.shortcuts import render, redirect
 from message.models import *
     #插入employee表
-from django.shortcuts import HttpResponseRedirect,Http404,HttpResponse,render_to_response
+from django.shortcuts import HttpResponseRedirect,Http404,HttpResponse
 from django.http import HttpResponse
+from django.forms.models import model_to_dict
 from message.alipay import alipay
 
 
@@ -34,9 +35,7 @@ def getservices(request):
 
 def login(request):
 	user_loginList = user_login.objects.all()
-	# user_loginList = user_login.objects.get(id=2)
-	return  render_to_response("login.html",locals())
-	# return render(request,'login.html',{"title":"登录",'user_login':user_loginList})
+	return  render(request, "login.html", locals())
 
 def getusermessage(request):
 	return render(request,'register.html',{"title":"注册"})
