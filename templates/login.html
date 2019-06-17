@@ -1,19 +1,9 @@
 ﻿<html class="js sizes customelements history pointerevents postmessage webgl websockets cssanimations csscolumns csscolumns-width csscolumns-span csscolumns-fill csscolumns-gap csscolumns-rule csscolumns-rulecolor csscolumns-rulestyle csscolumns-rulewidth csscolumns-breakbefore csscolumns-breakafter csscolumns-breakinside flexbox picture srcset webworkers translated-ltr" lang="zh-CN">
 
 {% include "head.html" %}
-
-
-<!-- <style>
-    .test1{
-        color: white;
-    }
-    .test{
-        color: white;
-    }
-</style> -->
 <body>
 
-        {% include "topBar.html"%}
+        {% include "topBar.html" %}
         <!-- Breacrumb Area -->
         <div class="breadcrumb-area" data-black-overlay="2">
             <div class="container">
@@ -41,16 +31,16 @@
 							<div class="four-zero-content text-center">
 
                                 <div style="width:100%;text-align:center">
-                                    <form action="", type = "POST">
+                                    <form action="" method= "post">
+                                        {% csrf_token %}
                                         <fieldset style="width: 800px; height: 500px; margin: 0 auto; position: absolute; top: 650px; left:50%;margin-left:-400px;" >
-
                                             <legend align="center">用户登录</legend></br>
                                             <label> 用户账号</label>
-                                            <input type="text"  id="user" value="(请输入用户账号)" onfocus="cleartext()"></br>
+                                            <input type="text"  name="user" value="(请输入用户账号)"></br>
                                             <label>密&nbsp&nbsp码：</label>
-                                            <input type="password"  id="pw"><br><br>
-                                            <input type="button" name="" value="提交"><br><br>
-                                            <input type="reset" name="" value="重置" >
+                                            <input type="password"  name="pw"><br><br>
+                                            <input type="submit" value="提交"><br><br>
+                                            <input type="reset" value="重置" >
                                         </fieldset>
                                     </form>
 							</div>

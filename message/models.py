@@ -124,8 +124,6 @@ class user_login(models.Model):
 	password = models.CharField(max_length = 60)
 	#用户权限
 	power = models.IntegerField()
-	#用户ID
-	userID = models.IntegerField()
 	class Meta:
 		db_table = "user_login"
 

@@ -10,19 +10,29 @@ from message.alipay import alipay
 
 #--------视图-------#
 def getIndex(request):
-	return render(request, 'index.html',{"title":"小投入成就大梦想"})
+	LIST = {"title":"小投入成就大梦想"}
+	LIST['user_name'] = request.session.get('user_name', '')
+	print(LIST)
+	return render(request, 'index.html', LIST)
 
 def getAbout_us(request):
-	return render(request, 'about-us.html',{"title":"关于我们"})
+	LIST = {"title":"关于我们"}
+	LIST['user_name'] = request.session.get('user_name', '')
+	return render(request, 'about-us.html', LIST)
 
 def get404(request):
-	return render(request, '404.html',{"title":"找不到页面"})
+	LIST = {"title":"找不到页面"}
+	LIST['user_name'] = request.session.get('user_name', '')
+	return render(request, '404.html', LIST)
 
 def gettest(request):	
-	return render(request, 'test.html',{"title":"测试"})
+	LIST = {"title":"测试"}
+	LIST['user_name'] = request.session.get('user_name', '')
+	return render(request, 'test.html', LIST)
 
 def getservices(request):
 	LIST = {}
+	LIST['user_name'] = request.session.get('user_name', '')
 	if request.POST:
 		LIST = request.POST.dict()
 		if LIST.get('measure') != None:
@@ -34,15 +44,24 @@ def getservices(request):
 	return render(request, 'services.html', LIST)
 
 def login(request):
-	user_loginList = user_login.objects.all()
-	return  render(request, "login.html", locals())
-
-# def mine(request):
-#
-# 	doingid = user_login.objects.all()
-# 	return render(request,'mine.html',locals())
+	LIST = {}
+	LIST['user_name'] = request.session.get('user_name', '')
+	if request.method == 'POST':
+		name = request.POST.get('user')
+		pwd = request.POST.get('pw')
+		Dao = user_login.objects.filter(email = name, password = pwd)[:1]
+		if Dao.exists():
+			ID = Dao[0].id
+			request.session['userid'] = ID
+			request.session['user_name'] = name
+			return render(request, 'index.html')
+		else:
+			return render(request, 'login.html', {'error': '用户或密码错误'})
+	return  render(request, "login.html", LIST)
 
 def register(request):
+	LIST = {}
+	LIST['user_name'] = request.session.get('user_name', '')
 	idcard  = user_login.objects.all()
 	if request.method == 'GET':
 		return render(request, "register.html")
@@ -52,16 +71,16 @@ def register(request):
 		ps = request.POST.get('password1')
 		user_login.objects.create(
 				telephone=qq,
-				email=  '11@1.com',
-				password= '333',
-				power='0',
-				userID= '123'
+				email=  em,
+				password= ps,
+				power='0'
 		)
 		return render(request, "login.html", locals())
 
 
 def get_finish_pay(request):
 	LIST = {}
+	LIST['user_name'] = request.session.get('user_name', '')
 	try:
 		LIST['total_amount'] = request.GET['total_amount']
 		LIST['timestamp'] = request.GET['timestamp']
