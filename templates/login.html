@@ -63,7 +63,7 @@
 			</section>
 
                                     {% for item in user_loginList %}
-                                                <p class="test">{{item.id }}</p>
+                                                <p class="test">{{item.userID }}</p>
                                                 <p class="test1">{{ item.password }}</p>
                                     {% endfor %}
 
@@ -82,10 +82,16 @@
                     console.log(look[0].innerText)
                     console.log(look1[0].innerText)
                     for (var i = 0; i < look.length; i++) {
-                        if (id == look[i].innerText && ps == look1[i].innerText)
-                        {
-                                    window.location = 'index.html';
+                        if (id == look[i].innerText && ps == look1[i].innerText) {
+
+                            window.location = 'index.html';
+
+                            window.sessionStorage.setItvem("idd",id.value)
+{#                            vm.indexdata.indexId = id;#}
+{#                            var tempIndex = JSON.stringify(vm.indexdata);#}
+{#                            window.sessionStorage["idd"] = tempIndex;#}
                         }
+
                         else {
                                 if (i==look.length-1)
                                 {

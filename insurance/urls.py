@@ -18,6 +18,8 @@ from django.urls import path, re_path
 from . import testdb, view, settings
 from django.conf.urls.static import static
 from django.conf.urls import *
+from django.views.decorators.csrf import csrf_exempt
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,8 +28,11 @@ urlpatterns = [
     re_path(r'.*about-us.html/$', view.getAbout_us),
     re_path(r'.*404.html/$', view.get404),
     re_path(r'.*login.html/$', view.login,name = "login"),
-    re_path(r'.*register.html/$', view.getusermessage),
+    re_path(r'.*register.html/$', view.register,name = "register"),
     re_path(r'^testdb/$', testdb.testdb),
+    # path('algoRegix/', csrf_exempt(views.algoRegix), name='algoRegix'),
+
+    # re_path(r'.*mine.html/$', view.mine),
     re_path(r'.*finish_pay.html/$', view.get_finish_pay),
     path(r'test/', view.gettest),
     re_path(r'.*services/$', view.getservices),
