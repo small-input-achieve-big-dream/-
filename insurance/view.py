@@ -37,8 +37,28 @@ def login(request):
 	user_loginList = user_login.objects.all()
 	return  render(request, "login.html", locals())
 
-def getusermessage(request):
-	return render(request,'register.html',{"title":"注册"})
+# def mine(request):
+#
+# 	doingid = user_login.objects.all()
+# 	return render(request,'mine.html',locals())
+
+def register(request):
+	idcard  = user_login.objects.all()
+	if request.method == 'GET':
+		return render(request, "register.html")
+	if request.method == 'POST':
+		qq = request.POST.get('tel')
+		em = request.POST.get('email')
+		ps = request.POST.get('password1')
+		user_login.objects.create(
+				telephone=qq,
+				email=  '11@1.com',
+				password= '333',
+				power='0',
+				userID= '123'
+		)
+		return render(request, "login.html", locals())
+
 
 def get_finish_pay(request):
 	LIST = {}
