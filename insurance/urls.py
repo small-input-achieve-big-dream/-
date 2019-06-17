@@ -25,6 +25,8 @@ urlpatterns = [
     re_path(r'.*index.html/$', view.getIndex),
     re_path(r'.*about-us.html/$', view.getAbout_us),
     re_path(r'.*404.html/$', view.get404),
+    re_path(r'.*login.html/$', view.login,name = "login"),
+    re_path(r'.*register.html/$', view.getusermessage),
     re_path(r'^testdb/$', testdb.testdb),
     re_path(r'.*finish_pay.html/$', view.get_finish_pay),
     path(r'test/', view.gettest),

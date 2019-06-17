@@ -1,0 +1,112 @@
+﻿<html class="js sizes customelements history pointerevents postmessage webgl websockets cssanimations csscolumns csscolumns-width csscolumns-span csscolumns-fill csscolumns-gap csscolumns-rule csscolumns-rulecolor csscolumns-rulestyle csscolumns-rulewidth csscolumns-breakbefore csscolumns-breakafter csscolumns-breakinside flexbox picture srcset webworkers translated-ltr" lang="zh-CN">
+
+{% include "head.html" %}
+
+
+<style>
+    .test1{
+        color: white;
+    }
+    .test{
+        color: white;
+    }
+</style>
+<body>
+
+        {% include "topBar.html"%}
+        <!-- Breacrumb Area -->
+        <div class="breadcrumb-area" data-black-overlay="2">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+                        <div class="cr-breadcrumb text-center">
+                            <h2>小投入成就大梦想用户登录</h2>
+                                	<a href="register.html" class="heart_a2">
+                                    <div>还没注册？新用户点这里</div>
+                                    </a>
+
+                            <p>{{ code_error }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--// Breacrumb Area -->
+
+        <!-- Page Content -->
+        <main class="page-content">
+			<!-- 404 Area Start -->
+
+			<section class="four-zero-four ptb-130">
+				<div class="container">
+					<div class="row">
+							<div class="four-zero-content text-center">
+
+                                <div style="width:100%;text-align:center">
+                                    <form >
+                                        <fieldset style="width: 800px; height: 500px; margin: 0 auto; position: absolute; top: 650px; left:50%;margin-left:-400px;" >
+
+                                            <legend align="center">用户登录</legend></br>
+                                            <label> 用户账号</label>
+                                            <input type="text"  id="user" value="(请输入用户账号)" onfocus="cleartext()"></br>
+                                            <label>密&nbsp&nbsp码：</label>
+                                            <input type="password"  id="pw"><br><br>
+                                            <input type="button" name="" value="提交"      onclick="aaaa()"><br><br>
+                                            <input type="reset" name="" value="重置" >
+                                        </fieldset>
+                                    </form>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+                                    {% for item in user_loginList %}
+                                                <p class="test">{{item.id }}</p>
+                                                <p class="test1">{{ item.password }}</p>
+                                    {% endfor %}
+
+			<!-- 404 Area End -->
+        </main>
+        <!--// Page Content -->
+
+    <!-- JS Files -->
+        <script>
+            function aaaa(){
+                    var id = document.getElementById("user").value;
+                    var ps = document.getElementById("pw").value;
+                    console.log(id)
+                    var look = document.getElementsByClassName("test");
+                    var look1 = document.getElementsByClassName("test1");
+                    console.log(look[0].innerText)
+                    console.log(look1[0].innerText)
+                    for (var i = 0; i < look.length; i++) {
+                        if (id == look[i].innerText && ps == look1[i].innerText)
+                        {
+                                    window.location = 'index.html';
+                        }
+                        else {
+                                if (i==look.length-1)
+                                {
+                                    alert("用户账号不存在或账号密码输入错误");
+                                }
+                        }
+                        }
+            }
+        </script>
+        <script>
+                function cleartext() {
+                    var obj = document.getElementById('user');
+                    obj.value = '';
+                }
+        </script>
+    <script src="/static/js/vendor/jquery-3.2.1.min.js"></script>
+    <script src="/static/js/popper.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/plugins.js"></script>
+    <script src="/static/js/active.js"></script>
+    <script src="/static/js/scripts.js"></script>
+</body>
+
+</html>
