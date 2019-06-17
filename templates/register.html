@@ -44,7 +44,7 @@
                                                <tr> <td><label for="password">重新输入密码</label></td>
                                                    <td><input type="password" name="password1" id="password1" ></td>
                                                </tr>
-                                                <tr><th colspan="2"><input type="submit"  value="注册" ></th></tr>
+                                                <tr><th colspan="2"><input type="submit"  value="注册" onclick="aaaa()"></th></tr>
                                                 </table>
 
                                         </fieldset>
@@ -55,11 +55,7 @@
 					</div>
 
 			</section>
-			<!-- 404 Area End -->   {% for item in idcard %}
-                                        <p class="test2">{{item.userID}}</p>
-
-                                    {% endfor %}
-
+			<!-- 404 Area End -->   
         </main>
         <!--// Page Content -->
 
@@ -69,41 +65,17 @@
     <!-- JS Files -->
         <script>
             function aaaa(){
-
 {#                    var id = document.getElementById("username").value;#}
                     var addid = 110;
                     var tell = document.getElementById("tel").value;
                     var em = document.getElementById("email").value;
                     var pas = document.getElementById("password").value;
-
                     var pas1 = document.getElementById("password1").value;
-                    var look = document.getElementsByClassName("test2");
                     console.log(pas);
-
                     console.log(pas1);
-                    console.log(look[0].innerText);
                     if (pas == pas1)
                     {
-
-                        if(look.length == 0)
-                        {
-                            addid =1;
-                         }
-                        else{
-                            for (var i = 0; i < look.length; i++) {
-                                if (i == look.length - 1) {
-                                    addid = i + 2;
-                                    console.log(addid)
-                                }
-                            }
-                            window.sessionStorage.setItem("phonee",tell.value);
-                            window.sessionStorage.setItem("ema",em.value);
-                            window.sessionStorage.setItem("ppss",pas1.value);
-                            window.sessionStorage.setItem("add",addid.value);
-
-
-                        }
-
+                        console.log('password concur')
                     }
                     else
                     {

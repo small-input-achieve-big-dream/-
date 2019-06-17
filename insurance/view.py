@@ -46,20 +46,11 @@ def login(request):
 def register(request):
 	idcard  = user_login.objects.all()
 	if request.method == 'GET':
-		return render_to_response("register.html")
+		return render(request, "register.html")
 	if request.method == 'POST':
-		# qq = request.post.get('phonee')
-		# em = request.post.get('ema')
-		# ps = request.post.get('ppss')
-		# Id = request.post.get('add')
-
-		qq = request.session.get('tel',False)
-		em = request.session.get('email',False)
-		ps = request.session.get('password1',False)
-		# Id = request.session.get('add')
-
-
-
+		qq = request.POST.get('tel')
+		em = request.POST.get('email')
+		ps = request.POST.get('password1')
 		user_login.objects.create(
 				telephone=qq,
 				email=  '11@1.com',
@@ -67,8 +58,7 @@ def register(request):
 				power='0',
 				userID= '123'
 		)
-		print(qq, em, ps)
-		return render_to_response("login.html",locals())
+		return render(request, "login.html", locals())
 
 
 def get_finish_pay(request):

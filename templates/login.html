@@ -24,8 +24,6 @@
                                 	<a href="register.html" class="heart_a2">
                                     <div>还没注册？新用户点这里</div>
                                     </a>
-
-                            <p>{{ code_error }}</p>
                         </div>
                     </div>
                 </div>
@@ -79,8 +77,10 @@
                     console.log(id)
                     var look = document.getElementsByClassName("test");
                     var look1 = document.getElementsByClassName("test1");
-                    console.log(look[0].innerText)
-                    console.log(look1[0].innerText)
+                    if(look.length != 0)
+                        console.log(look[0].innerText)
+                    if(look1.length != 0)
+                        console.log(look1[0].innerText)
                     for (var i = 0; i < look.length; i++) {
                         if (id == look[i].innerText && ps == look1[i].innerText) {
 
