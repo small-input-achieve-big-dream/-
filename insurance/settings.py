@@ -118,7 +118,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
-LANGUAGE_CODE = 'zh-Hant'
+# LANGUAGE_CODE = 'zh-Hant'
 #设置管理界面为中文
 
 TIME_ZONE = 'Asia/Shanghai'

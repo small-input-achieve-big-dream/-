@@ -6,26 +6,42 @@ import json
 import random
 from message.models import *
     #插入employee表
+
 from django.shortcuts import HttpResponseRedirect,Http404,HttpResponse,render_to_response
 from django.http import HttpResponse, JsonResponse
+
+from django.shortcuts import HttpResponseRedirect,Http404,HttpResponse
+from django.http import HttpResponse
+from django.forms.models import model_to_dict
+
 from message.alipay import alipay
 
 
 #--------视图-------#
 def getIndex(request):
-	return render(request, 'index.html',{"title":"小投入成就大梦想"})
+	LIST = {"title":"小投入成就大梦想"}
+	LIST['user_name'] = request.session.get('user_name', '')
+	print(LIST)
+	return render(request, 'index.html', LIST)
 
 def getAbout_us(request):
-	return render(request, 'about-us.html',{"title":"关于我们"})
+	LIST = {"title":"关于我们"}
+	LIST['user_name'] = request.session.get('user_name', '')
+	return render(request, 'about-us.html', LIST)
 
 def get404(request):
-	return render(request, '404.html',{"title":"找不到页面"})
+	LIST = {"title":"找不到页面"}
+	LIST['user_name'] = request.session.get('user_name', '')
+	return render(request, '404.html', LIST)
 
 def gettest(request):	
-	return render(request, 'test.html',{"title":"测试"})
+	LIST = {"title":"测试"}
+	LIST['user_name'] = request.session.get('user_name', '')
+	return render(request, 'test.html', LIST)
 
 def getservices(request):
 	LIST = {}
+	LIST['user_name'] = request.session.get('user_name', '')
 	if request.POST:
 		LIST = request.POST.dict()
 		if LIST.get('measure') != None:
@@ -37,10 +53,28 @@ def getservices(request):
 	return render(request, 'services.html', LIST)
 
 def login(request):
-	user_loginList = user_login.objects.all()
-	# user_loginList = user_login.objects.get(id=2)
-	return  render_to_response("login.html",locals())
+
+	# user_loginList = user_login.objects.all()
+	# # user_loginList = user_login.objects.get(id=2)
+	# return  render_to_response("login.html",locals())
 	# return render(request,'login.html',{"title":"登录",'user_login':user_loginList})
+
+
+	LIST = {}
+	LIST['user_name'] = request.session.get('user_name', '')
+	if request.method == 'POST':
+		name = request.POST.get('user')
+		pwd = request.POST.get('pw')
+		Dao = user_login.objects.filter(email=name, password=pwd)[:1]
+		if Dao.exists():
+			ID = Dao[0].id
+			request.session['userid'] = ID
+			request.session['user_name'] = name
+			return render(request, 'index.html')
+		else:
+			return render(request, 'login.html', {'error': '用户或密码错误'})
+	return render(request, "login.html", LIST)
+
 def givemoney(request):
 
     sava_path = 'static/images/logo/logo.png'  # 默认图片
@@ -65,35 +99,27 @@ def givemoney(request):
 
 
 def register(request):
+	LIST = {}
+	LIST['user_name'] = request.session.get('user_name', '')
 	idcard  = user_login.objects.all()
 	if request.method == 'GET':
-		return render_to_response("register.html")
+		return render(request, "register.html")
 	if request.method == 'POST':
-		# qq = request.post.get('phonee')
-		# em = request.post.get('ema')
-		# ps = request.post.get('ppss')
-		# Id = request.post.get('add')
-
-		qq = request.session.get('tel',False)
-		em = request.session.get('email',False)
-		ps = request.session.get('password1',False)
-		# Id = request.session.get('add')
-
-
-
+		qq = request.POST.get('tel')
+		em = request.POST.get('email')
+		ps = request.POST.get('password1')
 		user_login.objects.create(
 				telephone=qq,
-				email=  '11@1.com',
-				password= '333',
-				power='0',
-				userID= '123'
+				email=  em,
+				password= ps,
+				power='0'
 		)
-		print(qq, em, ps)
-		return render_to_response("login.html",locals())
+		return render(request, "login.html", locals())
 
 
 def get_finish_pay(request):
 	LIST = {}
+	LIST['user_name'] = request.session.get('user_name', '')
 	try:
 		LIST['total_amount'] = request.GET['total_amount']
 		LIST['timestamp'] = request.GET['timestamp']
