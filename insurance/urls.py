@@ -31,7 +31,7 @@ urlpatterns = [
     re_path(r'.*register.html/$', view.register,name = "register"),
     re_path(r'^testdb/$', testdb.testdb),
     # path('algoRegix/', csrf_exempt(views.algoRegix), name='algoRegix'),
-
+    re_path(r'.*givemoney.html/$', view.givemoney),
     # re_path(r'.*mine.html/$', view.mine),
     re_path(r'.*finish_pay.html/$', view.get_finish_pay),
     path(r'test/', view.gettest),

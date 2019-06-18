@@ -1,9 +1,13 @@
 #--------包---------#
 from django.shortcuts import render, redirect
+from django.utils.datetime_safe import time
+from django.views.decorators.csrf import csrf_exempt
+import json
+import random
 from message.models import *
     #插入employee表
 from django.shortcuts import HttpResponseRedirect,Http404,HttpResponse,render_to_response
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from message.alipay import alipay
 
 
@@ -37,11 +41,28 @@ def login(request):
 	# user_loginList = user_login.objects.get(id=2)
 	return  render_to_response("login.html",locals())
 	# return render(request,'login.html',{"title":"登录",'user_login':user_loginList})
+def givemoney(request):
 
-# def mine(request):
-#
-# 	doingid = user_login.objects.all()
-# 	return render(request,'mine.html',locals())
+    sava_path = 'static/images/logo/logo.png'  # 默认图片
+	# return render_to_response('givemoney.html')
+    if request.method == 'POST':
+        files = request.FILES.get('file')  # 获取图片
+        filename ='test'
+        sava_path = 'static/images/'
+
+        # 将图片分段读取并写入文件
+        with open(sava_path, 'wb') as f:
+            for file in files.chunks():
+                f.write(file)
+                f.flush()
+        # 将图片路径更新到当前用户的表中
+        user = accident_Application.objects.filter(token=request.COOKIES.get('token'))
+        user.update(icon=sava_path)
+    # # 将上传成功的图片路径返回给页
+    return render(request, 'givemoney.html')
+    # return JsonResponse({'img': sava_path})
+
+
 
 def register(request):
 	idcard  = user_login.objects.all()

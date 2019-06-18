@@ -1,0 +1,101 @@
+﻿<html class="js sizes customelements history pointerevents postmessage webgl websockets cssanimations csscolumns csscolumns-width csscolumns-span csscolumns-fill csscolumns-gap csscolumns-rule csscolumns-rulecolor csscolumns-rulestyle csscolumns-rulewidth csscolumns-breakbefore csscolumns-breakafter csscolumns-breakinside flexbox picture srcset webworkers translated-ltr" lang="zh-CN">
+
+{% include "head.html" %}
+
+<body>
+
+        {% include "topBar.html"%}
+        <!-- Breacrumb Area -->
+        <div class="breadcrumb-area" data-black-overlay="2">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+                        <div class="cr-breadcrumb text-center">
+                            <h2>小投入成就大梦想理赔</h2>
+                                	<a href="login.html" class="heart_a2">
+                                    <div>更换当前用户</div>
+                                    </a>
+
+                            <p>{{ code_error }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <main class="page-content">
+
+			<section class="four-zero-four ptb-130">
+				<div class="container">
+					<div class="row">
+							<div class="four-zero-content text-center">
+
+                                <div style="width:100%;text-align:center">
+                                    <form action="" method="post" >
+                                        {% csrf_token %}
+                                        <fieldset style="width: 800px; height: 500px; margin: 0 auto; position: absolute; top: 650px; left:50%;margin-left:-400px;" >
+
+                                            <legend align="center"理赔</legend></br>
+                                            <label> 申请人ID</label>
+                                            <input type="text"  id="user" value="(请输入申请人ID)" onfocus="cleartext()"></br>
+                                            <label> 保单ID</label>
+                                            <input type="text"  id="user" value="(请输入保单ID)" onfocus="cleartext()"></br>
+{#                                            1.添加隐藏域input，并将input的type设置为‘file’类型,设置onchange事件并将获取到的图片传到事件中#}
+                                            <label> 添加图片格式证明</label>
+                                            <input type="file" id="file" onchange="up_img(this.files[0])" style="display: none">
+{#                                            <section class="fixed">#}
+{#                                             2.设置头像展示组件，并设置点击事件，当点击时调用第一步中的input点击事件#}
+                                            <span><img src="/{{ user.icon }}" onclick="file.click()"></span>
+                                            <p><a href="#">{{ user.name }}</a></p>
+{#                                            </section>#}
+                                        </fieldset>
+                                    </form>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+        </main>
+
+        <script>
+// 上传头像
+{#                                        3. 在input点击事件中使用Ajax将图片上传到服务器#}
+        function up_img(file){
+          var xhr = new XMLHttpRequest();
+{#          # 创建XMLHttpRequest对象#}
+          xhr.open('post', 'static/images', true);
+{#          # post异步上传到/main/upfile路径#}
+          xhr.onload = function () {
+{#              # 上传成功后，在此处接收服务器返回的数据并进行处理#}
+              var data = xhr.responseText;
+              console.log(data);
+              data = JSON.parse(data);
+              console.log(data);
+              $('.fixed img').attr('src', data['img']);
+{#              # 将返回的服务器图片地址添加到img中显示给用户#}
+          };
+         var formdata = new FormData();
+{#          # 使用formdata存储图片文件#}
+          formdata.append('file', file);
+          xhr.send(formdata);
+{#          # 发送请求#}
+        }
+        </script>
+
+        <script>
+                function cleartext() {
+                    var obj = document.getElementById('user');
+                    obj.value = '';
+                }
+        </script>
+    <script src="/static/js/vendor/jquery-3.2.1.min.js"></script>
+    <script src="/static/js/popper.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/plugins.js"></script>
+    <script src="/static/js/active.js"></script>
+    <script src="/static/js/scripts.js"></script>
+</body>
+
+</html>
