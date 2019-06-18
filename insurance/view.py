@@ -53,23 +53,18 @@ def getservices(request):
 	return render(request, 'services.html', LIST)
 
 def login(request):
-
-	# user_loginList = user_login.objects.all()
-	# # user_loginList = user_login.objects.get(id=2)
-	# return  render_to_response("login.html",locals())
-	# return render(request,'login.html',{"title":"登录",'user_login':user_loginList})
-
-
 	LIST = {}
 	LIST['user_name'] = request.session.get('user_name', '')
 	if request.method == 'POST':
 		name = request.POST.get('user')
 		pwd = request.POST.get('pw')
 		Dao = user_login.objects.filter(email=name, password=pwd)[:1]
+		print(Dao)
 		if Dao.exists():
 			ID = Dao[0].id
 			request.session['userid'] = ID
 			request.session['user_name'] = name
+			print(request.session.get('user_name', None))
 			return render(request, 'index.html')
 		else:
 			return render(request, 'login.html', {'error': '用户或密码错误'})
