@@ -117,9 +117,9 @@ class table(models.Model):
 #用户登录表
 class user_login(models.Model):
 	#用户电话
-	telephone = models.IntegerField()
+	telephone = models.IntegerField(unique = True)
 	#用户邮箱
-	email = models.EmailField()
+	email = models.EmailField(unique = True)
 	#用户密码
 	password = models.CharField(max_length = 60)
 	#用户权限

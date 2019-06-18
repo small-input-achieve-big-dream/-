@@ -15,6 +15,7 @@
                                     <a href="register.html" class="heart_a2">
                                     <div>还没注册？新用户点这里</div>
                                     </a>
+                            <h2 style="color:red; text-align: center;">{{ error }}</h2>
                         </div>
                     </div>
                 </div>
@@ -30,18 +31,17 @@
                 <div class="container">
                     <div class="row">
                             <div class="four-zero-content text-center">
-
                                 <div style="width:100%;text-align:center">
                                     <form action="" method= "post">
                                         {% csrf_token %}
                                         <fieldset style="width: 800px; height: 500px; margin: 0 auto; position: absolute; top: 650px; left:50%;margin-left:-400px;" >
                                             <legend align="center">用户登录</legend></br>
                                             <label> 用户账号</label>
-                                            <input type="text"  name="user" value="(请输入用户账号)"></br>
+                                            <input type="text"  name="user" value="(邮箱或者手机号)"></br>
                                             <label>密&nbsp&nbsp码：</label>
                                             <input type="password"  name="pw"><br><br>
                                             <input type="submit" value="提交"><br><br>
-                                            <input type="reset" value="重置" >
+                                            <input type="reset" value="重置" onclick="cleartext()">
                                         </fieldset>
                                     </form>
                             </div>
@@ -55,6 +55,12 @@
         <!--// Page Content -->
 
     <!-- JS Files -->
+        <script>
+                function cleartext() {
+                    var obj = document.getElementById('user');
+                    obj.value = '';
+                }
+        </script>
     <script src="/static/js/vendor/jquery-3.2.1.min.js"></script>
     <script src="/static/js/popper.min.js"></script>
     <script src="/static/js/bootstrap.min.js"></script>
