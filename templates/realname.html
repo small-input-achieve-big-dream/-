@@ -2,16 +2,30 @@
 
 {% include "head.html" %}
 
-<body  bgcolor = #add8e6>
-        {% include "topBar.html"%}
 
+<style>
+    .test1{
+        color: white;
+    }
+    .test{
+        color: white;
+    }
+</style>
+<body>
+
+        {% include "topBar.html"%}
         <!-- Breacrumb Area -->
         <div class="breadcrumb-area" data-black-overlay="2">
             <div class="container">
                 <div class="row">
                     <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
                         <div class="cr-breadcrumb text-center">
-                            <h1>小投入成就大梦想注册</h1>
+                            <h2>小投入成就大梦想用户登录</h2>
+                                	<a href="register.html" class="heart_a2">
+                                    <div>还没注册？新用户点这里</div>
+                                    </a>
+
+                            <p>{{ code_error }}</p>
                         </div>
                     </div>
                 </div>
@@ -21,6 +35,9 @@
 
         <!-- Page Content -->
         <main class="page-content">
+			<!-- 404 Area Start -->
+
+			        <main class="page-content">
 			<!-- 404 Area Start -->
 			<section class="four-zero-four ptb-130">
 				<div class="container">
@@ -42,8 +59,7 @@
                                                <tr> <td><label for="password">重新输入密码</label></td>
                                                    <td><input type="password" name="password1" id="password1" ></td>
                                                </tr>
-                                 <tr><th colspan="2"><input type="submit"  value="注册" onclick="aaaa()"></th></tr>
-{#                                                <tr><th colspan="2"><input type="button"  value="look" onclick="aaaa()"></th></tr>#}
+                                                <tr><th colspan="2"><input type="submit"  value="注册" onclick="aaaa()"></th></tr>
 
                                                 </table>
 
@@ -55,51 +71,48 @@
 					</div>
 
 			</section>
-			<!-- 404 Area End -->    {% for item in test %}
+			<!-- 404 Area End -->
+
+        <!--// Page
+
+                                    {% for item in user_loginList %}
                                                 <p class="test">{{item.id }}</p>
-{#                                                <p class="test1">{{ item.telephone }}</p>#}
+                                                <p class="test1">{{ item.password }}</p>
                                     {% endfor %}
+
+			<!-- 404 Area End -->
         </main>
         <!--// Page Content -->
-
-
-{#    <!-- //Main wrapper -->#}
 
     <!-- JS Files -->
         <script>
             function aaaa(){
-
+                    var id = document.getElementById("user").value;
+                    var ps = document.getElementById("pw").value;
+                    console.log(id)
                     var look = document.getElementsByClassName("test");
-{#                    var look1 = document.getElementsByClassName("test1");#}
-                    var tell = document.getElementById("tel").value;
-                    var em = document.getElementById("email").value;
-                    var pas = document.getElementById("password").value;
-                    var pas1 = document.getElementById("password1").value;
-                    console.log(pas);
-                    console.log(look);
-                    console.log(pas1);
-                    if (pas == pas1)
-                    {
-                        console.log('password concur')
-                        for (var i = 0;i<look.length;i++)
+                    var look1 = document.getElementsByClassName("test1");
+                    console.log(look[0].innerText)
+                    console.log(look1[0].innerText)
+                    for (var i = 0; i < look.length; i++) {
+                        if (id == look[i].innerText && ps == look1[i].innerText)
                         {
-                            if ( i == look.length-1)
-                            {
-                                alert("您的账号为"+look[i].innerText)
-                            }
+                                    window.location = 'index.html';
                         }
-
-                    }
-                    else
-                    {
-                        alert("两次密码不一致请重新输入");
-
-                    }
-
-
-
-
+                        else {
+                                if (i==look.length-1)
+                                {
+                                    alert("用户账号不存在或账号密码输入错误");
+                                }
+                        }
+                        }
             }
+        </script>
+        <script>
+                function cleartext() {
+                    var obj = document.getElementById('user');
+                    obj.value = '';
+                }
         </script>
     <script src="/static/js/vendor/jquery-3.2.1.min.js"></script>
     <script src="/static/js/popper.min.js"></script>
@@ -110,5 +123,3 @@
 </body>
 
 </html>
-
-

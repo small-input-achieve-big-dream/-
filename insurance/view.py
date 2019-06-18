@@ -76,46 +76,61 @@ def login(request):
 	return render(request, "login.html", LIST)
 
 def givemoney(request):
+	LIST = {}
+	LIST['user_name'] = request.session.get('user_name', '')
+	if request.method == 'GET':
+		return render(request, "givemoney.html")
+	if request.method == 'POST':
 
-    sava_path = 'static/images/logo/logo.png'  # 默认图片
-	# return render_to_response('givemoney.html')
-    if request.method == 'POST':
-        files = request.FILES.get('file')  # 获取图片
-        filename ='test'
-        sava_path = 'static/images/'
+		idcard = random.randint(1,3)
+		if idcard==2:
+			idcard = True
+		else:
+			idcard = False
+		user = request.POST.get('user')
+		ins = request.POST.get('ins')
+			# ps = request.POST.get('password1')
+		accident_Application.objects.create(
+				applicationID = user,
+				tableID =ins,
+				state =idcard,
+				compensation_money='1000'
+			)
 
-        # 将图片分段读取并写入文件
-        with open(sava_path, 'wb') as f:
-            for file in files.chunks():
-                f.write(file)
-                f.flush()
-        # 将图片路径更新到当前用户的表中
-        user = accident_Application.objects.filter(token=request.COOKIES.get('token'))
-        user.update(icon=sava_path)
-    # # 将上传成功的图片路径返回给页
-    return render(request, 'givemoney.html')
-    # return JsonResponse({'img': sava_path})
+		img = Img(img_url=request.FILES.get('img'))
+		img.save()
+		return  render_to_response('index.html')
 
+
+def see(request):
+	test = user_login.objects.all()
+	return render(request, "see.html", locals())
 
 
 def register(request):
 	LIST = {}
 	LIST['user_name'] = request.session.get('user_name', '')
 	idcard  = user_login.objects.all()
+	# user_loginList = user_login.objects.all()
+
 	if request.method == 'GET':
 		return render(request, "register.html")
 	if request.method == 'POST':
 		qq = request.POST.get('tel')
 		em = request.POST.get('email')
 		ps = request.POST.get('password1')
-		user_login.objects.create(
-				telephone=qq,
-				email=  em,
-				password= ps,
-				power='0'
-		)
-		return render(request, "login.html", locals())
 
+		if  user_login.objects.filter(email=em).exists() ==False:
+			user_login.objects.create(
+						telephone=qq,
+						email=  em,
+						password= ps,
+						power='0'
+				)
+			test = user_login.objects.all()
+			return render(request, "see.html", locals())
+		else:
+			return render(request, "register.html", locals())
 
 def get_finish_pay(request):
 	LIST = {}
@@ -129,6 +144,10 @@ def get_finish_pay(request):
 	except Exception as e:
 		LIST['code_error'] = e.args
 		return render(request, '404.html', LIST)
+
+
+
+
 
 #end 视图
 

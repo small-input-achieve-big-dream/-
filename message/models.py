@@ -202,3 +202,5 @@ class complainInfor(models.Model):
 	class Meta:
 		db_table = "complainInfor"
 
+class Img(models.Model):
+	img_url = models.ImageField(upload_to='static') # upload_to指定图片上传的途径，如果不存在则自动创建

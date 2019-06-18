@@ -70,6 +70,15 @@ TEMPLATES = [
 WSGI_APPLICATION = 'insurance.wsgi.application'
 
 
+
+
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'education-insurance-system/static').replace('\\', '/') # media即为图片上传的根路径
+# MEDIA_URL = 'static'
+
+
+
+
+
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
@@ -118,8 +127,8 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
-# LANGUAGE_CODE = 'zh-Hant'
-#设置管理界面为中文
+LANGUAGE_CODE = 'zh-Hant'
+# 设置管理界面为中文
 
 TIME_ZONE = 'Asia/Shanghai'
 #设置北京时间
