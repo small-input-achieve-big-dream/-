@@ -53,23 +53,18 @@ def getservices(request):
 	return render(request, 'services.html', LIST)
 
 def login(request):
-
-	# user_loginList = user_login.objects.all()
-	# # user_loginList = user_login.objects.get(id=2)
-	# return  render_to_response("login.html",locals())
-	# return render(request,'login.html',{"title":"登录",'user_login':user_loginList})
-
-
 	LIST = {}
 	LIST['user_name'] = request.session.get('user_name', '')
 	if request.method == 'POST':
 		name = request.POST.get('user')
 		pwd = request.POST.get('pw')
 		Dao = user_login.objects.filter(email=name, password=pwd)[:1]
+		print(Dao)
 		if Dao.exists():
 			ID = Dao[0].id
 			request.session['userid'] = ID
 			request.session['user_name'] = name
+			print(request.session.get('user_name', None))
 			return render(request, 'index.html')
 		else:
 			return render(request, 'login.html', {'error': '用户或密码错误'})
@@ -131,6 +126,38 @@ def register(request):
 			return render(request, "see.html", locals())
 		else:
 			return render(request, "register.html", locals())
+
+
+def realname(request):
+
+		LIST = {}
+		LIST['user_name'] = request.session.get('user_name', '')
+		idcard = user_login.objects.all()
+		# user_loginList = user_login.objects.all()
+
+		if request.method == 'GET':
+			return render(request, "realname.html")
+		if request.method == 'POST':
+			real= request.POST.get('idcard')
+			na = request.POST.get('name')
+			ad = request.POST.get('address')
+
+			if applicant_real.objects.filter(userID=real).exists() == True:
+				if applicant_real.objects.filter(name=na).exists() == True:
+					applicant.objects.create(
+					name=na,
+					userID=real,
+					address=ad,
+					style='0',
+					score = '0'
+				)
+				test = user_login.objects.all()
+				return render(request, "index.html", locals())
+			else:
+				return render(request, "realname.html", locals())
+
+
+
 
 def get_finish_pay(request):
 	LIST = {}

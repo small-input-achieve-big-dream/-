@@ -60,9 +60,9 @@
 						<div class="col-md-12">
 							<div class="four-zero-content text-center">
                                     <p><input type="button"  value="look" onclick="aaaa()"></p>
-                                     <a href="index.html" class="cr-btn cr-btn-lg"><span>访问首页</span></a>
+                                     <a href="realname.html" class="cr-btn cr-btn-lg"><span>重新注册</span></a>
                                     {% for item in test %}
-                                        <p class="test">{{item.id }}</p>
+                                        <p class="test">{{item.email }}</p>
 {#                                                <p class="test1">{{ item.telephone }}</p>#}
                                     {% endfor %}
 
@@ -88,7 +88,7 @@
                 {
                             if ( i == look.length-1)
                             {
-                                alert("您的账号为"+look[i].innerText)
+                                alert("您的账号为"+look[i].innerText+"身份信息有误，请查明后填写")
                             }
                         }
 

@@ -34,9 +34,10 @@ urlpatterns = [
     re_path(r'.*givemoney.html/$', view.givemoney),
     # re_path(r'.*mine.html/$', view.mine),
     re_path(r'.*finish_pay.html/$', view.get_finish_pay),
+    re_path(r'.*realname.html/$', view.realname),
     re_path(r'.*see.html/$', view.see),
     path(r'test/', view.gettest),
-    re_path(r'.*services/$', view.getservices),
+    re_path(r'.*services/$', view.getservices)
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS)

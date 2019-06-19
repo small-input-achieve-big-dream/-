@@ -131,22 +131,14 @@ class user_login(models.Model):
 class applicant(models.Model):
 	#用户ID
 	userID = models.IntegerField()
-	#单位
-	company = models.CharField(max_length = 100)
 	#姓名
 	name = models.CharField(max_length = 30)
 	#身份证
 	userID = models.IntegerField()
 	#类型
 	style = models.IntegerField()
-	#生日
-	birth = models.DateTimeField(auto_now = True)
-	#电话
-	telephone = models.IntegerField()
 	#住址
 	address = models.CharField(max_length = 200)
-	#邮箱
-	email = models.EmailField()
 	#积分
 	score = models.IntegerField()
 	class Meta:
@@ -167,8 +159,7 @@ class recognizee_Infor(models.Model):
 class applicant_real(models.Model):
 	#身份证
 	userID = models.IntegerField()
-	#年龄
-	age = models.IntegerField()
+
 	#姓名
 	name = models.CharField(max_length = 30)
 	class Meta:

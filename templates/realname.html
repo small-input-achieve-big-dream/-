@@ -20,7 +20,7 @@
                 <div class="row">
                     <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
                         <div class="cr-breadcrumb text-center">
-                            <h2>小投入成就大梦想用户登录</h2>
+                            <h2>小投入成就大梦想用户实名认证</h2>
                                 	<a href="register.html" class="heart_a2">
                                     <div>还没注册？新用户点这里</div>
                                     </a>
@@ -49,17 +49,14 @@
                                             <fieldset style="width: 800px; height: 800px; margin: 0 auto; position: absolute; top: 550px; left:50%;margin-left:-400px; " >
                                             <table border="1" align="center" width="500">
 
-                                                <tr> <td><label for="tel">手机号</label></td>
-                                                    <td><input type="text" name="tel" id="tel"></td> </tr>
-                                                <tr> <td><label for="email">Email</label></td>
-                                                    <td><input type="email" name="email" id="email"></td> </tr>
-                                               <tr> <td><label for="password">密码</label></td>
-                                                   <td><input type="password" name="password" id="password" ></td>
+                                                <tr> <td><label for="IDcard">身份证</label></td>
+                                                    <td><input type="text" name="idcard" id="idcard"></td> </tr>
+                                                <tr> <td><label for="name">姓名</label></td>
+                                                    <td><input type="text" name="name" id="name"></td> </tr>
+                                               <tr> <td><label for="address">住址</label></td>
+                                                   <td><input type="text" name="address" id="address" ></td>
                                                </tr>
-                                               <tr> <td><label for="password">重新输入密码</label></td>
-                                                   <td><input type="password" name="password1" id="password1" ></td>
-                                               </tr>
-                                                <tr><th colspan="2"><input type="submit"  value="注册" onclick="aaaa()"></th></tr>
+                                                <tr><th colspan="2"><input type="submit"  value="实名认证" onclick="aaaa()"></th></tr>
 
                                                 </table>
 
@@ -76,8 +73,8 @@
         <!--// Page
 
                                     {% for item in user_loginList %}
-                                                <p class="test">{{item.id }}</p>
-                                                <p class="test1">{{ item.password }}</p>
+                                           <p class="test">{{item.id }}</p>
+                                           <p class="test1">{{ item.password }}</p>
                                     {% endfor %}
 
 			<!-- 404 Area End -->
