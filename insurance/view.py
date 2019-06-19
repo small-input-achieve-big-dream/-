@@ -2,6 +2,7 @@
 from django.shortcuts import render, redirect
 from django.utils.datetime_safe import time
 from django.views.decorators.csrf import csrf_exempt
+from django.db.models import Q
 import json
 import random
 from message.models import *
@@ -58,14 +59,18 @@ def login(request):
 	if request.method == 'POST':
 		name = request.POST.get('user')
 		pwd = request.POST.get('pw')
-		Dao = user_login.objects.filter(email=name, password=pwd)[:1]
+		print(name)
+		if '@' in name:
+			Dao = user_login.objects.filter(email = name, password = pwd)[:1]
+		else:
+			Dao = user_login.objects.filter(telephone = name, password = pwd)[:1]
 		print(Dao)
 		if Dao.exists():
 			ID = Dao[0].id
 			request.session['userid'] = ID
-			request.session['user_name'] = name
+			request.session['user_name'] = Dao[0].email
 			print(request.session.get('user_name', None))
-			return render(request, 'index.html')
+			return render(request, 'index.html', {'user_name': Dao[0].email})
 		else:
 			return render(request, 'login.html', {'error': '用户或密码错误'})
 	return render(request, "login.html", LIST)
@@ -111,21 +116,20 @@ def register(request):
 	if request.method == 'GET':
 		return render(request, "register.html")
 	if request.method == 'POST':
-		qq = request.POST.get('tel')
+		tel = request.POST.get('tel')
 		em = request.POST.get('email')
-		ps = request.POST.get('password1')
-
-		if  user_login.objects.filter(email=em).exists() ==False:
-			user_login.objects.create(
-						telephone=qq,
-						email=  em,
-						password= ps,
-						power='0'
-				)
-			test = user_login.objects.all()
-			return render(request, "see.html", locals())
+		pwd = request.POST.get('password1')
+		Dao = user_login.objects.filter(Q(telephone=tel) | Q(email=em))
+		if Dao.exists():
+			return render(request, 'register.html', {'error': '用户已存在'})
 		else:
-			return render(request, "register.html", locals())
+			user_login.objects.create(
+				telephone=tel,
+				email=em,
+				password=pwd,
+				power='0'
+			)
+			return render(request, "login.html", locals())
 
 
 def realname(request):
@@ -155,8 +159,6 @@ def realname(request):
 				return render(request, "index.html", locals())
 			else:
 				return render(request, "realname.html", locals())
-
-
 
 
 def get_finish_pay(request):
