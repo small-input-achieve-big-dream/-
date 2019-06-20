@@ -8,7 +8,7 @@ import random
 from message.models import *
     #插入employee表
 
-from django.shortcuts import HttpResponseRedirect,Http404,HttpResponse,render_to_response
+from django.shortcuts import HttpResponseRedirect,Http404,HttpResponse
 from django.http import HttpResponse, JsonResponse
 
 from django.shortcuts import HttpResponseRedirect,Http404,HttpResponse
@@ -19,6 +19,7 @@ from message.alipay import alipay
 
 
 #--------视图-------#
+
 def getIndex(request):
 	LIST = {"title":"小投入成就大梦想"}
 	LIST['user_name'] = request.session.get('user_name', '')
@@ -99,7 +100,7 @@ def givemoney(request):
 
 		img = Img(img_url=request.FILES.get('img'))
 		img.save()
-		return  render_to_response('index.html')
+		return  render(request, 'index.html')
 
 
 def see(request):
@@ -175,7 +176,9 @@ def get_finish_pay(request):
 		return render(request, '404.html', LIST)
 
 
-
+#-----------KA tmp-----------#
+def get_admin(request):
+	return render(request, 'admin.html')
 
 
 #end 视图

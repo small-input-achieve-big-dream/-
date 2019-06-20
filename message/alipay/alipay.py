@@ -132,7 +132,7 @@ class get_payment(object):
         # 传递参数初始化支付类
         self.alipay = AliPay(
             appid="2016092900620537",                                   # 设置签约的appid
-            app_notify_url="http://projectsedus.com/",                  # 异步支付通知url
+            app_notify_url="http://127.0.0.1:8000/finish_pay.html",                  # 异步支付通知url
             app_private_key_path=u"privatePwd.txt",               # 设置应用私钥
             alipay_public_key_path="appPwd.txt",           # 支付宝的公钥，验证支付宝回传消息使用，不是你自己的公钥,
             debug=False,  # 默认False,                                   # 设置是否是沙箱环境，True是沙箱环境
