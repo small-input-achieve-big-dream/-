@@ -35,22 +35,26 @@
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="wrapper wrapper2">
-                                        <form action = 'login.html/' id="login" class="card-body" tabindex="500" method = 'post'>
+                                        <form action = 'login.html' id="login" class="card-body" tabindex="500" method = 'post'>
                                             <h3>Login</h3>
                                             <div class="mail">
                                                 <input type="text" name="user">
-                                                <label>电子邮箱或者手机号</label>
+                                                <label>Mail or Username</label>
                                             </div>
                                             <div class="passwd">
                                                 <input type="password" name="password">
-                                                <label>密码</label>
+                                                <label>Password</label>
                                             </div>
                                             <div class="submit">
-                                                <input class="btn btn-primary btn-block" type='submit'>
+                                                <a class="btn btn-primary btn-block" href="index.html">Login</a>
                                             </div>
-                                            <p class="mb-2"><a href="forgot.html" >忘记密码</a></p>
-                                            <p class="text-dark mb-0">还没有账号?<a href="register.html" class="text-primary ml-1">注册</a></p>
+                                            <p class="mb-2"><a href="forgot.html" >Forgot Password</a></p>
+                                            <p class="text-dark mb-0">Don't have account?<a href="register.html" class="text-primary ml-1">Sign UP</a></p>
                                         </form>
+                                        <div class="card-body border-top">
+                                            <a class="btn  btn-social btn-facebook btn-block"><i class="fa fa-facebook"></i> Sign in with Facebook</a>
+                                            <a class="btn  btn-social btn-google btn-block mt-2"><i class="fa fa-google-plus"></i> Sign in with Google</a>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -96,11 +100,5 @@
         <!--Scripts js-->
         <script src="/static/assets/js/scripts.js"></script>
 
-        <script type="text/javascript">
-            {% if error %}
-                var error = "{{ error }}"
-                alert(error)
-            {% endif %}
-        </script>
     </body>
 </html>

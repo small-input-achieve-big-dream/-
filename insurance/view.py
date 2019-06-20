@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 #--------包---------#
 from django.shortcuts import render, redirect
 from django.utils.datetime_safe import time
@@ -22,28 +24,35 @@ from message.alipay import alipay
 
 def getIndex(request):
 	LIST = {"title":"小投入成就大梦想"}
-	LIST['user_name'] = request.session.get('user_name', '')
-	print(LIST)
+	DICT = {}
+	if request.method == 'GET':
+		DICT = request.GET.dict()
+		action = DICT.pop('action', None)
+		if action == 'logout':
+			if request.session['userid']:
+				del request.session['userid']
+			if request.session['user_name']:
+				del request.session['user_name']
+			print('delete session')
 	return render(request, 'index.html', LIST)
 
 def getAbout_us(request):
 	LIST = {"title":"关于我们"}
-	LIST['user_name'] = request.session.get('user_name', '')
 	return render(request, 'about-us.html', LIST)
 
 def get404(request):
 	LIST = {"title":"找不到页面"}
-	LIST['user_name'] = request.session.get('user_name', '')
 	return render(request, '404.html', LIST)
 
 def gettest(request):	
-	LIST = {"title":"测试"}
-	LIST['user_name'] = request.session.get('user_name', '')
-	return render(request, 'test.html', LIST)
+	LIST = ['test1', 'test2']
+	DICT = {'test3': '123', 'test4': '321'}
+	return render(request, 'test.html', {'List': json.dumps(LIST), 'Dict': json.dumps(DICT)})
+	# LIST = {"title":"测试"}
+	# return render(request, 'test.html', LIST)
 
 def getservices(request):
 	LIST = {}
-	LIST['user_name'] = request.session.get('user_name', '')
 	if request.POST:
 		LIST = request.POST.dict()
 		if LIST.get('measure') != None:
@@ -56,15 +65,16 @@ def getservices(request):
 
 def login(request):
 	LIST = {}
-	LIST['user_name'] = request.session.get('user_name', '')
 	if request.method == 'POST':
 		name = request.POST.get('user')
-		pwd = request.POST.get('pw')
-		print(name)
-		if '@' in name:
-			Dao = user_login.objects.filter(email = name, password = pwd)[:1]
-		else:
-			Dao = user_login.objects.filter(telephone = name, password = pwd)[:1]
+		pwd = request.POST.get('password')
+		try:
+			if '@' in name:
+				Dao = user_login.objects.filter(email = name, password = pwd)[:1]
+			else:
+				Dao = user_login.objects.filter(telephone = name, password = pwd)[:1]
+		except Exception as e:
+			return render(request, 'login.html', {'error': '用户名格式不对'})
 		print(Dao)
 		if Dao.exists():
 			ID = Dao[0].id
@@ -78,7 +88,6 @@ def login(request):
 
 def givemoney(request):
 	LIST = {}
-	LIST['user_name'] = request.session.get('user_name', '')
 	if request.method == 'GET':
 		return render(request, "givemoney.html")
 	if request.method == 'POST':
@@ -109,25 +118,23 @@ def see(request):
 
 
 def register(request):
-	LIST = {}
-	LIST['user_name'] = request.session.get('user_name', '')
-	idcard  = user_login.objects.all()
-	# user_loginList = user_login.objects.all()
-
+	print(request.method)
 	if request.method == 'GET':
 		return render(request, "register.html")
 	if request.method == 'POST':
 		tel = request.POST.get('tel')
 		em = request.POST.get('email')
 		pwd = request.POST.get('password1')
+		print(tel, em, pwd)
 		Dao = user_login.objects.filter(Q(telephone=tel) | Q(email=em))
+		print(Dao)
 		if Dao.exists():
 			return render(request, 'register.html', {'error': '用户已存在'})
 		else:
 			user_login.objects.create(
-				telephone=tel,
-				email=em,
-				password=pwd,
+				telephone=int(tel),
+				email=str(em),
+				password=str(pwd),
 				power='0'
 			)
 			return render(request, "login.html", locals())
@@ -136,7 +143,6 @@ def register(request):
 def realname(request):
 
 		LIST = {}
-		LIST['user_name'] = request.session.get('user_name', '')
 		idcard = user_login.objects.all()
 		# user_loginList = user_login.objects.all()
 
@@ -164,7 +170,6 @@ def realname(request):
 
 def get_finish_pay(request):
 	LIST = {}
-	LIST['user_name'] = request.session.get('user_name', '')
 	try:
 		LIST['total_amount'] = request.GET['total_amount']
 		LIST['timestamp'] = request.GET['timestamp']

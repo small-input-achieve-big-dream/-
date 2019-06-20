@@ -36,7 +36,7 @@ urlpatterns = [
     re_path(r'.*finish_pay.html/$', view.get_finish_pay),
     re_path(r'.*realname.html/$', view.realname),
     re_path(r'.*see.html/$', view.see),
-    path(r'test/', view.gettest),
+    re_path(r'.*test/$', view.gettest),
     re_path(r'.*services/$', view.getservices),
 
     re_path(r'.*manager/$', view.get_admin)

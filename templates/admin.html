@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+	{% include "head2.html" %}
+	<body class="app ">
+
+		<div id="spinner"></div>
+
+		<div id="app">
+			<div class="main-wrapper" >
+				{% include "extraBar.html" %}
+				{% include "sideBar.html" %}
+				<div class="app-content">
+					<section class="section">
+                    	<ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#" class="text-muted">Home</a></li>
+                            <li class="breadcrumb-item active text-" aria-current="page">Dashboard 01</li>
+                        </ol>
+                       	<div class="row">
+                       		<div class="col-lg-3 col-xl-3 col-md-6 col-12">
+								<div class="card">
+									<div class="card-body">
+										<div class="widget text-center">
+											<small class="text-muted">Expenses</small>
+											<h2>$851</h2>
+											<p class="mb-0"><span class="text-danger"><i class="fa fa-chevron-circle-down text-danger ml-1"></i> 4%</span> last month</p>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-3 col-xl-3 col-md-6 col-12">
+								<div class="card">
+									<div class="card-body">
+										<div class="widget text-center">
+											<small class="text-muted">Invoice</small>
+											<h2>$834</h2>
+											<p class="mb-0"><span class="text-success"><i class="fa fa-chevron-circle-up text-success ml-1"></i> 3%</span>  last month</p>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-6 col-xl-3 col-md-6 col-12">
+								<div class="card bg-primary text-white">
+									<div class="card-body">
+										<div class="row">
+											<div class="col-6">
+												<div class="icon1 text-center">
+													<i class="ion-ios-pie-outline"></i>
+												</div>
+											</div>
+											<div class="col-6">
+												<div class="mt-3 text-center">
+													<span class="text-white">Sales</span>
+													<h2 class="text-white mb-0">854</h2>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-6 col-xl-3 col-md-6 col-12">
+								<div class="card bg-success text-white">
+									<div class="card-body">
+										<div class="row">
+											<div class="col-6">
+												<div class="icon1 text-center">
+													<i class="ion-ios-people-outline"></i>
+												</div>
+											</div>
+											<div class="col-6">
+												<div class="mt-3 text-center">
+													<span class="text-white">Taxes</span>
+													<h2 class="text-white mb-0">876</h2>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+                       	</div>
+						<div class="row">
+							<div class="col-lg-12 col-xl-8 col-md-12 col-12 col-sm-12">
+								<div class="card">
+									<div class="card-header">
+										<h4>个人信息</h4>
+									</div>
+									<div class="card-body">
+										<p><b>User ID :</b> {{ userID }}</p>
+										<p><b>姓名 :</b> {{ name }}</p>
+										<p><b>Emial :</b> {{ email }}</p>
+										<p><b>手机号 :</b> {{ phone }} </p>
+										<p><b>身份证号 : </b> {{ address }} </p>
+										<p class="mb-0"><b>出生日期 : </b> {{ story }} </p>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-lg-12 col-xl-4 col-md-12 col-12 col-sm-12">
+								<div class="card">
+									<div id="calendar-1"></div>
+								</div>
+							</div>
+						</div>
+
+					</section>
+				</div>
+
+			</div>
+		</div>
+
+		<!--Jquery.min js-->
+		<script src="/static/assets/js/jquery.min.js"></script>
+
+		<!--popper js-->
+		<script src="/static/assets/js/popper.js"></script>
+
+		<!--Tooltip js-->
+		<script src="/static/assets/js/tooltip.js"></script>
+
+		<!--Bootstrap.min js-->
+		<script src="/static/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+
+		<!--Jquery.nicescroll.min js-->
+		<script src="/static/assets/plugins/nicescroll/jquery.nicescroll.min.js"></script>
+
+		<!--Scroll-up-bar.min js-->
+		<script src="/static/assets/plugins/scroll-up-bar/dist/scroll-up-bar.min.js"></script>
+
+		<!--Sidemenu js-->
+		<script src="/static/assets/plugins/toggle-menu/sidemenu.js"></script>
+
+		<!--mCustomScrollbar js-->
+		<script src="/static/assets/plugins/scroll-bar/jquery.mCustomScrollbar.concat.min.js"></script>
+
+		<!-- ECharts -->
+		<script src="/static/assets/plugins/echarts/dist/echarts.js"></script>
+
+		<!--Min Calendar -->
+		<script src="/static/assets/plugins/fullcalendar/calendar.min.js"></script>
+		<script src="/static/assets/plugins/fullcalendar/custom_calendar.js"></script>
+
+		<!--Morris js-->
+		<script src="/static/assets/plugins/morris/morris.min.js"></script>
+		<script src="/static/assets/plugins/morris/raphael.min.js"></script>	
+
+		<!--Scripts js-->
+		<script src="/static/assets/js/scripts.js"></script>
+
+		<!--Dashboard js-->
+		<script src="/static/assets/js/dashboard.js"></script>
+		<script src="/static/assets/js/apexcharts.js"></script>
+	</body>
+</html>
