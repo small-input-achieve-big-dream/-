@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+	{% include "head2.html" %}
+
+	<body class="app ">
+
+		<div id="spinner"></div>
+
+		<div id="app">
+			<div class="main-wrapper" >
+				{% include "extraBar.html" %}
+				{% include "sideBar.html" %}
+				<div class="app-content">
+					<div class="section">
+                    	<ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#">功能</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">实名认证</li>
+                        </ol>
+						<div class="card">
+									<div class="card-header">
+										<h4>实名认证</h4>
+									</div>
+									<div class="card-body">
+										<form class="form-horizontal" action="" method="post">
+											<div class="form-group row">
+												<label class="col-md-3 col-form-label">姓名</label>
+												<div class="col-md-9">
+													<input class="form-control" type="text" name="name" id="name">
+												</div>
+											</div>
+											<div class="form-group row">
+												<label class="col-md-3 col-form-label" for="example-email">身份证</label>
+												<div class="col-md-9">
+													<input class="form-control" type="text" oninput="value=value.replace(/[^\d]/g,'')" name="idcard" id="idcard">
+												</div>
+											</div>
+											
+											<div class="form-group row">
+												<label class="col-md-3 col-form-label">住址</label>
+												<div class="col-md-9">
+													<input class="form-control" type="text" placeholder="" name="address" id="address" >
+												</div>
+											</div>
+
+											<div class="form-group mb-0 mt-2 row justify-content-end">
+												<div class="col-md-9">
+													<button class="btn btn-info" type="submit">确认</button>
+													<button class="btn btn-primary" type="submit">取消</button>
+												</div>
+											</div>
+										</form>
+									</div>
+								</div>
+					</div>
+				</div>
+
+				<footer class="main-footer">
+					<div class="text-center">
+						Copyright &copy;Kharna-Admin 2018. Design By<a href="#"> fanfan</a>
+					</div>
+				</footer>
+
+			</div>
+		</div>
+
+		<!--Jquery.min js-->
+		<script src="/static/assets/js/jquery.min.js"></script>
+
+		<!--popper js-->
+		<script src="/static/assets/js/popper.js"></script>
+
+		<!--Tooltip js-->
+		<script src="/static/assets/js/tooltip.js"></script>
+
+		<!--Bootstrap.min js-->
+		<script src="/static/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+
+		<!--Jquery.nicescroll.min js-->
+		<script src="/static/assets/plugins/nicescroll/jquery.nicescroll.min.js"></script>
+
+		<!--Scroll-up-bar.min js-->
+		<script src="/static/assets/plugins/scroll-up-bar/dist/scroll-up-bar.min.js"></script>
+
+		<!--mCustomScrollbar js-->
+		<script src="/static/assets/plugins/scroll-bar/jquery.mCustomScrollbar.concat.min.js"></script>
+
+		<!--Sidemenu js-->
+		<script src="/static/assets/plugins/toggle-menu/sidemenu.js"></script>
+
+		<!--Scripts js-->
+		<script src="/static/assets/js/scripts.js"></script>
+
+	</body>
+</html>

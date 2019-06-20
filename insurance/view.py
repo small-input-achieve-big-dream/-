@@ -80,6 +80,8 @@ def login(request):
 			ID = Dao[0].id
 			request.session['userid'] = ID
 			request.session['user_name'] = Dao[0].email
+			request.session['telephone'] = Dao[0].telephone
+			request.session['power'] = Dao[0].power
 			print(request.session.get('user_name', None))
 			return render(request, 'index.html', {'user_name': Dao[0].email})
 		else:
@@ -147,7 +149,7 @@ def realname(request):
 		# user_loginList = user_login.objects.all()
 
 		if request.method == 'GET':
-			return render(request, "realname.html")
+			return render(request, "verify.html")
 		if request.method == 'POST':
 			real= request.POST.get('idcard')
 			na = request.POST.get('name')
@@ -165,7 +167,7 @@ def realname(request):
 				test = user_login.objects.all()
 				return render(request, "index.html", locals())
 			else:
-				return render(request, "realname.html", locals())
+				return render(request, "verify.html", locals())
 
 
 def get_finish_pay(request):
@@ -183,8 +185,44 @@ def get_finish_pay(request):
 
 #-----------KA tmp-----------#
 def get_admin(request):
-	return render(request, 'admin.html')
+	ID = request.session.get('userid', None)
+	if ID == None:
+		return render(request, 'index.html')
+	Applicant = applicant.objects.filter(userID = ID)[:1]
+	if Applicant.exists():
+		LIST = {
+			"name": Applicant[0].name,
+			"idcard": Applicant[0].idcard,
+			"address": Applicant[0].address
+		}
+		return render(request, 'admin.html', LIST)
+	else:
+		LIST = {'apllicant_state': '0'}
+		return render(request, 'admin.html')
 
+def get_verify(request):
+	LIST = {}
+	if request.method == 'GET':
+		return render(request, "verify.html")
+	if request.method == 'POST':
+		idcard = request.POST.get('idcard')
+		name = request.POST.get('name')
+		address = request.POST.get('address')
+
+		if applicant_real.objects.filter(userID = idcard).exists() == True:
+			if applicant_real.objects.filter(name = name).exists() == True:
+				applicant.objects.create(
+				userID = request.session.get('userid', None),
+				name = name,
+				idcard = idcard,
+				address = address,
+				style = '0',
+				score = '0'
+			)
+			test = user_login.objects.all()
+			return render(request, "index.html", locals())
+		else:
+			return render(request, "verify.html", locals())
 
 #end 视图
 

@@ -83,14 +83,17 @@
 								<div class="card">
 									<div class="card-header">
 										<h4>个人信息</h4>
+										{% ifequal apllicant_state "0" %}
+											<a class="btn btn-app mt-2" href="verify.html"><i class="fa fa-edit"></i> 请先实名认证</a>
+										{% endifequal %}
 									</div>
 									<div class="card-body">
-										<p><b>User ID :</b> {{ userID }}</p>
+										<p><b>User ID :</b> {{request.session.userid}}</p>
+										<p><b>Emial :</b> {{request.session.user_name}}</p>
+										<p><b>手机号 :</b> {{request.session.telephone}} </p>
 										<p><b>姓名 :</b> {{ name }}</p>
-										<p><b>Emial :</b> {{ email }}</p>
-										<p><b>手机号 :</b> {{ phone }} </p>
-										<p><b>身份证号 : </b> {{ address }} </p>
-										<p class="mb-0"><b>出生日期 : </b> {{ story }} </p>
+										<p><b>身份证号 : </b> {{ idcard }} </p>
+										<p class="mb-0"><b>住址 : </b> {{ address }} </p>
 									</div>
 								</div>
 							</div>

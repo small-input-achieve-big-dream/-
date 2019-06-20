@@ -134,7 +134,7 @@ class applicant(models.Model):
 	#姓名
 	name = models.CharField(max_length = 30)
 	#身份证
-	userID = models.IntegerField()
+	idcard = models.CharField(max_length = 30)
 	#类型
 	style = models.IntegerField()
 	#住址
@@ -158,7 +158,7 @@ class recognizee_Infor(models.Model):
 #投保人真实信息表
 class applicant_real(models.Model):
 	#身份证
-	userID = models.IntegerField()
+	userID = models.CharField(max_length = 30)
 
 	#姓名
 	name = models.CharField(max_length = 30)
