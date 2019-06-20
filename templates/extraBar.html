@@ -11,9 +11,9 @@
                             <button class="btn btn-primary" type="submit"><i class="ion ion-search"></i></button>
                         </div>
                     </form>
-                    <a class="btn m-b-5 m-t-5" href="index.html">首页</a>
-                    <a class="btn m-b-5 m-t-5" href="services">产品</a>
-                    <a class="btn m-b-5 m-t-5" href="about-us.html">关于我们</a>
+                    <a class="btn m-b-5 m-t-5" href="/index.html">首页</a>
+                    <a class="btn m-b-5 m-t-5" href="/services">产品</a>
+                    <a class="btn m-b-5 m-t-5" href="/about-us.html">关于我们</a>
                     <ul class="navbar-nav navbar-right">
                         <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown" class="nav-link notification-toggle nav-link-lg beep"><i class="ion-ios-email-outline"></i></a>
                             <div class="dropdown-menu dropdown-list dropdown-menu-right">
@@ -102,17 +102,17 @@
                             </a>
                             <div class="dropdown-menu dropdown-menu-right">
                                 {% if request.session.userid %}
-                                    <a href="manager" class="dropdown-item has-icon">
+                                    <a href="/manager" class="dropdown-item has-icon">
                                         <i class="ion ion-gear-a"></i> 设置
                                     </a>
-                                    <a href="index.html/?action=logout" class="dropdown-item has-icon">
+                                    <a href="/index.html/?action=logout" class="dropdown-item has-icon">
                                         <i class="ion-ios-redo"></i> 登出
                                     </a>
                                 {% else %}
-                                    <a href="login.html" class="dropdown-item has-icon">
+                                    <a href="/login.html" class="dropdown-item has-icon">
                                         <i class="ion-ios-redo"></i> 登录
                                     </a>
-                                    <a href="register.html" class="dropdown-item has-icon">
+                                    <a href="/register.html" class="dropdown-item has-icon">
                                         <i class="ion-ios-redo"></i> 注册
                                     </a>
                                 {% endif %}
