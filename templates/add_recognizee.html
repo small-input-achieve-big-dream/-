@@ -1,0 +1,35 @@
+{% extends "emptypage.html" %}
+
+{% block title_name %}功能{% endblock %}
+{% block page_name %}添加被保人{% endblock %}
+
+{% block content %}
+<div class="card">
+	<div class="card-header">
+		<h4>添加被保人</h4>
+	</div>
+	<div class="card-body">
+		<form class="form-horizontal" action="/addadd_recognizee.html/" method="post">
+			<div class="form-group row">
+				<label class="col-md-3 col-form-label">姓名</label>
+				<div class="col-md-9">
+					<input class="form-control" type="text" name="name" id="name">
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-md-3 col-form-label" for="example-email">身份证</label>
+				<div class="col-md-9">
+					<input class="form-control" type="text" oninput="value=value.replace(/[^\d]/g,'')" name="idcard" id="idcard">
+				</div>
+			</div>
+			
+			<div class="form-group mb-0 mt-2 row justify-content-end">
+				<div class="col-md-9">
+					<button class="btn btn-info" type="submit">确认</button>
+					<button class="btn btn-primary" type="submit">取消</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+{% endblock %}

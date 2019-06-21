@@ -1,0 +1,123 @@
+<html lang="zh-CN"><head><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><meta charset="utf-8"><meta name="renderer" content="webkit"><link rel="preload" href="/static/bilibili/css/app.0a80d9cd63827eea8fe408f389c72811.css" as="style"><link rel="preload" href="/static/bilibili/js/manifest.125e0fccb728263bfc50.js" as="script"><link rel="preload" href="/static/bilibili/js/vendor.97798774fa508e5b62f5.js" as="script"><link rel="preload" href="/static/bilibili/js/app.de8374837befd7fed524.js" as="script"><style type="text/css" abt="234"></style><meta name="description" content="全新 web 动态敲好玩"><meta name="keywords" content="哔哩哔哩，动态，小视频，相簿，二次元，bilibili"><meta name="application-name" content="哔哩哔哩动态"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><meta name="theme-color" content="#4393E2"><meta name="spm_prefix" content="333.795"><title>动态分享 - 哔哩哔哩弹幕视频网 - ( ゜- ゜)つロ 乾杯~ - bilibili</title><link href="/static/bilibili/css/app.0a80d9cd63827eea8fe408f389c72811.css" rel="stylesheet"><script src="/static/bilibili/js/manifest.125e0fccb728263bfc50.js" defer="defer"></script><script src="/static/bilibili/js/vendor.97798774fa508e5b62f5.js" defer="defer"></script><script src="/static/bilibili/js/app.de8374837befd7fed524.js" defer="defer"></script><script>//remove 17173 video ad
+doAdblock();
+function doAdblock(){
+    (function() {
+        function A() {}
+        A.prototype = {
+            rules: {
+                '17173_in':{
+                    'find':/http:\/\/f\.v\.17173cdn\.com\/(\d+\/)?flash\/PreloaderFile(Customer)?\.swf/,
+                    'replace':"http://swf.adtchrome.com/17173_in_20150522.swf"
+                },
+                '17173_out':{
+                    'find':/http:\/\/f\.v\.17173cdn\.com\/(\d+\/)?flash\/PreloaderFileFirstpage\.swf/,
+                    'replace':"http://swf.adtchrome.com/17173_out_20150522.swf"
+                },
+                '17173_live':{
+                    'find':/http:\/\/f\.v\.17173cdn\.com\/(\d+\/)?flash\/Player_stream(_firstpage)?\.swf/,
+                    'replace':"http://swf.adtchrome.com/17173_stream_20150522.swf"
+                },
+                '17173_live_out':{
+                    'find':/http:\/\/f\.v\.17173cdn\.com\/(\d+\/)?flash\/Player_stream_(custom)?Out\.swf/,
+                    'replace':"http://swf.adtchrome.com/17173.out.Live.swf"
+                }
+            },
+            _done: null,
+            get done() {
+                if(!this._done) {
+                    this._done = new Array();
+                }
+                return this._done;
+            },
+            addAnimations: function() {
+                var style = document.createElement('style');
+                style.type = 'text/css';
+                style.innerHTML = 'object,embed{\
+                -webkit-animation-duration:.001s;-webkit-animation-name:playerInserted;\
+                -ms-animation-duration:.001s;-ms-animation-name:playerInserted;\
+                -o-animation-duration:.001s;-o-animation-name:playerInserted;\
+                animation-duration:.001s;animation-name:playerInserted;}\
+                @-webkit-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}\
+                @-ms-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}\
+                @-o-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}\
+                @keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}';
+                document.getElementsByTagName('head')[0].appendChild(style);
+            },
+            animationsHandler: function(e) {
+                if(e.animationName === 'playerInserted') {
+                    this.replace(e.target);
+                }
+            },
+            replace: function(elem) {
+                if(this.done.indexOf(elem) != -1) return;
+                this.done.push(elem);
+                var player = elem.data || elem.src;
+                if(!player) return;
+                var i, find, replace = false;
+                for(i in this.rules) {
+                    find = this.rules[i]['find'];
+                    if(find.test(player)) {
+                        replace = this.rules[i]['replace'];
+                        if('function' === typeof this.rules[i]['preHandle']) {
+                            this.rules[i]['preHandle'].bind(this, elem, find, replace, player)();
+                        }else{
+                            this.reallyReplace.bind(this, elem, find, replace)();
+                        }
+                        break;
+                    }
+                }
+            },
+            reallyReplace: function(elem, find, replace) {
+                elem.data && (elem.data = elem.data.replace(find, replace)) || elem.src && ((elem.src = elem.src.replace(find, replace)) && (elem.style.display = 'block'));
+                var b = elem.querySelector("param[name='movie']");
+                this.reloadPlugin(elem);
+            },
+            reloadPlugin: function(elem) {
+                var nextSibling = elem.nextSibling;
+                var parentNode = elem.parentNode;
+                parentNode.removeChild(elem);
+                var newElem = elem.cloneNode(true);
+                this.done.push(newElem);
+                if(nextSibling) {
+                    parentNode.insertBefore(newElem, nextSibling);
+                } else {
+                    parentNode.appendChild(newElem);
+                }
+            },
+            init: function() {
+                var handler = this.animationsHandler.bind(this);
+                document.body.addEventListener('webkitAnimationStart', handler, false);
+                document.body.addEventListener('msAnimationStart', handler, false);
+                document.body.addEventListener('oAnimationStart', handler, false);
+                document.body.addEventListener('animationstart', handler, false);
+                this.addAnimations();
+            }
+        };
+        new A().init();
+    })();
+}
+</script><style type="text/css">object,embed{                -webkit-animation-duration:.001s;-webkit-animation-name:playerInserted;                -ms-animation-duration:.001s;-ms-animation-name:playerInserted;                -o-animation-duration:.001s;-o-animation-name:playerInserted;                animation-duration:.001s;animation-name:playerInserted;}                @-webkit-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}                @-ms-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}                @-o-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}                @keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}</style><script charset="utf-8" src="/static/bilibili/js/4.118d6.function.chunk.js"></script><script charset="utf-8" src="/static/bilibili/js/6.be568.function.chunk.js"></script></head>
+<body>
+    <div id="app-container">
+    <div data-v-9795abb4="" class="dynamic-iframe">
+    <div data-v-9795abb4="" class="dynamic-m">
+    <div class="dyn_menu"><div class="menu"><ul><li class="on">消息
+      </li></ul> <div class="line" style="left: 6px;"></div></div></div>
+<div class="dyn_list_wrapper view-video" style="height: 304px;">
+    <ul class="dyn_list">
+        <span>
+
+            {% if LIST|safe %}
+                {% for i in LIST %}
+                    <li data-v-3c407c91="" class="d-data"><div data-v-3c407c91="" class="preview v"><a data-v-3c407c91="" href="/inform.html" target="_blank" title="【原始建造】建造最美丽的竹屋【Wilderness Daily】" class="small-img" style="background-image: url(/static/assets/img/avatar/avatar-1.jpeg.jpg);"><div data-v-3c407c91="" class="watch-later-trigger watch-later"><div class="watch-later-hint" style="left: -10px; display: none;"></div></div></a></div> <!----> <div data-v-3c407c91="" class="r"><div data-v-3c407c91="" class="title"><!----> <!----> <a data-v-3c407c91="" href="/inform.html" target="_blank">{{ i.title }}</a><span data-v-3c407c91="">{{ i.createTime }}</span></div> <div data-v-3c407c91="" class="info">{{ i.msg }}</div></div> <!----> <!----></li>
+                {% endfor %}
+            {% else %}
+                <li class="no-data">(´・ω・｀) 点击下方按钮查看全部动态</li>
+            {% endif %}
+
+
+        </span>
+    </ul>
+</div> <!----> <!----> 
+
+<div class="wnd_bottom video"><div class="r-l"><a target="_blank" href="/inform.html" class="read-more"><span>查看全部</span> <!----> <!----></a> <!----> <!----></div></div></div></div></div><div id="console-error"></div><script src="/static/bilibili/js/log-reporter.js"></script></body></html>

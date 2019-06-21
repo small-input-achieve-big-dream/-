@@ -1,6 +1,7 @@
 # _*_ coding:utf-8 _*_
 from django.db import models
 import django.utils.timezone as timezone
+import datetime
 #python manage.py runserver 127.0.0.1:8080 启动服务器
 #http://127.0.0.1:8080/admin/ 进入管理员界面
 #python manage.py createsuperuser 创建管理员（admin ,1059117321）
@@ -19,7 +20,7 @@ class compensate_Records(models.Model):
 	#保单ID
 	tableID = models.IntegerField()
 	#订单创建时间
-	startTime = models.DateTimeField(default = timezone.now)
+	startTime = models.DateTimeField(default = datetime.datetime.now)
 	#订单修改时间
 	changeTime = models.DateTimeField(auto_now = True)
 	#经办人ID
@@ -72,7 +73,7 @@ class trade_Records(models.Model):
 	#交易金额
 	trade_money = models.CharField(max_length = 30)
 	#创建时间
-	startTime = models.DateTimeField(default = timezone.now)
+	startTime = models.DateTimeField(default = datetime.datetime.now)
 	class Meta:
 		db_table = "trade_Records"
 
@@ -100,11 +101,11 @@ class table(models.Model):
 	#被投保人姓名
 	recognizee_name = models.CharField(max_length = 30)
 	#被投保人身份证
-	recognizee_ID = models.IntegerField()
+	recognizee_ID = models.CharField(max_length = 30, unique = True)
 	#生效日期
 	effectDate = models.DateTimeField(auto_now = True)
 	#失效日期
-	loseDate = models.DateTimeField(default = timezone.now)
+	loseDate = models.DateTimeField(default = datetime.datetime.now)
 	#交费周期
 	payCycle = models.CharField(max_length = 30)
 	#投入金额
@@ -124,6 +125,8 @@ class user_login(models.Model):
 	password = models.CharField(max_length = 60)
 	#用户权限
 	power = models.IntegerField()
+	#上次查询时间
+	changeTime = models.DateTimeField(default = datetime.datetime.now)
 	class Meta:
 		db_table = "user_login"
 
@@ -134,7 +137,7 @@ class applicant(models.Model):
 	#姓名
 	name = models.CharField(max_length = 30)
 	#身份证
-	idcard = models.CharField(max_length = 30)
+	idcard = models.CharField(max_length = 30, unique = True)
 	#类型
 	style = models.IntegerField()
 	#住址
@@ -147,9 +150,7 @@ class applicant(models.Model):
 #被保人信息报
 class recognizee_Infor(models.Model):
 	#身份证
-	userID = models.CharField(max_length = 30)
-	#年龄
-	age = models.IntegerField()
+	userID = models.CharField(max_length = 30, unique = True)
 	#姓名
 	name = models.CharField(max_length = 30)
 	class Meta:
@@ -158,8 +159,7 @@ class recognizee_Infor(models.Model):
 #投保人真实信息表
 class applicant_real(models.Model):
 	#身份证
-	userID = models.CharField(max_length = 30)
-
+	userID = models.CharField(max_length = 30, unique = True)
 	#姓名
 	name = models.CharField(max_length = 30)
 	class Meta:
@@ -168,9 +168,9 @@ class applicant_real(models.Model):
 #通信录
 class realtionship(models.Model):
 	# 用户ID
-	userID = models.IntegerField()
+	userID = models.CharField(max_length = 30)
 	# 被保人身份证
-	recognizee_ID = models.IntegerField()
+	recognizee_ID = models.CharField(max_length = 30)
 	class Meta:
 		db_table = "realtionship"
 
@@ -189,7 +189,7 @@ class complainInfor(models.Model):
 	# 反馈内容
 	Return = models.CharField(max_length = 60)
 	# 投诉时间
-	startTime = models.DateTimeField(default = timezone.now)
+	startTime = models.DateTimeField(default = datetime.datetime.now)
 	# 处理时间
 	changeTime = models.DateTimeField(auto_now = True)
 	class Meta:
@@ -211,4 +211,3 @@ class information(models.Model):
 	createTime = models.DateTimeField(auto_now = True)
 	class Meta:
 		db_table = "information"
-

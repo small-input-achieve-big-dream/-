@@ -4,5 +4,58 @@
 {% block page_name %}通讯录{% endblock %}
 
 {% block content %}
+<div class="row">
+	<div class="col-lg-12">
+		<div class="e-panel card">
+		<form action="/relationship.html/" method="post">
+			<div class="card-body">
+				<a class="btn btn-primary m-b-5 m-t-5" href="/add_recognizee.html">添加被保人</a>
+				<input type="submit" name="del" class="btn btn-primary m-b-5 m-t-5" value = "删除所选项"></a>
+			</div>
+			<div class="card-body">
+				<div class="e-table">
+					<div class="table-responsive table-lg">
+						<table class="table table-bordered">
+							<thead>
+								<tr>
+									<th class="text-center">
 
+									</th>
+									<th class="text-center"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">照片</font></font></th>
+									<th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">名称</font></font></th>
+									<th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">身份证</font></font></th>
+									<th class="text-center"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">操作</font></font></th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for models in LIST%}
+									{% for item in models%}
+										<tr>
+											<td class="align-middle text-center">
+												<div class="custom-control custom-control-inline custom-checkbox custom-control-nameless m-0 align-top">
+													<input class="custom-control-input" id="{{item.userID}}" type="checkbox" name = "deleitem" value="{{item.userID}}"> <label class="custom-control-label" for="{{item.userID}}"></label>
+												</div>
+											</td>
+											<td class="align-middle text-center"><img class="avatar avatar-md rounded-circle" alt="image" src="/static/assets/img/avatar/avatar-1.jpeg"></td>
+											<td class="text-nowrap align-middle">{{ item.name }}</td>
+											<td class="text-nowrap align-middle"><span>{{ item.userID }}</span></td>
+											<td class="text-center align-middle">
+												<div class="btn-group align-top">
+													<button class="btn btn-sm btn-primary badge" type="button"><i class="fa fa-trash"></i></button>
+												</div>
+											</td>
+										</tr>
+									{% endfor %}
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</form>
+				
+					
+		</div>
+	</div>
+</div>
 {% endblock %}

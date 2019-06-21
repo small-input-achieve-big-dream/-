@@ -18,7 +18,7 @@ from django.http import HttpResponse
 from django.forms.models import model_to_dict
 
 from message.alipay import alipay
-
+import datetime
 
 #--------视图-------#
 
@@ -201,7 +201,6 @@ def get_admin(request):
 		return render(request, 'admin.html', LIST)
 
 def get_verify(request):
-	LIST = {}
 	if request.method == 'GET':
 		return render(request, "verify.html")
 	if request.method == 'POST':
@@ -219,8 +218,7 @@ def get_verify(request):
 				style = '0',
 				score = '0'
 			)
-			test = user_login.objects.all()
-			return render(request, "manager", locals())
+			return render(request, "admin.html", locals())
 		else:
 			return render(request, "verify.html", locals())
 
@@ -257,7 +255,51 @@ def get_mytrade(request):
 	return render(request, "trade.html")
 
 def get_relationship(request):
+	if request.session.get('userid', False) != False:
+		if request.method == "POST":
+			msg = request.POST.getlist('deleitem', None)
+			for i in msg:
+				realtionship.objects.filter(recognizee_ID = i).delete()
+		items = realtionship.objects.filter(userID = request.session.get('userid'))
+		if items.exists():
+			LIST = []
+			for i in items:
+				items2 = recognizee_Infor.objects.filter(userID = i.recognizee_ID)
+				LIST.append(items2)
+			return render(request, "relationship.html", {"LIST": LIST})
+	else:
+		return render(request, "index.html")
 	return render(request, "relationship.html")
+
+def get_add_recognizee(request):
+	if request.method == 'POST' and request.session.get('userid', False) != False:
+		idcard = request.POST.get('idcard')
+		name = request.POST.get('name')
+		if applicant_real.objects.filter(userID = idcard).exists() == True:
+			if applicant_real.objects.filter(name = name).exists() == True:
+				if not recognizee_Infor.objects.filter(userID = idcard).exists():
+					recognizee_Infor.objects.create(
+						name = name,
+						userID = idcard,
+					)
+				if not realtionship.objects.filter(recognizee_ID = idcard).exists():
+					realtionship.objects.create(
+						userID = request.session.get('userid'),
+						recognizee_ID = idcard,
+					)
+			return render(request, "add_recognizee.html", locals())
+		else:
+			return render(request, "verify.html", locals())
+	return render(request, "add_recognizee.html")
+
+def get_smallinform(request):
+	if request.session.get('userid', False) != False:
+		items = user_login.objects.filter(id = request.session.get('userid'))
+		if items.exists():
+			items2 = information.objects.filter(createTime__range=(items[0].changeTime, datetime.datetime.now()))
+			request.session['msg_num'] = len(items2)
+		return render(request, "small_inform.html", {'LIST': items2})
+	return render(request, "small_inform.html")
 
 #end 视图
 
