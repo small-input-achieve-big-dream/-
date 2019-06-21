@@ -197,8 +197,8 @@ def get_admin(request):
 		}
 		return render(request, 'admin.html', LIST)
 	else:
-		LIST = {'apllicant_state': '0'}
-		return render(request, 'admin.html')
+		LIST = {'applicant_state': '0'}
+		return render(request, 'admin.html', LIST)
 
 def get_verify(request):
 	LIST = {}
@@ -220,9 +220,12 @@ def get_verify(request):
 				score = '0'
 			)
 			test = user_login.objects.all()
-			return render(request, "index.html", locals())
+			return render(request, "manager", locals())
 		else:
 			return render(request, "verify.html", locals())
+
+def get_inform(request):
+	return render(request, "inform.html")
 
 #end 视图
 
