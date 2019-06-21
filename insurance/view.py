@@ -19,6 +19,7 @@ from message.alipay import alipay
 
 
 #--------视图-------#
+
 def getIndex(request):
 	LIST = {"title":"小投入成就大梦想"}
 	LIST['user_name'] = request.session.get('user_name', '')
