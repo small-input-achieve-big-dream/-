@@ -225,7 +225,39 @@ def get_verify(request):
 			return render(request, "verify.html", locals())
 
 def get_inform(request):
+	
 	return render(request, "inform.html")
+
+def get_complain(request):
+	if request.method == 'POST':
+		complainInfor.objects.create(
+			user_ID = request.POST.get('userid'),
+			reason = request.POST.get('reason'),
+			content = request.POST.get('detail', "-"),
+			state = 0,
+			changerID = "None",
+			Return = "-",
+		)
+		information.objects.create(
+			userid = request.POST.get('userid'),
+			style = "系统信息",
+			msg = "您的投诉信息已经收获",
+			title = "投诉成功",
+		)
+		return render(request, "complain.html", {"inform": "投诉成功"})
+	return render(request, "complain.html")
+
+def get_compensate(request):
+	return render(request, "compensate.html")
+
+def get_mytable(request):
+	return render(request, "mytable.html")
+
+def get_mytrade(request):
+	return render(request, "trade.html")
+
+def get_relationship(request):
+	return render(request, "relationship.html")
 
 #end 视图
 

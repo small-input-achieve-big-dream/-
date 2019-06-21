@@ -1,186 +1,89 @@
-<!DOCTYPE html>
-<<<<<<< HEAD
-<html lang="en">
-{% include 'topBar.html' %}
-<script type="text/javascript">
-    function validate_required() {
-        var name = document.getElementById('name');
-        var type = document.getElementById('type');
-        var date = document.getElementById('date');
-        var hour = document.getElementById('hour');
-        var duration = document.getElementById('duration');
-        var profile = document.getElementById('profile');
-        var location = document.getElementById('location');
-        if (name==null|| type == null||date == null||hour == null
-            ||duration == null||profile == null||location == null){
-            alert("请将信息填写完整！");
-            return false;
-        }
-        return true;
-    }
-</script>
-<head>
-    <meta charset="UTF-8">
-    <title>{% block title %}活动申请{% endblock %}</title>
-</head>
-<body>
-{% block content %}
-<h1>活动申请</h1>
-<form action="" method="post" name="Form" onsubmit="return validate_required()">
-{% csrf_token %}
-<center>
-<table>
-    <tr>
-        <td>活动名称</td>
-        <td><input type="text" id="name" name="name"></td>
-    </tr>
-    <tr>
-        <td>活动类型</td>
-        <td><input type="text" id="type" name="type"></td>
-    </tr>
-    <tr>
-        <td>活动日期</td>
-        <td>
-            <input type="date" name="date">
-        </td>
-    </tr>
-    <tr>
-        <td>活动时间</td>
-        <td>
-            <select name="hour" id="hour">
-                <option id="10" value="10">10</option>
-                <option id="11" value="11">11</option>
-                <option id="12" value="12">12</option>
-                <option id="13" value="13">13</option>
-                <option id="14" value="14">14</option>
-                <option id="15" value="15">15</option>
-                <option id="16" value="16">16</option>
-                <option id="17" value="17">17</option>
-                <option id="18" value="18">18</option>
-            </select>&nbsp;点
-        </td>
-    </tr>
-    <tr>
-        <td>持续时间<small style="color: rgba(255,0,30,0.91)">(单位: 小时)</small></td>
-        <td><input type="text" id="duration" name="duration"></td>
-    </tr>
-    <tr>
-        <td>位置</td>
-        <td><input type="text" id="location" name="location"></td>
-    </tr>
-    <tr>
-        <td>活动概要</td>
-        <td><textarea rows="5" id="profile" name="profile"></textarea></td>
-    </tr>
-</table>
-<input type="button" value="返回" onclick="window.location.href=''">
-<input type="submit" value="提交" >
-</center>
-</form>
-{% endblock %}
-</body>
-=======
-{% include 'newBar.html' %}
-<html lang="en">
-    <head>
-
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Kharna-Admin Dashboard</title>
-        
-        <!--Favicon -->
-        <link rel="icon" href="favicon.ico" type="image/x-icon"/>
-
-        <!--Bootstrap.min css-->
-        <link rel="stylesheet" href="/static/assets/plugins/bootstrap/css/bootstrap.min.css">
-
-        <!--Icons css-->
-        <link rel="stylesheet" href="/static/assets/css/icons.css">
-
-        <!--Style css-->
-        <link rel="stylesheet" href="/static/assets/css/style.css">
-
-        <!--mCustomScrollbar css-->
-        <link rel="stylesheet" href="/static/assets/plugins/scroll-bar/jquery.mCustomScrollbar.css">
-
-        <!--Sidemenu css-->
-        <link rel="stylesheet" href="/static/assets/plugins/toggle-menu/sidemenu.css">
-
-    </head>
-    <body class="bg-primary">
-        <div id="app">
-            <section class="section section-2">
-                <div class="container">
-                    <div class="row">
-                        <div class="single-page single-pageimage construction-bg cover-image " data-image-src="/static/assets/img/news/img14.jpg">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="wrapper wrapper2">
-                                        <form action = 'login.html' id="login" class="card-body" tabindex="500" method = 'post'>
-                                            <h3>Login</h3>
-                                            <div class="mail">
-                                                <input type="text" name="user">
-                                                <label>Mail or Username</label>
-                                            </div>
-                                            <div class="passwd">
-                                                <input type="password" name="password">
-                                                <label>Password</label>
-                                            </div>
-                                            <div class="submit">
-                                                <a class="btn btn-primary btn-block" href="index.html">Login</a>
-                                            </div>
-                                            <p class="mb-2"><a href="forgot.html" >Forgot Password</a></p>
-                                            <p class="text-dark mb-0">Don't have account?<a href="register.html" class="text-primary ml-1">Sign UP</a></p>
-                                        </form>
-                                        <div class="card-body border-top">
-                                            <a class="btn  btn-social btn-facebook btn-block"><i class="fa fa-facebook"></i> Sign in with Facebook</a>
-                                            <a class="btn  btn-social btn-google btn-block mt-2"><i class="fa fa-google-plus"></i> Sign in with Google</a>
+<div class="row">
+                            <div class="col-lg-3 col-xl-3 col-md-6 col-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="widget text-center">
+                                            <small class="text-muted">Expenses</small>
+                                            <h2>$851</h2>
+                                            <p class="mb-0"><span class="text-danger"><i class="fa fa-chevron-circle-down text-danger ml-1"></i> 4%</span> last month</p>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
-                                    <div class="log-wrapper text-center">
-                                        <img src="/static/assets/img/brand/logo-white.png" class="mb-2 mt-4 mt-lg-0 " alt="logo">
-                                        <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure</p>
-                                        <a class="btn btn-primary mt-3" href="#">Read More</a>
+                            </div>
+                            <div class="col-lg-3 col-xl-3 col-md-6 col-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="widget text-center">
+                                            <small class="text-muted">Invoice</small>
+                                            <h2>$834</h2>
+                                            <p class="mb-0"><span class="text-success"><i class="fa fa-chevron-circle-up text-success ml-1"></i> 3%</span>  last month</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>  
-                    </div>
-                </div>
-            </section>
-        </div>
+                            <div class="col-lg-6 col-xl-3 col-md-6 col-12">
+                                <div class="card bg-primary text-white">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="icon1 text-center">
+                                                    <i class="ion-ios-pie-outline"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="mt-3 text-center">
+                                                    <span class="text-white">Sales</span>
+                                                    <h2 class="text-white mb-0">854</h2>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-xl-3 col-md-6 col-12">
+                                <div class="card bg-success text-white">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="icon1 text-center">
+                                                    <i class="ion-ios-people-outline"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="mt-3 text-center">
+                                                    <span class="text-white">Taxes</span>
+                                                    <h2 class="text-white mb-0">876</h2>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
-        <!--Jquery.min js-->
-        <script src="/static/assets/js/jquery.min.js"></script>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12 col-xl-8 col-md-12 col-12 col-sm-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4>个人信息</h4>
+                                        {% ifequal applicant_state "0" %}
+                                            <a class="btn btn-app mt-2" href="/verify.html"><i class="fa fa-edit"></i> 请先实名认证</a>
+                                        {% endifequal %}
+                                    </div>
+                                    <div class="card-body">
+                                        <p><b>User ID :</b> {{request.session.userid}}</p>
+                                        <p><b>Emial :</b> {{request.session.user_name}}</p>
+                                        <p><b>手机号 :</b> {{request.session.telephone}} </p>
+                                        <p><b>姓名 :</b> {{ name }}</p>
+                                        <p><b>身份证号 : </b> {{ idcard }} </p>
+                                        <p class="mb-0"><b>住址 : </b> {{ address }} </p>
+                                    </div>
+                                </div>
+                            </div>
 
-        <!--popper js-->
-        <script src="/static/assets/js/popper.js"></script>
-
-        <!--Tooltip js-->
-        <script src="/static/assets/js/tooltip.js"></script>
-
-        <!--Bootstrap.min js-->
-        <!-- <script src="/static/assets/plugins/bootstrap/js/bootstrap.min.js"></script> -->
-
-        <!--Jquery.nicescroll.min js-->
-        <script src="/static/assets/plugins/nicescroll/jquery.nicescroll.min.js"></script>
-
-        <!--Scroll-up-bar.min js-->
-        <script src="/static/assets/plugins/scroll-up-bar/dist/scroll-up-bar.min.js"></script>
-        
-        <script src="/static/assets/js/moment.min.js"></script>
-
-        <!--mCustomScrollbar js-->
-        <script src="/static/assets/plugins/scroll-bar/jquery.mCustomScrollbar.concat.min.js"></script>
-
-        <!--Sidemenu js-->
-        <script src="/static/assets/plugins/toggle-menu/sidemenu.js"></script>
-
-        <!--Scripts js-->
-        <script src="/static/assets/js/scripts.js"></script>
-
-    </body>
->>>>>>> c0bbcd9efc05e7f8145b2b82581464e02e4d00ec
-</html>
+                            <div class="col-lg-12 col-xl-4 col-md-12 col-12 col-sm-12">
+                                <div class="card">
+                                    <div id="calendar-1"></div>
+                                </div>
+                            </div>
+                        </div>

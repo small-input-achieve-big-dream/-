@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+	{% include "head2.html" %}
+	<body class="app ">
+
+		<div id="spinner"></div>
+
+		<div id="app">
+			<div class="main-wrapper" >
+				{% include "extraBar.html" %}
+				{% include "sideBar.html" %}
+				<div class="app-content">
+					<div class="section">
+                    	<ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/manager">{% block title_name %} {% endblock %}</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">{% block page_name %}{% endblock %}</li>
+                        </ol>
+                    </div>
+
+                   	{% block content %}
+
+                   	{% endblock %}
+						
+				</div>
+					
+				<footer class="main-footer">
+					<div class="text-center">
+						Copyright &copy;Kharna-Admin 2018. Design By<a href="https://spruko.com/"> Spruko</a>
+					</div>
+				</footer>
+
+			</div>
+		</div>
+
+		<!--Jquery.min js-->
+		<script src="/static/assets/js/jquery.min.js"></script>
+
+		<!--popper js-->
+		<script src="/static/assets/js/popper.js"></script>
+
+		<!--Tooltip js-->
+		<script src="/static/assets/js/tooltip.js"></script>
+
+		<!--Bootstrap.min js-->
+		<script src="/static/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+
+		<!--Jquery.nicescroll.min js-->
+		<script src="/static/assets/plugins/nicescroll/jquery.nicescroll.min.js"></script>
+
+		<!--Scroll-up-bar.min js-->
+		<script src="/static/assets/plugins/scroll-up-bar/dist/scroll-up-bar.min.js"></script>
+
+		<!--mCustomScrollbar js-->
+		<script src="/static/assets/plugins/scroll-bar/jquery.mCustomScrollbar.concat.min.js"></script>
+
+		<!--Sidemenu js-->
+		<script src="/static/assets/plugins/toggle-menu/sidemenu.js"></script>
+
+		<!--Scripts js-->
+		<script src="/static/assets/js/scripts.js"></script>
+
+	</body>
+</html>

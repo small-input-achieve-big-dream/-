@@ -96,7 +96,7 @@ class table(models.Model):
 	#产品ID
 	productsID = models.IntegerField()
 	#用户ID
-	userID = models.IntegerField()
+	userID = models.CharField(max_length = 30)
 	#被投保人姓名
 	recognizee_name = models.CharField(max_length = 30)
 	#被投保人身份证
@@ -130,7 +130,7 @@ class user_login(models.Model):
 #投保人信息表
 class applicant(models.Model):
 	#用户ID
-	userID = models.IntegerField()
+	userID = models.CharField(max_length = 30)
 	#姓名
 	name = models.CharField(max_length = 30)
 	#身份证
@@ -147,7 +147,7 @@ class applicant(models.Model):
 #被保人信息报
 class recognizee_Infor(models.Model):
 	#身份证
-	userID = models.IntegerField()
+	userID = models.CharField(max_length = 30)
 	#年龄
 	age = models.IntegerField()
 	#姓名
@@ -177,13 +177,15 @@ class realtionship(models.Model):
 #投诉信息表
 class complainInfor(models.Model):
 	# 投诉人用户ID
-	user_ID = models.IntegerField()
+	user_ID = models.CharField(max_length = 30)
+	#原因
+	reason = models.CharField(max_length = 30)
 	# 投诉内容
 	content = models.CharField(max_length = 300)
 	# 状态
 	state = models.BooleanField()
 	# 处理人ID
-	changerID = models.IntegerField()
+	changerID = models.CharField(max_length = 30)
 	# 反馈内容
 	Return = models.CharField(max_length = 60)
 	# 投诉时间
@@ -195,3 +197,18 @@ class complainInfor(models.Model):
 
 class Img(models.Model):
 	img_url = models.ImageField(upload_to='static') # upload_to指定图片上传的途径，如果不存在则自动创建
+
+class information(models.Model):
+	#接收人
+	userid = models.CharField(max_length = 30)
+	#信息类型
+	style = models.CharField(max_length = 20)
+	#详细信息
+	msg = models.CharField(max_length = 200)
+	#标题
+	title = models.CharField(max_length = 30)
+	#发送时间
+	createTime = models.DateTimeField(auto_now = True)
+	class Meta:
+		db_table = "information"
+

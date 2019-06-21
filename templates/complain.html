@@ -1,69 +1,58 @@
-<!DOCTYPE html>
-<html lang="en">
-	{% include "head2.html" %}
+{% extends "emptypage.html" %}
 
-	<body class="app ">
+{% block title_name %}功能{% endblock %}
+{% block page_name %}投诉{% endblock %}
 
-		<div id="spinner"></div>
-
-		<div id="app">
-			<div class="main-wrapper" >
-				{% include "extraBar.html" %}
-				{% include "sideBar.html" %}
-
-				<div class="app-content">
-					<div class="section">
-                    	<ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="#">Pages</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Empty page</li>
-                        </ol>
-						<div class="row">
-							<div class="col-md-12">
-								<div class="card">
-									<div class="card-body">
-										your text here
-									</div>
-								</div>
-							</div>
-						</div>
+{% block content %}
+<!-- <div class="col-lg-12 col-xl-6 col-md-12 col-sm-12"> -->
+	<div class="card">
+		<div class="card-header">
+			<h4><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">投诉表</font></font></h4>
+		</div>
+		<div class="card-body">
+			<form class="form-horizontal" action="#" method="post">
+				<div class="form-group row mb-0">
+					<label class="col-md-3 col-form-label"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">投诉原因</font></font></label>
+					<div class="col-md-9">
+						<select class="form-control" name = "reason">
+							<option><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">理赔条件不合理</font></font></option>
+							<option><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">销售告知不充分或有歧义</font></font></option>
+							<option><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">拒赔理由不充分</font></font></option>
+							<option><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">捆绑销售保险产品</font></font></option>
+							<option><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">未经同意自动续保等问题</font></font></option>
+							<option><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">工作人员态度不好</font></font></option>
+							<option><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">功能太少</font></font></option>
+							<option><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">界面不舒服</font></font></option>
+							<option><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">其他</font></font></option>
+						</select>
 					</div>
 				</div>
-
-				<footer class="main-footer">
-					<div class="text-center">
-						Copyright &copy;Kharna-Admin 2018. Design By<a href="https://spruko.com/"> Spruko</a>
+				<br>
+				<div class="form-group row">
+					<label class="col-md-3 col-form-label"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">用户ID</font></font></label>
+					<div class="col-md-9">
+						<input type="text" class="form-control" name = "userid" readonly="" value={{ request.session.userid }} >
 					</div>
-				</footer>
-
-			</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-md-3 col-form-label"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">详细内容</font></font></label>
+					<div class="col-md-9">
+						<textarea class="form-control" rows="6" maxlength="290" name = "detail"></textarea>
+					</div>
+				</div>
+				<div class="form-group mb-0 mt-2 row justify-content-end">
+					<div class="col-md-9">
+						<button type="submit" class="btn btn-info"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">提交</font></font></button>
+					</div>
+				</div>					
+			</form>
 		</div>
-
-		<!--Jquery.min js-->
-		<script src="/static/assets/js/jquery.min.js"></script>
-
-		<!--popper js-->
-		<script src="/static/assets/js/popper.js"></script>
-
-		<!--Tooltip js-->
-		<script src="/static/assets/js/tooltip.js"></script>
-
-		<!--Bootstrap.min js-->
-		<script src="/static/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
-
-		<!--Jquery.nicescroll.min js-->
-		<script src="/static/assets/plugins/nicescroll/jquery.nicescroll.min.js"></script>
-
-		<!--Scroll-up-bar.min js-->
-		<script src="/static/assets/plugins/scroll-up-bar/dist/scroll-up-bar.min.js"></script>
-
-		<!--mCustomScrollbar js-->
-		<script src="/static/assets/plugins/scroll-bar/jquery.mCustomScrollbar.concat.min.js"></script>
-
-		<!--Sidemenu js-->
-		<script src="/static/assets/plugins/toggle-menu/sidemenu.js"></script>
-
-		<!--Scripts js-->
-		<script src="/static/assets/js/scripts.js"></script>
-
-	</body>
-</html>
+	</div>
+	{% if inform %}
+		<script type="text/javascript">
+			var msg = "{{ inform }}";
+			alert(msg);
+		</script>
+	{% endif %}
+<!-- </div> -->
+{% endblock %}
