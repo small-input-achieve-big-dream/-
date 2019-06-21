@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 #--------包---------#
 from django.shortcuts import render, redirect
 from django.utils.datetime_safe import time
@@ -8,7 +10,7 @@ import random
 from message.models import *
     #插入employee表
 
-from django.shortcuts import HttpResponseRedirect,Http404,HttpResponse,render_to_response
+from django.shortcuts import HttpResponseRedirect,Http404,HttpResponse
 from django.http import HttpResponse, JsonResponse
 
 from django.shortcuts import HttpResponseRedirect,Http404,HttpResponse
@@ -22,28 +24,35 @@ from message.alipay import alipay
 
 def getIndex(request):
 	LIST = {"title":"小投入成就大梦想"}
-	LIST['user_name'] = request.session.get('user_name', '')
-	print(LIST)
+	DICT = {}
+	if request.method == 'GET':
+		DICT = request.GET.dict()
+		action = DICT.pop('action', None)
+		if action == 'logout':
+			if request.session['userid']:
+				del request.session['userid']
+			if request.session['user_name']:
+				del request.session['user_name']
+			print('delete session')
 	return render(request, 'index.html', LIST)
 
 def getAbout_us(request):
 	LIST = {"title":"关于我们"}
-	LIST['user_name'] = request.session.get('user_name', '')
 	return render(request, 'about-us.html', LIST)
 
 def get404(request):
 	LIST = {"title":"找不到页面"}
-	LIST['user_name'] = request.session.get('user_name', '')
 	return render(request, '404.html', LIST)
 
 def gettest(request):	
-	LIST = {"title":"测试"}
-	LIST['user_name'] = request.session.get('user_name', '')
-	return render(request, 'test.html', LIST)
+	LIST = ['test1', 'test2']
+	DICT = {'test3': '123', 'test4': '321'}
+	return render(request, 'test.html', {'List': json.dumps(LIST), 'Dict': json.dumps(DICT)})
+	# LIST = {"title":"测试"}
+	# return render(request, 'test.html', LIST)
 
 def getservices(request):
 	LIST = {}
-	LIST['user_name'] = request.session.get('user_name', '')
 	if request.POST:
 		LIST = request.POST.dict()
 		if LIST.get('measure') != None:
@@ -56,20 +65,23 @@ def getservices(request):
 
 def login(request):
 	LIST = {}
-	LIST['user_name'] = request.session.get('user_name', '')
 	if request.method == 'POST':
 		name = request.POST.get('user')
-		pwd = request.POST.get('pw')
-		print(name)
-		if '@' in name:
-			Dao = user_login.objects.filter(email = name, password = pwd)[:1]
-		else:
-			Dao = user_login.objects.filter(telephone = name, password = pwd)[:1]
+		pwd = request.POST.get('password')
+		try:
+			if '@' in name:
+				Dao = user_login.objects.filter(email = name, password = pwd)[:1]
+			else:
+				Dao = user_login.objects.filter(telephone = name, password = pwd)[:1]
+		except Exception as e:
+			return render(request, 'login.html', {'error': '用户名格式不对'})
 		print(Dao)
 		if Dao.exists():
 			ID = Dao[0].id
 			request.session['userid'] = ID
 			request.session['user_name'] = Dao[0].email
+			request.session['telephone'] = Dao[0].telephone
+			request.session['power'] = Dao[0].power
 			print(request.session.get('user_name', None))
 			return render(request, 'index.html', {'user_name': Dao[0].email})
 		else:
@@ -78,7 +90,6 @@ def login(request):
 
 def givemoney(request):
 	LIST = {}
-	LIST['user_name'] = request.session.get('user_name', '')
 	if request.method == 'GET':
 		return render(request, "givemoney.html")
 	if request.method == 'POST':
@@ -100,7 +111,7 @@ def givemoney(request):
 
 		img = Img(img_url=request.FILES.get('img'))
 		img.save()
-		return  render_to_response('index.html')
+		return  render(request, 'index.html')
 
 
 def see(request):
@@ -109,25 +120,23 @@ def see(request):
 
 
 def register(request):
-	LIST = {}
-	LIST['user_name'] = request.session.get('user_name', '')
-	idcard  = user_login.objects.all()
-	# user_loginList = user_login.objects.all()
-
+	print(request.method)
 	if request.method == 'GET':
 		return render(request, "register.html")
 	if request.method == 'POST':
 		tel = request.POST.get('tel')
 		em = request.POST.get('email')
 		pwd = request.POST.get('password1')
+		print(tel, em, pwd)
 		Dao = user_login.objects.filter(Q(telephone=tel) | Q(email=em))
+		print(Dao)
 		if Dao.exists():
 			return render(request, 'register.html', {'error': '用户已存在'})
 		else:
 			user_login.objects.create(
-				telephone=tel,
-				email=em,
-				password=pwd,
+				telephone=int(tel),
+				email=str(em),
+				password=str(pwd),
 				power='0'
 			)
 			return render(request, "login.html", locals())
@@ -136,12 +145,11 @@ def register(request):
 def realname(request):
 
 		LIST = {}
-		LIST['user_name'] = request.session.get('user_name', '')
 		idcard = user_login.objects.all()
 		# user_loginList = user_login.objects.all()
 
 		if request.method == 'GET':
-			return render(request, "realname.html")
+			return render(request, "verify.html")
 		if request.method == 'POST':
 			real= request.POST.get('idcard')
 			na = request.POST.get('name')
@@ -159,12 +167,11 @@ def realname(request):
 				test = user_login.objects.all()
 				return render(request, "index.html", locals())
 			else:
-				return render(request, "realname.html", locals())
+				return render(request, "verify.html", locals())
 
 
 def get_finish_pay(request):
 	LIST = {}
-	LIST['user_name'] = request.session.get('user_name', '')
 	try:
 		LIST['total_amount'] = request.GET['total_amount']
 		LIST['timestamp'] = request.GET['timestamp']
@@ -176,8 +183,46 @@ def get_finish_pay(request):
 		return render(request, '404.html', LIST)
 
 
+#-----------KA tmp-----------#
+def get_admin(request):
+	ID = request.session.get('userid', None)
+	if ID == None:
+		return render(request, 'index.html')
+	Applicant = applicant.objects.filter(userID = ID)[:1]
+	if Applicant.exists():
+		LIST = {
+			"name": Applicant[0].name,
+			"idcard": Applicant[0].idcard,
+			"address": Applicant[0].address
+		}
+		return render(request, 'admin.html', LIST)
+	else:
+		LIST = {'apllicant_state': '0'}
+		return render(request, 'admin.html')
 
+def get_verify(request):
+	LIST = {}
+	if request.method == 'GET':
+		return render(request, "verify.html")
+	if request.method == 'POST':
+		idcard = request.POST.get('idcard')
+		name = request.POST.get('name')
+		address = request.POST.get('address')
 
+		if applicant_real.objects.filter(userID = idcard).exists() == True:
+			if applicant_real.objects.filter(name = name).exists() == True:
+				applicant.objects.create(
+				userID = request.session.get('userid', None),
+				name = name,
+				idcard = idcard,
+				address = address,
+				style = '0',
+				score = '0'
+			)
+			test = user_login.objects.all()
+			return render(request, "index.html", locals())
+		else:
+			return render(request, "verify.html", locals())
 
 #end 视图
 

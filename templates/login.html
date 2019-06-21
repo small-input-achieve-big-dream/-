@@ -1,72 +1,106 @@
-    
-<html class="js sizes customelements history pointerevents postmessage webgl websockets cssanimations csscolumns csscolumns-width csscolumns-span csscolumns-fill csscolumns-gap csscolumns-rule csscolumns-rulecolor csscolumns-rulestyle csscolumns-rulewidth csscolumns-breakbefore csscolumns-breakafter csscolumns-breakinside flexbox picture srcset webworkers translated-ltr" lang="zh-CN">
+<!DOCTYPE html>
+{% include 'newBar.html' %}
+<html lang="en">
+    <head>
 
-{% include "head.html" %}
-<body>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Kharna-Admin Dashboard</title>
+        
+        <!--Favicon -->
+        <link rel="icon" href="favicon.ico" type="image/x-icon"/>
 
-        {% include "topBar.html" %}
-        <!-- Breacrumb Area -->
-        <div class="breadcrumb-area" data-black-overlay="2">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
-                        <div class="cr-breadcrumb text-center">
-                            <h2>小投入成就大梦想用户登录</h2>
-                                    <a href="register.html" class="heart_a2">
-                                    <div>还没注册？新用户点这里</div>
-                                    </a>
-                            <h2 style="color:red; text-align: center;">{{ error }}</h2>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--// Breacrumb Area -->
+        <!--Bootstrap.min css-->
+        <link rel="stylesheet" href="/static/assets/plugins/bootstrap/css/bootstrap.min.css">
 
-        <!-- Page Content -->
-        <main class="page-content">
-            <!-- 404 Area Start -->
+        <!--Icons css-->
+        <link rel="stylesheet" href="/static/assets/css/icons.css">
 
-            <section class="four-zero-four ptb-130">
+        <!--Style css-->
+        <link rel="stylesheet" href="/static/assets/css/style.css">
+
+        <!--mCustomScrollbar css-->
+        <link rel="stylesheet" href="/static/assets/plugins/scroll-bar/jquery.mCustomScrollbar.css">
+
+        <!--Sidemenu css-->
+        <link rel="stylesheet" href="/static/assets/plugins/toggle-menu/sidemenu.css">
+
+    </head>
+    <body class="bg-primary">
+        <div id="app">
+            <section class="section section-2">
                 <div class="container">
                     <div class="row">
-                            <div class="four-zero-content text-center">
-                                <div style="width:100%;text-align:center">
-                                    <form action="" method= "post">
-                                        {% csrf_token %}
-                                        <fieldset style="width: 800px; height: 500px; margin: 0 auto; position: absolute; top: 650px; left:50%;margin-left:-400px;" >
-                                            <legend align="center">用户登录</legend></br>
-                                            <label> 用户账号</label>
-                                            <input type="text"  name="user" value="(邮箱或者手机号)"></br>
-                                            <label>密&nbsp&nbsp码：</label>
-                                            <input type="password" id="password"  name="pw"><br><br>
-                                            <input type="submit" value="提交"><br><br>
-                                            <input type="reset" value="重置" onclick="cleartext()">
-                                        </fieldset>
-                                    </form>
+                        <div class="single-page single-pageimage construction-bg cover-image " data-image-src="/static/assets/img/news/img14.jpg">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="wrapper wrapper2">
+                                        <form action = 'login.html/' id="login" class="card-body" tabindex="500" method = 'post'>
+                                            <h3>Login</h3>
+                                            <div class="mail">
+                                                <input type="text" name="user">
+                                                <label>电子邮箱或者手机号</label>
+                                            </div>
+                                            <div class="passwd">
+                                                <input type="password" name="password">
+                                                <label>密码</label>
+                                            </div>
+                                            <div class="submit">
+                                                <input class="btn btn-primary btn-block" type='submit'>
+                                            </div>
+                                            <p class="mb-2"><a href="/forgot.html" >忘记密码</a></p>
+                                            <p class="text-dark mb-0">还没有账号?<a href="/register.html" class="text-primary ml-1">注册</a></p>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="log-wrapper text-center">
+                                        <img src="/static/assets/img/brand/logo-white.png" class="mb-2 mt-4 mt-lg-0 " alt="logo">
+                                        <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure</p>
+                                        <a class="btn btn-primary mt-3" href="#">Read More</a>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                        </div>  
                     </div>
                 </div>
             </section>
+        </div>
 
-            <!-- 404 Area End -->
-        </main>
-        <!--// Page Content -->
+        <!--Jquery.min js-->
+        <script src="/static/assets/js/jquery.min.js"></script>
 
-    <!-- JS Files -->
-        <script>
-                function cleartext() {
-                    var obj = document.getElementById('user');
-                    obj.value = '';
-                }
+        <!--popper js-->
+        <script src="/static/assets/js/popper.js"></script>
+
+        <!--Tooltip js-->
+        <script src="/static/assets/js/tooltip.js"></script>
+
+        <!--Bootstrap.min js-->
+        <!-- <script src="/static/assets/plugins/bootstrap/js/bootstrap.min.js"></script> -->
+
+        <!--Jquery.nicescroll.min js-->
+        <script src="/static/assets/plugins/nicescroll/jquery.nicescroll.min.js"></script>
+
+        <!--Scroll-up-bar.min js-->
+        <script src="/static/assets/plugins/scroll-up-bar/dist/scroll-up-bar.min.js"></script>
+        
+        <script src="/static/assets/js/moment.min.js"></script>
+
+        <!--mCustomScrollbar js-->
+        <script src="/static/assets/plugins/scroll-bar/jquery.mCustomScrollbar.concat.min.js"></script>
+
+        <!--Sidemenu js-->
+        <script src="/static/assets/plugins/toggle-menu/sidemenu.js"></script>
+
+        <!--Scripts js-->
+        <script src="/static/assets/js/scripts.js"></script>
+
+        <script type="text/javascript">
+            {% if error %}
+                var error = "{{ error }}"
+                alert(error)
+            {% endif %}
         </script>
-    <script src="/static/js/vendor/jquery-3.2.1.min.js"></script>
-    <script src="/static/js/popper.min.js"></script>
-    <script src="/static/js/bootstrap.min.js"></script>
-    <script src="/static/js/plugins.js"></script>
-    <script src="/static/js/active.js"></script>
-    <script src="/static/js/scripts.js"></script>
-</body>
-
+    </body>
 </html>

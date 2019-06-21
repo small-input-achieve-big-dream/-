@@ -44,7 +44,7 @@
 
 		<!--main 在这里写入代码 START-->
         {% include "head.html" %}
-        {% include "topBar.html" %}
+        {% include "newBar.html" %}
         <div class="breadcrumb-area" data-black-overlay="2">
             <div class="container">
                 <div class="row">
@@ -98,31 +98,54 @@
 						</ul>
 					</div>
 
-					<div class="myform fr">
-                        <form action="" method="post">
-                        	{% csrf_token %}
-                            <center><label style="color: red; font-size: 50px;">{{ answer }}</label></center>
-                            <center>
-                               <p><h5>投保人年龄:</h5><input type="text" name="age"/></p> 
-                                <!-- <p style="height: 10px; margin: 5px 0"></p> -->
-                                <p><h5>投保人投保金额:</h5><input type="text" name="money"/></p>  
-                                <!-- <p style="height: 10px; margin: 5px 0"></p> -->
-                                <p><h5>投保人投保姓名:</h5><input type="text" name="name"/></p> 
-                                <!-- <p style="height: 10px; margin: 5px 0"></p> -->
-                                <p><h5>投保人投保身份证:</h5><input type="text" name="recognizee_ID"/></p> 
-                                <!-- <p style="height: 10px; margin: 5px 0"></p> -->
-                                <p><h5>投保人交费方式:</h5>
-                                    <select name="approach">
-                                        <option value = "one">单次</option>
-                                        <option value = "week">周交</option>
-                                        <option value = "month">月交</option>
-                                        <option value = "year">年交</option>
-                                    </select></p>
-                                <button type="submit" name="measure" style="height: 40px; width: 80px">保费测算</button>
-                                <button type="submit" name="buy" style="height: 40px; width: 80px">购买保单</button>
-                            </center>
-                        </form>
-                    </div>
+					<div class="card">
+						<div class="card-header">
+							<h4>{{ answer }}</h4>
+						</div>
+						<div class="card-body">
+							<form class="form-horizontal" action = "" method="post">
+								{% csrf_token %}
+								<div class="form-group row">
+									<label class="col-md-3 col-form-label">姓名</label>
+									<div class="col-md-9">
+										<input class="form-control" type="text" value="" name = "name">
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-md-3 col-form-label">身份证</label>
+									<div class="col-md-9">
+										<input class="form-control" type="text" value="" name = "recognizee_ID">
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-md-3 col-form-label">出生日期</label>
+									<div class="col-md-9">
+										<input name="date" class="form-control" type="date" name = "age">
+									</div>
+								</div>
+								<div class="form-group row mb-0">
+									<label class="col-md-3 col-form-label">交费方式</label>
+									<div class="col-md-9">
+										<select class="form-control" name = "approach">
+											<option>单次</option>
+											<option>周交</option>
+											<option>月交</option>
+											<option>年交</option>
+										</select>
+									</div>
+								</div>
+								<br>
+								<div class="form-group row mb-0">
+									<label class="col-md-3 col-form-label">支付金额</label>
+									<div class="col-md-9">
+										<input name="number" class="form-control" type="number">
+									</div>
+								</div>
+								<input class="btn btn-warning m-b-5 m-t-5" type="submit" name="measure" value="保费测算">
+								<input class="btn btn-danger m-b-5 m-t-5" type="submit" name="buy" value="购买订单">
+							</form>
+						</div>
+					</div>
 				</div>
 			</div>
 
