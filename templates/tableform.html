@@ -1,0 +1,61 @@
+{% extends "emptypage.html" %}
+
+{% block title_name %}功能{% endblock %}
+{% block page_name %}我的保单{% endblock %}
+
+{% block content %}
+	<div class="card">
+		<div class="card-header">
+			<h4>保单填写</h4>
+		</div>
+		<div class="card-body">
+			<form class="form-horizontal" method="post" action="/table_detail.html/">
+				{% csrf_token %}
+				<div class="form-group row">
+					<label class="col-md-3 col-form-label">产品ID</label>
+					<div class="col-md-9">
+						<input class="form-control" type="text" readonly="" value="{{productID}}" name = "productID">
+					</div>
+					<input type="hidden" name = "status" value="pay">
+				</div>
+				<br>
+				<div class="form-group row mb-0">
+					<label class="col-md-3 col-form-label">被保人<a class="btn btn-sm btn-primary m-b-5 m-t-5" href="/relationship.html">添加</a></label>
+					<div class="col-md-9">
+						<select class="form-control" name = "recognizee">
+							{% for item in LIST %}
+								<option value="{{ item.userID }}">{{ item.name }}</option>
+							{% endfor %}
+						</select>
+					</div>
+				</div>
+				<br>
+				<div class="form-group row mb-0">
+					<label class="col-md-3 col-form-label">交费周期</label>
+					<div class="col-md-9">
+						<select class="form-control"  name = "cycle">
+							<option>单次</option>
+							<option>周交</option>
+							<option>月交</option>
+							<option>年交</option>
+						</select>
+					</div>
+				</div>
+				<br>
+				<div class="form-group row mb-0">
+					<label class="col-md-3 col-form-label">投入金额</label>
+					<div class="col-md-9">
+						<input name="number" class="form-control" type="number">
+					</div>
+				</div>
+				<br>
+				<div class="form-group mb-0 mt-2 row justify-content-end">
+					<div class="col-md-9">
+						<button class="btn btn-info" type="submit">提交</button>
+						<button class="btn btn-primary" type="reset">重置</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+{% endblock %}

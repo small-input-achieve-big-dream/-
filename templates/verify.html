@@ -45,7 +45,7 @@
 											<div class="form-group mb-0 mt-2 row justify-content-end">
 												<div class="col-md-9">
 													<button class="btn btn-info" type="submit">确认</button>
-													<button class="btn btn-primary" type="submit">取消</button>
+													<button class="btn btn-primary" type="reset">取消</button>
 												</div>
 											</div>
 										</form>
@@ -89,6 +89,10 @@
 
 		<!--Scripts js-->
 		<script src="/static/assets/js/scripts.js"></script>
-
+		{% if error %}
+			<script type="text/javascript">
+				alert("{{error}}")
+			</script>
+		{% endif %}
 	</body>
 </html>

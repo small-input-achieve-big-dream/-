@@ -1,0 +1,98 @@
+{% extends "emptypage.html" %}
+
+{% block title_name %}功能{% endblock %}
+{% block page_name %}保单{% endblock %}
+
+{% block content %}
+<div class="row">
+	<div class="col-12">
+		<div class="card">
+			<div class=" mb-0">
+				<div class="clearfix card-body p-3 border-bottom">
+					<div class="pull-left">
+						<h5 class="mb-0">Invoice#550</h5>
+					</div>
+					<div class="pull-right">
+						<p class="text-muted mb-0 mt-1">{{time}}</p>
+					</div>
+				</div>
+					
+				<form method="post" action="/pay.html/">
+					{% csrf_token %}
+				<div class="row card-body">
+					<div class="col-md-12">
+						<div class="pull-left m-t-5 m-b-5">
+							<h6>客户信息 :</h6>
+							<address class="mb-0">
+								userid: {{request.session.userid}}<br>手机号：{{request.session.telephone}}<br>
+							</address>
+						</div>
+						<div class="pull-right m-t-5 m-b-5">
+							<h6>被保人信息 :</h6>
+							<p class="mb-1"><span class="text-muted">姓名: </span> {{name}}</p>
+							<input type="hidden" name = "name" value = "{{name}}">
+							<p class="mb-1"><span class="text-muted">身份证: </span> {{recognizee}}</p>
+							<input type="hidden" name = "recognizee" value = "{{recognizee}}">
+							<p class="mb-1"><span class="text-muted">产品类型: </span> {{productsStyle}}</p>
+						</div>
+					</div><!-- end col -->
+				</div>
+				<!-- end row -->
+
+				<div class="card-body pt-0">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="table-responsive">
+								<table class="table border table-bordered text-nowrap">
+									<thead>
+										<tr>
+											<th class="border-0 text-uppercase  font-weight-bold">产品ID</th>
+											<th class="border-0 text-uppercase  font-weight-bold">产品名称</th>
+											<th class="border-0 text-uppercase font-weight-bold">交费年限</th>
+											<th class="border-0 text-uppercase  font-weight-bold">交费周期</th>
+											<th class="border-0 text-uppercase  font-weight-bold">预计回报</th>
+											<th class="border-0 text-uppercase  font-weight-bold">投入金额</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>{{productID}}</td>
+											<input type="hidden" name = "productID" value = "{{productID}}">
+											<td>{{productsName}}</td>
+											<input type="hidden" name = "productsName" value = "{{productsName}}">
+											<td>{{date}}</td>
+											<td>{{cycle}}</td>
+											<input type="hidden" name = "cycle" value = "{{cycle}}">
+											<td>$321</td>
+											<td>${{number}}</td>
+											<input type="hidden" name = "number" value = "{{number}}">
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+					<div class="row ">
+						<div class="col-xl-4 col-12 offset-xl-8">
+							<p class="text-right"><strong>目前应付金额:</strong> ${{number}}</p>
+							<p class="text-right"></p>
+							<hr>
+							<h5 class="text-right">总应付金额 :<strong> ${{number}}</strong></h5>
+						</div>
+					</div>
+					<div class=" mb-0">
+						<div class="pull-right">
+							<a class="btn btn-primary  m-b-5 m-t-5" href="#"><i class="fa fa-print"></i> 打印 </a>
+							{% if status %}
+								<button class="btn btn-info m-t-5 m-b-5" type="submit"><i class="fa fa-credit-card"></i>  支付</a>
+							{% endif %}
+						</div>
+						<div class="clearfix"></div>
+					</div>
+				</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

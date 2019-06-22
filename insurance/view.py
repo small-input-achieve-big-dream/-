@@ -53,21 +53,39 @@ def gettest(request):
 
 def getservices(request):
 	LIST = {}
-	if request.POST:
+	if request.method == "GET":
+		Dict = request.GET.dict()
+		num = Dict.get('productID', None)
+		if num != None:
+			items = products.objects.filter(id = num)[:1]
+			if items.exists():
+				LIST = model_to_dict(items[0])
+				LIST['productID'] = num
+				return render(request, 'services.html', LIST)
+	if request.method == "POST":
 		LIST = request.POST.dict()
 		if LIST.get('measure') != None:
 			LIST['answer'] = count_money(LIST)
 		elif LIST.get('buy') != None:
-			url = ''
-			# url = alipay.get_payment(name = , num = , account = LIST['money'])
-			return redirect(url)
-	return render(request, 'services.html', LIST)
+			LIST = {"productID": request.GET.get('productID', None)}
+			if request.session.get('userid', False):
+				ID = request.session.get('userid')
+				items = realtionship.objects.filter(userID = ID)
+				if items.exists():
+					items = [i.recognizee_ID for i in items]
+					items = [recognizee_Infor.objects.filter(userID = x)[:1][0] for x in items]
+					LIST['LIST'] = items
+				return render(request, 'tableform.html', LIST)
+			else:
+				return render(request, '404.html', {'code_error': '没有登录无法使用功能'})
+	return render(request, '404.html', LIST)
 
 def login(request):
 	LIST = {}
 	if request.method == 'POST':
 		name = request.POST.get('user')
 		pwd = request.POST.get('password')
+		print(name, pwd)
 		try:
 			if '@' in name:
 				Dao = user_login.objects.filter(email = name, password = pwd)[:1]
@@ -171,16 +189,29 @@ def realname(request):
 
 
 def get_finish_pay(request):
-	LIST = {}
-	try:
-		LIST['total_amount'] = request.GET['total_amount']
-		LIST['timestamp'] = request.GET['timestamp']
-		LIST['out_trade_no'] = request.GET['out_trade_no']
-		upload_trade_record(LIST)
-		return render(request, 'finish_pay.html', LIST)
-	except Exception as e:
-		LIST['code_error'] = e.args
-		return render(request, '404.html', LIST)
+	pay = alipay.get_payment()
+	if request.method == "GET":
+		try:
+			LIST = request.GET.dict()
+			sign = LIST.pop('sign', None)
+			status = pay.verify(LIST, sign)
+			if status:
+				upload_trade_record(LIST)
+				return render(request, 'finish_pay.html', LIST)
+			else:
+				return render(request, '404.html')
+		except Exception as e:
+			LIST['code_error'] = e.args
+			return render(request, '404.html', LIST)
+	else:
+		LIST = request.POST.dict()
+		sign = LIST.pop('sign', None)
+		status = pay.verify(LIST, sign)
+		if status:
+			upload_trade_record(LIST)
+			return render(request, 'finish_pay.html', LIST)
+		else:
+			return render(request, '404.html')
 
 
 #-----------KA tmp-----------#
@@ -210,15 +241,18 @@ def get_verify(request):
 
 		if applicant_real.objects.filter(userID = idcard).exists() == True:
 			if applicant_real.objects.filter(name = name).exists() == True:
-				applicant.objects.create(
-				userID = request.session.get('userid', None),
-				name = name,
-				idcard = idcard,
-				address = address,
-				style = '0',
-				score = '0'
-			)
-			return render(request, "admin.html", locals())
+				if not applicant.objects.filter(idcard = idcard).exists():
+					applicant.objects.create(
+						userID = request.session.get('userid', None),
+						name = name,
+						idcard = idcard,
+						address = address,
+						style = '0',
+						score = '0'
+					)
+				else:
+					return render(request, "verify.html", {"error": 已有该信息})
+			return render(request, "admin.html")
 		else:
 			return render(request, "verify.html", locals())
 
@@ -248,11 +282,95 @@ def get_complain(request):
 def get_compensate(request):
 	return render(request, "compensate.html")
 
+def pay(request):
+	"""
+	不是界面但是支付中转，为了使得逻辑简洁
+	"""
+	if request.method == "POST":
+		DICT = request.POST.dict()
+		try:
+			table.objects.create(
+				productsID = DICT["productID"],
+				userID = request.session.get("userid", None),
+				recognizee_name = DICT["name"],
+				recognizee_ID = DICT["recognizee"],
+				payCycle = DICT["cycle"],
+				money = DICT["number"],
+				state = 0,
+			)
+			table_num = table.objects.filter(productsID = DICT["productID"], userID = request.session.get("userid", None),
+			 recognizee_ID = DICT["recognizee"], payCycle = DICT["cycle"], money = DICT["number"])
+			if table_num.exists():
+				paytool = alipay.get_payment()
+				url = paytool.get(DICT["name"], table_num[0].id, DICT["number"])
+				return redirect(url)
+		except Exception as e:
+			print(e.args)
+			return render(request, "admin.html")
+	return render(request, "admin.html")
+
 def get_mytable(request):
-	return render(request, "mytable.html")
+	ID = request.session.get('userid', None)
+	if ID == None:
+		return render('404.html')
+	items = table.objects.filter(userID = ID)
+	LIST = []
+	for i in items:
+		tmp = model_to_dict(i)
+		conn = products.objects.get(id = i.productsID)
+		tmp.update(model_to_dict(conn))
+		LIST.append(tmp)
+	print(LIST)
+	return render(request, "mytable.html", {"LIST": LIST})
 
 def get_mytrade(request):
-	return render(request, "trade.html")
+	ID = request.session.get('userid', None)
+	if ID == None:
+		return render(request, '404.html')
+	items = trade_records.objects.filter(userID = ID)
+	LIST = []
+	for i in items:
+		tmp = model_to_dict(i)
+		conn = table.objects.get(id = i.tableID)
+		tmp.update(model_to_dict(conn))
+		LIST.append(tmp)
+	print(LIST)
+	return render(request, "trade.html", {"LIST": LIST})
+
+def get_tableform(request):
+	return render(request, "tableform.html")
+
+def get_showtable(request):
+	if request.method == "GET":
+		return render(request, "404.html")
+	else:
+		LIST = request.POST.dict()
+		if LIST.get("recognizee_ID", False) and LIST.get("productID", False):
+			user = table.objects.filter(productsID=LIST["productID"])[:1]
+			product = products.objects.filter(id=LIST["productID"])[:1]
+			if user.exists() and product.exists():
+				LIST.update(model_to_dict(user[0]))
+				LIST.update(model_to_dict(product[0]))
+				print(LIST)
+				return render(request, "showtable.html", LIST)
+	return render(request, "showtable.html")
+
+def get_table_detail(request):
+	"""
+	输入(productID, recognizee, userid) 
+	输出整个页面
+	"""
+	if request.method == "POST":
+		LIST = request.POST.dict()
+		if LIST.get("recognizee", False) and LIST.get("productID", False):
+			user = recognizee_Infor.objects.filter(userID=LIST["recognizee"])[:1]
+			product = products.objects.filter(id=LIST["productID"])[:1]
+			if user.exists() and product.exists():
+				LIST.update(model_to_dict(user[0]))
+				LIST.update(model_to_dict(product[0]))
+				print(LIST)
+				return render(request, "table_detail.html", LIST)
+	return render(request, "404.html", {"code_error":"不能直接访问"})
 
 def get_relationship(request):
 	if request.session.get('userid', False) != False:
@@ -301,6 +419,7 @@ def get_smallinform(request):
 		return render(request, "small_inform.html", {'LIST': items2})
 	return render(request, "small_inform.html")
 
+
 #end 视图
 
 #----------逻辑------------#
@@ -311,10 +430,17 @@ def upload_trade_record(LIST):
 	"""
 	上传交易记录
 	"""
-	conn = trade_Records()
-	conn.tableID = LIST['out_trade_no']
-	conn.trade_money = LIST['total_amount']
-	conn.save()
+	if not trade_records.objects.filter(tableID=LIST['out_trade_no'], trade_money=LIST['total_amount']).exists():
+		conn = trade_records()
+		conn.tableID = LIST['out_trade_no']
+		conn.trade_money = LIST['total_amount']
+		conn.userID = request.session.get('userid', None)
+		conn.save()
+		conn = table.objects.get(id=LIST['out_trade_no'])
+		if conn != None:
+			conn.state = True
+			conn.save()
+			print(conn.state)
 
 
 def count_money(LIST):
@@ -325,6 +451,37 @@ def count_money(LIST):
 	answer = "金额: " + str(answer)
 	return answer
 
+def count_money2(LIST):
+    """
+    计算获益金额【用于保费测算和保单付款】
+    """
+    # pM = {"week": 0, "month": 1, "one time": 2}
+    dL = {3: 3, 5: 5, 18: 0}
+    productsid = LIST['productsID']
+    pM_key = LIST['paymethod']
+    dL_key = LIST['deadline']
+    money = LIST['money']
+    for key, value in dL.items():
+        if dL_key == key:
+            if value != 0:
+                dL_value = value  # dL_value-交费年限
+            else:
+                birth = LIST['recognizee'][6:13]
+                birthday = datetime.datetime.strptime(birth, "%Y%m%d")
+                today = datetime.datetime.now()
+                dL_value = 18 + birthday.year - today.year
+            break
+    if pM_key == 0:
+        sum_money = dL_value * 52 * money
+    elif pM_key == 1:
+        sum_money = dL_value * 12 * money
+    else:
+        sum_money = money
+    returncase = profit.objects.get(productsID=productsid, deadLine=dL_key, payMethod=pM_key).Returen
+    account_value = sum_money * 0.85
+    answer = account_value * (1 + returncase)
+    answer = "金额: " + str(answer)
+    return answer
 # def create_table()
 # 	pass
 

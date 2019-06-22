@@ -135,14 +135,9 @@
 								</div>
 								<br>
 								<div class="form-group row mb-0">
-									<label class="col-md-3 col-form-label">交费方式</label>
+									<label class="col-md-3 col-form-label">年龄</label>
 									<div class="col-md-9">
-										<select class="form-control" name = "approach">
-											<option>单次</option>
-											<option>周交</option>
-											<option>月交</option>
-											<option>年交</option>
-										</select>
+										<input name="number" class="form-control" type="number">
 									</div>
 								</div>
 								<br>
@@ -153,6 +148,7 @@
 									</div>
 								</div>
 								<br>
+								<input type="hidden" name="productID" value = "{{productID}}">
 								<input class="btn btn-warning m-b-5 m-t-5" type="submit" name="measure" value="保费测算">
 								<input class="btn btn-danger m-b-5 m-t-5" type="submit" name="buy" value="购买订单">
 							</form>
@@ -198,17 +194,17 @@
 				<h2 class="m-bt">投保须知</h2>
 				<div class="boxmain-inner">
 					<ul class="clearfix">
-						<li><span>投保人年龄</span>20周岁—60周岁</li>
-						<li><span>被保人年龄</span>出生满28天—13周岁</li>
+						<li><span>投保人年龄</span>{{age_range}}</li>
+						<li><span>被保人年龄</span>{{recognizee_age_range}}</li>
 						<li><span>保障金额</span>最低1万元</li>
-						<li><span>保障期限</span>至25周岁保单周年日</li>
+						<li><span>保障期限</span>{{date}}</li>
 						<li><span>交费年限</span>3年/5年/10年</li>
 						<li><span>交费方式</span>年交/半年交/季交/月交</li>
 					</ul>
 					<dl>
-						<dt><p>产品名称：珍爱宝贝少儿教育年金保险产品计划</p></dt>
+						<dt><p>产品名称：{{product_name }}</p></dt>
 						<dd>
-							<p>投保地区：<span id="fname">广东、北京、上海、江苏、浙江、山东、四川、重庆、湖北、陕西、辽宁、湖南、河南、江西、天津</span></p>
+							<p>投保地区：<span id="fname">{{ product_des }}</span></p>
 						</dd>
 					</dl>
 				</div>

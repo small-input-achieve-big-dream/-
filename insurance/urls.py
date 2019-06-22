@@ -49,6 +49,10 @@ urlpatterns = [
     re_path(r'.*relationship.html/$', view.get_relationship),
     re_path(r'.*small.html/$', view.get_smallinform),
     re_path(r'.*add_recognizee.html/$', view.get_add_recognizee),
+    re_path(r'.*tableform.html/$', view.get_tableform),
+    re_path(r'.*table_detail.html/$', view.get_table_detail),
+    re_path(r'.*pay.html/$', view.pay),
+    re_path(r'.*showtable.html/$', view.get_showtable),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS)

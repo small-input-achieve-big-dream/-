@@ -55,11 +55,11 @@ class products(models.Model):
 	productsStyle = models.CharField(max_length = 30)
 	#产品描述
 	productsDes = models.CharField(max_length = 60)
-	#投投保人年龄范围
+	#投保人年龄范围
 	age_range = models.CharField(max_length = 60)
 	#被保人年龄范围
 	recognizee_age_range = models.CharField(max_length = 60)
-	#保险期间
+	#保险期限
 	date = models.CharField(max_length = 60)
 	#已成交单数
 	dealCount = models.IntegerField()
@@ -67,7 +67,9 @@ class products(models.Model):
 		db_table = "products"
 
 #交易记录表
-class trade_Records(models.Model):
+class trade_records(models.Model):
+	#用户ID
+	userID = models.CharField(max_length = 30)
 	#保单ID
 	tableID = models.CharField(max_length = 30, unique = True)
 	#交易金额
@@ -75,7 +77,7 @@ class trade_Records(models.Model):
 	#创建时间
 	startTime = models.DateTimeField(default = datetime.datetime.now)
 	class Meta:
-		db_table = "trade_Records"
+		db_table = "trade_records"
 
 #保险收益明细表
 class profit(models.Model):
@@ -101,17 +103,17 @@ class table(models.Model):
 	#被投保人姓名
 	recognizee_name = models.CharField(max_length = 30)
 	#被投保人身份证
-	recognizee_ID = models.CharField(max_length = 30, unique = True)
+	recognizee_ID = models.CharField(max_length = 30)
 	#生效日期
-	effectDate = models.DateTimeField(auto_now = True)
+	effectDate = models.DateTimeField(auto_now = datetime.datetime.now)
 	#失效日期
 	loseDate = models.DateTimeField(default = datetime.datetime.now)
 	#交费周期
 	payCycle = models.CharField(max_length = 30)
 	#投入金额
 	money = models.IntegerField()
-	#投保人与被保人的关系
-	relationship = models.CharField(max_length = 60)
+	#状态
+	state = models.BooleanField()
 	class Meta:
 		db_table = "table"
 

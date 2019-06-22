@@ -13,10 +13,10 @@ from urllib.parse import quote_plus
 from urllib.parse import urlparse, parse_qs
 from urllib.request import urlopen
 from base64 import decodebytes, encodebytes
-
+import os
 import json
 
-
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 class AliPay(object):
     """
     支付宝支付接口
@@ -28,10 +28,12 @@ class AliPay(object):
         self.app_private_key_path = app_private_key_path
         self.app_private_key = None
         self.return_url = return_url
+        print(self.app_private_key_path)
         with open(self.app_private_key_path) as fp:
             self.app_private_key = RSA.importKey(fp.read())
 
         self.alipay_public_key_path = alipay_public_key_path
+        print(self.alipay_public_key_path)
         with open(self.alipay_public_key_path) as fp:
             self.alipay_public_key = RSA.import_key(fp.read())
 
@@ -133,8 +135,8 @@ class get_payment(object):
         self.alipay = AliPay(
             appid="2016092900620537",                                   # 设置签约的appid
             app_notify_url="http://127.0.0.1:8000/finish_pay.html",                  # 异步支付通知url
-            app_private_key_path=u"privatePwd.txt",               # 设置应用私钥
-            alipay_public_key_path="appPwd.txt",           # 支付宝的公钥，验证支付宝回传消息使用，不是你自己的公钥,
+            app_private_key_path=BASE_DIR + r"\privatePwd.txt",               # 设置应用私钥
+            alipay_public_key_path=BASE_DIR + r"\appPwd.txt",           # 支付宝的公钥，验证支付宝回传消息使用，不是你自己的公钥,
             debug=False,  # 默认False,                                   # 设置是否是沙箱环境，True是沙箱环境
             return_url="http://127.0.0.1:8000/finish_pay.html"                      # 同步支付通知url
         )
@@ -158,3 +160,7 @@ class get_payment(object):
         re_url = "https://openapi.alipaydev.com/gateway.do?{data}".format(data=url)
         return (re_url)
         # 最终进行签名后组合成支付宝的url请求
+
+
+    def verify(self, data, signature):
+        return self.alipay.verify(data, signature)

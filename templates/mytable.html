@@ -4,5 +4,45 @@
 {% block page_name %}我的保单{% endblock %}
 
 {% block content %}
-
+<div class="card">
+	<div class="card-header">
+		<h4>我的保单</h4>
+	</div>
+	<div class="card-body">
+		<div class="table-responsive">
+			<table class="table table-bordered mb-0 text-nowrap">
+				<tbody><tr class="bg-primary">
+					<th>#</th>
+					<th>保单号</th>
+					<th>产品名称</th>
+					<th>投入金额</th>
+					<th>交费方式</th>
+					<th>截止日期</th>
+					<th>状态</th>
+					<th>详情</th>
+				</tr>
+				{% for i in LIST%}
+					<form method="post" action="/showtable.html/">
+						<tr>
+							<input type="hidden" name="productID" value="{{i.productsID}}">
+							<input type="hidden" name="recognizee_ID" value="{{i.recognizee_ID}}">
+							<td>{{forloop.counter}}</td>
+							<td>{{i.id}}</td>
+							<td>{{i.productsName}}</td>
+							<td>{{i.money}}</td>
+							<td>{{i.payCycle}}</td>
+							<td>{{i.loseDate}}</td>
+							{% ifequal i.state True %}
+								<td><div class="badge badge-success">有效</div></td>
+							{% else %}
+								<td><div class="badge badge-danger">失效</div></td>
+							{% endifequal %}
+							<td><button class="btn btn-action btn-primary" type="submit">More</td>
+						</tr>
+					</form>
+				{% endfor %}
+			</tbody></table>
+		</div>
+	</div>
+</div>
 {% endblock %}
