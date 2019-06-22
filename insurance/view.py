@@ -106,6 +106,70 @@ def login(request):
 			return render(request, 'login.html', {'error': '用户或密码错误'})
 	return render(request, "login.html", LIST)
 
+def random_verify(request):
+    '''
+    上传凭证并随机置死
+    '''
+    idcard = random.randint(1, 3)
+    if idcard == 2:
+        idcard = False
+    else:
+        idcard = True
+    user = request.POST.get('user')
+    ins = request.POST.get('ins')
+    # ps = request.POST.get('password1')
+    accident_Application.objects.create(
+        applicationID=user,
+        tableID=ins,
+        accident_verify=idcard,
+        compensation_money='1000'  # 一个默认金额
+    )
+    img = Img(img_url=request.FILES.get('img'))
+    img.save()
+
+def handling_deathqueue(userid, tableid):
+    '''
+    处理排队审核队列 【VIP优先 修改审核状态 合法进一步核算身故保险金】
+    '''
+    global userQue
+    global vipQue
+    forfeit_money = 2000
+    state = {0: "line up", 1: "failed", 2: "approve"}
+    applicantcase = applicant.objects.get(userID=userid)
+    a_applicationcase = accident_Application.objects.get(tableID=tableid)
+
+    # 没死:审核不通过
+    if a_applicationcase.accident_verify == False:
+        a_applicationcase.state = state.keys()[1]
+        a_applicationcase.save()
+    # 死了:身故申请加入排队队列
+    else:
+        if applicantcase.style == 1:  # 会员
+            vipQue.put(tableid)
+        else:
+            userQue.put(tableid)
+        a_applicationcase.state = state.keys()[0]
+        a_applicationcase.save()
+        # 处理排队队列
+        if not vipQue.empty() or not userQue.empty():
+            if not vipQue.empty():
+                firsttableid = vipQue.get()
+            else:
+                firsttableid = userQue.get()
+            a_applicationcase1 = accident_Application.objects.get(tableID=firsttableid)
+            a_applicationcase1.state = state.keys()[2]
+
+            tablecase = table.objects.get(tableID=firsttableid)
+            tablecase.losestate = True  # 审核通过保单失效
+            sum_money = tablecase.education_money
+            sum_date = tablecase.losestate.year-tablecase.effectDate.year
+            completed_date = trade_records.objects.filter(tableID=firsttableid).order_by('startTime')[-1].startTime.year
+            rate = completed_date/sum_date   # 交费完成进度=交费完成日期/交费总日期
+            a_applicationcase1.compensation_money = rate * sum_money
+
+            tablecase.save()
+            a_applicationcase1.save()
+
 def givemoney(request):
 	LIST = {}
 	if request.method == 'GET':
@@ -194,9 +258,12 @@ def get_finish_pay(request):
 		try:
 			LIST = request.GET.dict()
 			sign = LIST.pop('sign', None)
+			if sign == None:
+				return render(request, '404.html')
 			status = pay.verify(LIST, sign)
+			print('post', status)
 			if status:
-				upload_trade_record(LIST)
+				upload_trade_record(LIST, request)
 				return render(request, 'finish_pay.html', LIST)
 			else:
 				return render(request, '404.html')
@@ -206,9 +273,12 @@ def get_finish_pay(request):
 	else:
 		LIST = request.POST.dict()
 		sign = LIST.pop('sign', None)
+		if sign == None:
+				return render(request, '404.html')
 		status = pay.verify(LIST, sign)
+		print('get:', status)
 		if status:
-			upload_trade_record(LIST)
+			upload_trade_record(LIST, request)
 			return render(request, 'finish_pay.html', LIST)
 		else:
 			return render(request, '404.html')
@@ -312,9 +382,10 @@ def pay(request):
 def get_mytable(request):
 	ID = request.session.get('userid', None)
 	if ID == None:
-		return render('404.html')
+		return render(request, '404.html')
 	items = table.objects.filter(userID = ID)
 	LIST = []
+	print(items)
 	for i in items:
 		tmp = model_to_dict(i)
 		conn = products.objects.get(id = i.productsID)
@@ -426,7 +497,7 @@ def get_smallinform(request):
 #在逻辑这最好写上逻辑功能
 #
 
-def upload_trade_record(LIST):
+def upload_trade_record(LIST, request):
 	"""
 	上传交易记录
 	"""
@@ -482,7 +553,68 @@ def count_money2(LIST):
     answer = account_value * (1 + returncase)
     answer = "金额: " + str(answer)
     return answer
-# def create_table()
-# 	pass
+
+
+def create_compensate_Records(userid):
+    """
+    发钱【用户登录之后，检查可发钱保单并发钱，存对应一条理赔记录】
+    """
+    table_list = table.objects.filter(userID=userid)
+    for tablecase in table_list:
+        if tablecase.losestate == False:    # 保单有效
+            #------------ # effectDate = tablecase.effectDate.year - tablecase.loseDate.year   # 处理年份# payCycle = tablecase.get_payMethod_display()
+            today = datetime.datetime.now()
+            if today > tablecase.endDate:   # 已交完钱 发教育金
+                tableid = tablecase.pk
+                education_money = tablecase.education_money
+                compensate_Records.objects.create(
+                    tableID=tableid,
+                    count=str(education_money)
+                )
+                tablecase.losestate = True  # 发完钱保单失效
+
+
+def payment(tablecase):
+    '''
+    用户交钱
+    '''
+    pM = {0:7,1:30,2:-1}
+    tableid = tablecase.id
+    pM_key = tablecase.payMethod
+    for key, value in pM.items():  # 看交费方式 除去单次交费方式 其他两种方式要交钱
+        if pM_key == key:
+            cycle_day = value
+    today = datetime.datetime.now()
+    recent_day = trade_Records.objects.filter(tableID=tableid).order_by('startTime')[-1].startTime.year
+    minus_day = (today - recent_day).days
+    if (tablecase.losestate is False) and (cycle_day > 0) and (minus_day >= cycle_day):  # 保单有效 + 2交费方式 + 到可以交费日期
+        if minus_day == cycle_day:           # 不缺 今日=交钱日期
+            pay_money = tablecase.money
+            return pay_money
+            # return render(request, 'finish_pay.html', pay_money)
+        elif minus_day >= 2*cycle_day:
+            if minus_day == 2 * cycle_day:   # 缺一次 今日=推迟交钱日期
+                pay_money = 2*tablecase.money
+                return  pay_money
+                # return render(request, 'finish_pay.html', pay_money)  # 给交钱界面 显示交钱金额
+            else:                            # 保单失效
+                tablecase.losestate = True
+                tablecase.save()
+                return -1
+
+
+def warning_give_money(request):
+    '''
+    提醒交费
+    '''
+    email = request.session.get('user_name','')
+    DAO = user_login.objects.filter(email=email)[:1]
+    userid = DAO[0].id
+    DAOTable = table.objects.filter(userID=userid).order_by("effectDate")
+    for i in DAOTable:
+        pay_money = payment(request,i)
+        if pay_money != -1:
+            # str1 = "保险单号" + i.id + "需续缴费: " + pay_money + "元。"
+            return render(request, 'index.html', {i.id: pay_money})
 
 #end 逻辑
