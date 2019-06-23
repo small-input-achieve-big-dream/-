@@ -292,10 +292,10 @@ def get_admin(request):
 	if ID == None:
 		return render(request, 'index.html')
 
-	number = applicant.objects.filter(userID=ID)
+	number = table.objects.filter(userID=ID)
 	order = len(number)
 	Applicant = applicant.objects.filter(userID = ID)[:1]
-
+	relation = realtionship.objects.filter(userID = ID)
 
 
 
@@ -304,7 +304,9 @@ def get_admin(request):
 			"name": Applicant[0].name,
 			"idcard": Applicant[0].idcard,
 			"address": Applicant[0].address,
-			"order": '2222'
+			"order": order,
+			"score":order*10,
+			"rela":len(relation)
 		}
 		return render(request, 'admin.html', LIST)
 	else:
