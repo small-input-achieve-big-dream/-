@@ -53,6 +53,9 @@ urlpatterns = [
     re_path(r'.*table_detail.html/$', view.get_table_detail),
     re_path(r'.*pay.html/$', view.pay),
     re_path(r'.*showtable.html/$', view.get_showtable),
+    re_path(r'.*compensate1.html/$', view.apply_compensate1),
+    re_path(r'.*compensate2.html/$', view.apply_compensate2),
+    re_path(r'.*compensate3.html/$', view.apply_compensate3),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS)

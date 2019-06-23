@@ -350,7 +350,19 @@ def get_complain(request):
 	return render(request, "complain.html")
 
 def get_compensate(request):
-	return render(request, "compensate.html")
+	ID = request.session.get('userid', None)
+	if ID == None:
+		return render(request, "index.html")
+	accident_Set = accident_Application.objects.filter(applicationID = ID)
+	LIST = []
+	print(accident_Set)
+	for Obj in accident_Set:
+		tmp = model_to_dict(Obj)
+		item = table.objects.get(id=Obj.tableID)
+		tmp.update(model_to_dict(item))
+		LIST.append(tmp)
+	print(LIST)
+	return render(request, "compensate.html", {"LIST": LIST})
 
 def pay(request):
 	"""
@@ -490,6 +502,50 @@ def get_smallinform(request):
 		return render(request, "small_inform.html", {'LIST': items2})
 	return render(request, "small_inform.html")
 
+
+def apply_compensate1(request):
+	ID = request.session.get('userid', None)
+	if ID == None:
+		return render(request, 'index.html')
+	items = table.objects.filter(userID = ID, state = True)
+	LIST = []
+	for i in items:
+		tmp = model_to_dict(i)
+		conn = products.objects.get(id = i.productsID)
+		tmp.update(model_to_dict(conn))
+		LIST.append(tmp)
+	print(LIST)
+	return render(request, "compensate1.html", {"LIST": LIST})
+
+def apply_compensate2(request):
+	if request.method == "POST":
+		return render(request, 'index.html')
+	DICT = request.GET.dict()
+	print(DICT)
+	if DICT.get('userid', False) and DICT.get('tableid', False):
+		return render(request, 'compensate2.html', DICT)
+	return render(request, '404.html')
+
+def apply_compensate3(request):
+	if request.method == "GET":
+		return render(request, "index.html")
+	state = random.randint(1,3)
+	if state == 2:
+		state = True
+	else:
+		state = False
+	userid = request.POST.get('userid')
+	tableid = request.POST.get('tableid')
+	money = request.POST.get('money')
+	accident_Application.objects.create(
+			applicationID = userid,
+			tableID = tableid,
+			state = state,
+			compensation_money = money,
+			accident_verify = request.POST.get('describe'),
+			image = request.FILES.get('img'),
+		)
+	return render(request, 'compensate3.html')
 
 #end 视图
 

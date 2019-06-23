@@ -1,0 +1,74 @@
+{% extends "emptypage.html" %}
+
+{% block title_name %}功能{% endblock %}
+{% block page_name %}理赔{% endblock %}
+
+{% block content %}
+	<label>进度</label>
+	<div class="card">
+		<div class="progress">
+			<div class="progress-bar progress-bar-success" role="progressbar"
+				 aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+				 style="width: 50%;">
+				<span class="sr-only">90% 完成（成功）</span>
+			</div>
+		</div>
+	</div>
+	<center>
+		<div class="col-lg-12 col-xl-6 col-md-12 col-sm-12">
+			<div class="card">
+				<div class="card-header">
+					<h4><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">身故申请</font></font></h4>
+				</div>
+				<div class="card-body">
+					<form class="form-horizontal" method="POST" action="/compensate3.html/">
+						{% csrf_token %}
+						<div class="form-group row">
+							<label class="col-md-3 col-form-label">用户ID</label>
+							<div class="col-md-9">
+								<input disabled="" class="form-control" type="text" value="{{userid}}">
+							</div>
+						</div>
+						<br>
+						<div class="form-group row">
+							<label class="col-md-3 col-form-label">保单ID</label>
+							<div class="col-md-9">
+								<input disabled="" class="form-control" type="text" value="{{tableid}}">
+							</div>
+						</div>
+						<br>
+						<div class="form-group row">
+							<label class="col-md-3 col-form-label">理赔保险金</label>
+							<div class="col-md-9">
+								<input disabled="" class="form-control" type="text" value="{{money}}">
+							</div>
+						</div>
+						<br>
+						<div class="form-group row">
+							<label class="col-md-3 col-form-label">意外声明</label>
+							<div class="col-md-9">
+								<textarea class="form-control" rows="6" maxlength="190" name = "describe"></textarea>
+							</div>
+						</div>
+						<br>
+						<div class="form-group row">
+							<label class="col-md-3 col-form-label"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">意外证明</font></font></label>
+							<div class="col-md-9">
+									<div class="form-group files color  mb-lg-0">
+										<input type="file" class="form-control1" multiple="" name = "img">
+									</div>
+							</div>
+						</div>
+						<br>
+						<center>
+							<input type="hidden" name="userid" value="{{userid}}">
+							<input type="hidden" name="tableid" value="{{tableid}}">
+							<input type="hidden" name="money" value="{{money}}">
+							<button class="btn btn-primary mt-1 mb-0" type="submit">Submit</button>
+						</center>
+					</form>
+				</div>
+			</div>
+		</div>
+	</center>
+{% endblock %}

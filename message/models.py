@@ -15,6 +15,8 @@ import datetime
 
 #理赔记录表
 class compensate_Records(models.Model):
+	#投保人ID
+	userid = models.CharField(max_length = 30)
 	#理赔ID
 	compensateID = models.IntegerField()
 	#保单ID
@@ -38,10 +40,12 @@ class accident_Application(models.Model):
 	applicationID = models.IntegerField()
 	#保单ID
 	tableID = models.IntegerField()
-	#身故证明
+	#身故描述
 	accident_verify = models.CharField(max_length = 200)
+	#身故证明(图片形式)
+	image = models.ImageField(upload_to='static')
 	#审批状态
-	state = models.BooleanField()
+	state = models.BooleanField()	
 	#身故保险金
 	compensation_money = models.IntegerField()
 	class Meta:

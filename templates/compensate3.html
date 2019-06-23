@@ -1,0 +1,40 @@
+{% extends "emptypage.html" %}
+
+{% block title_name %}功能{% endblock %}
+{% block page_name %}理赔{% endblock %}
+
+{% block content %}
+	<label>进度</label>
+	<div class="card">
+		<div class="progress">
+			<div class="progress-bar progress-bar-success" role="progressbar"
+				 aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+				 style="width: 80%;">
+				<span class="sr-only">90% 完成（成功）</span>
+			</div>
+		</div>
+	</div>
+	<div class="card">
+		<div class="card-header">
+			<h4><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">理赔审核中</font></font></h4>
+			<a href="/compensate.html">由于需要核对您所说的属实，我们会在最长三十天的时间内给您回应。谢谢您的参与。 点击返回理赔页面</a>
+		</div>
+		<div class="card-body">
+			<div class="row">
+				<h4>意外残疾理赔注意事项</h4>
+				<ul>
+					<li>所有的意外险在投保时，都要先了解保单对职业类别的要求，很多意外险对职业的要求是1-4类职业，超出职业类别的，保险公司可能会拒赔</li>
+					<li>如果是缺损性的残疾，可以直接受伤部位拍照或者把X光底片给保险公司评定伤残等级，不一定要去司法鉴定中心花钱做伤残鉴定，除非是你和保险公司的意见有分歧；如果是功能性伤残，则在180天后一定要通知保险公司了解伤残鉴定相关事宜及时做伤残鉴定；</li>
+					<li>了解意外伤残赔付规则：若被保险人因同一意外事故导致保单约定标准所列二项或二项以上残疾项目的，乙方分别给付各项意外残疾保险金, 但给付金额的总数以保险单载明的意外伤害保险金额为限；但不同残疾项目属于同一肢时，乙方仅按较严重项目给付一项意外残疾保险金。</li>
+				</ul>
+				<br>
+				<h4>意外医疗保险：</h4>
+				<ul>
+					<li>所有的意外险在投保时，都要先了解保单对职业类别的要求，很多意外险对职业的要求是1-4类职业，超出职业类别的，保险公司可能会拒赔</li>
+					<li>尽量提供意外事故证明（现在有部分保险公司小的意外医疗案件还是要求要提供意外事故证明，其次可以提升意外险的获赔率），如果是交通事故则一定要提供交通事故认定书；</li>
+					<li>如果是交通事故且对方是全责的，发票会给到对方去他投保的保险公司先报销，报销完后，让对方提供发票复印件和理赔计算书（需盖保险公司理赔业务章），然后再拿到自己投保的保险公司报销剩余的部分；</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+{% endblock %}
