@@ -38,6 +38,7 @@ urlpatterns = [
     re_path(r'.*see.html/$', view.see),
     re_path(r'.*test/$', view.gettest),
     re_path(r'.*services/$', view.getservices),
+    re_path(r'.*producelist.html/$', view.producelist),
 
     re_path(r'.*manager/$', view.get_admin),
     re_path(r'.*verify.html/$', view.get_verify),

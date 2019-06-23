@@ -288,20 +288,35 @@ def get_finish_pay(request):
 
 #-----------KA tmp-----------#
 def get_admin(request):
+
+
 	ID = request.session.get('userid', None)
 	if ID == None:
 		return render(request, 'index.html')
+
+	number = table.objects.filter(userID=ID)
+	order = len(number)
 	Applicant = applicant.objects.filter(userID = ID)[:1]
+	relation = realtionship.objects.filter(userID = ID)
+
+
+
 	if Applicant.exists():
 		LIST = {
 			"name": Applicant[0].name,
 			"idcard": Applicant[0].idcard,
-			"address": Applicant[0].address
+			"address": Applicant[0].address,
+			"order": order,
+			"score":order*10,
+			"rela":len(relation)
 		}
 		return render(request, 'admin.html', LIST)
 	else:
 		LIST = {'applicant_state': '0'}
 		return render(request, 'admin.html', LIST)
+
+def producelist(request):
+	return render(request, 'producelist.html')
 
 def get_verify(request):
 	if request.method == 'GET':
