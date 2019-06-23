@@ -3,8 +3,16 @@
 {% block title_name %}功能{% endblock %}
 {% block page_name %}理赔{% endblock %}
 
+{% block head%}
+<head>
+<title>jQuery Lightbox图片放大预览代码</title>
+<link rel="stylesheet" href="/static/xuanfu/css/bootstrap-grid.min.css">
+<link rel="stylesheet" href="/static/xuanfu/dist/zoomify.min.css">
+<link rel="stylesheet" href="/static/xuanfu/css/style.css">
+</head>
+{% endblock %}
+
 {% block content %}
-<label>进度</label>
 <div class="row">
 	<div class="col-12">
 		<div class="card">
@@ -17,7 +25,7 @@
 				<h4>理赔进度表</h4>
 			</div>
 			<div class="card-body">
-				<div class="table-responsive">
+				<!-- <div class="table-responsive"> -->
 					<table class="table table-striped table-bordered mb-0 text-nowrap">
 						<tbody><tr>
 							<th>保单ID</th>
@@ -38,7 +46,10 @@
 									</div>
 								</td>
 								<td>
-									<img width="35" title="Wildan Ahdian" class="rounded-circle" alt="image" src="{{ item.image }}" data-toggle="title">
+									<div class="example col-xs-3 col-md-3">
+									<img width="35" title="Wildan Ahdian" class="rounded-circle" src="/{{ item.image }}" alt = "{{ item.image_src}}" data-toggle="title">
+										<!-- <p><img src="/{{ item.image }}" class="img-rounded" alt="{{ item.image_src}}"></p> -->
+									</div>
 								</td>
 								<td>{{item.compensation_money}}</td>
 								<td><div class="badge badge-success">{{item.state}}</div></td>
@@ -47,9 +58,17 @@
 						{% endfor %}
 					</tbody>
 				</table>
-				</div>
+				<!-- </div> -->
 			</div>
 		</div>
 	</div>
 </div>
+{% endblock %}
+
+{% block js %}
+<script src="http://www.jq22.com/jquery/1.11.1/jquery.min.js"></script>
+<script src="/static/xuanfu/dist/zoomify.min.js"></script>
+<script type="text/javascript">
+	$('.example img').zoomify();
+</script>
 {% endblock %}

@@ -1,0 +1,55 @@
+{% extends "emptypage.html" %}
+
+{% block title_name %}功能{% endblock %}
+{% block page_name %}理赔{% endblock %}
+
+{% block head%}
+<head>
+<title>jQuery Lightbox图片放大预览代码</title>
+<link rel="stylesheet" href="/static/xuanfu/css/bootstrap-grid.min.css">
+<link rel="stylesheet" href="/static/xuanfu/dist/zoomify.min.css">
+<link rel="stylesheet" href="/static/xuanfu/css/style.css">
+</head>
+{% endblock %}
+
+{% block content %}
+<div class="container">		
+	<div class="examples">	
+		<div class="row">
+			<!-- <div class="example  col-md-12 col-xs-12 "> -->
+				<p><img src="/static/xuanfu/img/1.jpg" class="img-rounded" alt=""></p>
+			<!-- </div> -->
+		</div>
+		<div class="row">
+			<div class="example  col-xs-6 col-md-6">
+				<p><img src="/static/xuanfu/img/2.jpg" class="img-rounded" alt=""></p>
+			</div>
+			<div class="example col-xs-6 col-md-6">
+				<p><img src="/static/xuanfu/img/3.jpg" class="img-rounded" alt=""></p>
+			</div>
+		</div>
+		<!-- <div class="row">
+			<div class="example col-xs-3 col-md-3">
+				<p><img src="/static/xuanfu/img/4.jpg" class="img-rounded" alt=""></p>
+			</div>
+			<div class="example col-xs-3 col-md-3">
+				<p><img src="/static/xuanfu/img/5.jpg" class="img-rounded" alt=""></p>
+			</div>
+			<div class="example col-xs-3 col-md-3">
+				<p><img src="/static/xuanfu/img/6.jpg" class="img-rounded" alt=""></p>
+			</div>
+			<div class="example col-xs-3 col-md-3">
+				<p><img src="/static/xuanfu/img/7.jpg" class="img-rounded" alt=""></p>
+			</div>
+		</div> -->
+	</div>	
+</div>
+{% endblock %}
+
+{% block js %}
+<script src="http://www.jq22.com/jquery/1.11.1/jquery.min.js"></script>
+<script src="/static/xuanfu/dist/zoomify.min.js"></script>
+<script type="text/javascript">
+	$('.example img').zoomify();
+</script>
+{% endblock %}

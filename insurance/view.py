@@ -19,6 +19,7 @@ from django.forms.models import model_to_dict
 
 from message.alipay import alipay
 import datetime
+import decimal
 
 #--------视图-------#
 
@@ -49,7 +50,7 @@ def gettest(request):
 	DICT = {'test3': '123', 'test4': '321'}
 	return render(request, 'test.html', {'List': json.dumps(LIST), 'Dict': json.dumps(DICT)})
 	# LIST = {"title":"测试"}
-	# return render(request, 'test.html', LIST)
+	return render(request, 'test.html', LIST)
 
 def getservices(request):
 	LIST = {}
@@ -65,7 +66,8 @@ def getservices(request):
 	if request.method == "POST":
 		LIST = request.POST.dict()
 		if LIST.get('measure') != None:
-			LIST['answer'] = count_money(LIST)
+			LIST['answer'] = count_money2(LIST)
+			return render(request, 'services.html', LIST)
 		elif LIST.get('buy') != None:
 			LIST = {"productID": request.GET.get('productID', None)}
 			if request.session.get('userid', False):
@@ -370,6 +372,7 @@ def pay(request):
 	"""
 	if request.method == "POST":
 		DICT = request.POST.dict()
+		print(DICT)
 		try:
 			table.objects.create(
 				productsID = DICT["productID"],
@@ -379,11 +382,13 @@ def pay(request):
 				payCycle = DICT["cycle"],
 				money = DICT["number"],
 				state = 0,
+				education_money=DICT["return_money"],
 			)
 			table_num = table.objects.filter(productsID = DICT["productID"], userID = request.session.get("userid", None),
 			 recognizee_ID = DICT["recognizee"], payCycle = DICT["cycle"], money = DICT["number"])
 			if table_num.exists():
 				paytool = alipay.get_payment()
+				print(DICT["name"], table_num[0].id, DICT["number"])
 				url = paytool.get(DICT["name"], table_num[0].id, DICT["number"])
 				return redirect(url)
 		except Exception as e:
@@ -435,6 +440,7 @@ def get_showtable(request):
 				LIST.update(model_to_dict(user[0]))
 				LIST.update(model_to_dict(product[0]))
 				print(LIST)
+				LIST['return_money'] = count_money2(LIST)
 				return render(request, "showtable.html", LIST)
 	return render(request, "showtable.html")
 
@@ -451,7 +457,7 @@ def get_table_detail(request):
 			if user.exists() and product.exists():
 				LIST.update(model_to_dict(user[0]))
 				LIST.update(model_to_dict(product[0]))
-				print(LIST)
+				LIST['return_money'] = count_money2(LIST)
 				return render(request, "table_detail.html", LIST)
 	return render(request, "404.html", {"code_error":"不能直接访问"})
 
@@ -460,13 +466,16 @@ def get_relationship(request):
 		if request.method == "POST":
 			msg = request.POST.getlist('deleitem', None)
 			for i in msg:
-				realtionship.objects.filter(recognizee_ID = i).delete()
+				realtionship.objects.get(recognizee_ID = i, userID = request.session.get('userid')).delete()
+		elif request.GET.get('userID', False):
+			realtionship.objects.get(userID=request.session.get('userid'), recognizee_ID = request.GET.get('userID')).delete()
 		items = realtionship.objects.filter(userID = request.session.get('userid'))
 		if items.exists():
 			LIST = []
 			for i in items:
-				items2 = recognizee_Infor.objects.filter(userID = i.recognizee_ID)
+				items2 = recognizee_Infor.objects.get(userID = i.recognizee_ID)
 				LIST.append(items2)
+			print(LIST)
 			return render(request, "relationship.html", {"LIST": LIST})
 	else:
 		return render(request, "index.html")
@@ -476,18 +485,17 @@ def get_add_recognizee(request):
 	if request.method == 'POST' and request.session.get('userid', False) != False:
 		idcard = request.POST.get('idcard')
 		name = request.POST.get('name')
-		if applicant_real.objects.filter(userID = idcard).exists() == True:
-			if applicant_real.objects.filter(name = name).exists() == True:
-				if not recognizee_Infor.objects.filter(userID = idcard).exists():
-					recognizee_Infor.objects.create(
-						name = name,
-						userID = idcard,
-					)
-				if not realtionship.objects.filter(recognizee_ID = idcard).exists():
-					realtionship.objects.create(
-						userID = request.session.get('userid'),
-						recognizee_ID = idcard,
-					)
+		if applicant_real.objects.filter(userID = idcard, name = name)[:1].exists() == True:
+			if not recognizee_Infor.objects.filter(userID = idcard)[:1].exists():
+				recognizee_Infor.objects.create(
+					name = name,
+					userID = idcard,
+				)
+			if not realtionship.objects.filter(recognizee_ID = idcard, userID = request.session.get('userid'))[:1].exists():
+				realtionship.objects.create(
+					userID = request.session.get('userid'),
+					recognizee_ID = idcard,
+				)
 			return render(request, "add_recognizee.html", locals())
 		else:
 			return render(request, "verify.html", locals())
@@ -537,13 +545,17 @@ def apply_compensate3(request):
 	userid = request.POST.get('userid')
 	tableid = request.POST.get('tableid')
 	money = request.POST.get('money')
+	imgfile = request.FILES.get('img')
+	print(imgfile.name)
+	print(imgfile)
 	accident_Application.objects.create(
 			applicationID = userid,
 			tableID = tableid,
 			state = state,
 			compensation_money = money,
 			accident_verify = request.POST.get('describe'),
-			image = request.FILES.get('img'),
+			image = imgfile,
+			image_src = imgfile.name,
 		)
 	return render(request, 'compensate3.html')
 
@@ -582,12 +594,14 @@ def count_money2(LIST):
     """
     计算获益金额【用于保费测算和保单付款】
     """
-    # pM = {"week": 0, "month": 1, "one time": 2}
-    dL = {3: 3, 5: 5, 18: 0}
-    productsid = LIST['productsID']
-    pM_key = LIST['paymethod']
-    dL_key = LIST['deadline']
-    money = LIST['money']
+
+    pM = {"周交": 0, "月交": 1, "单次": 2}
+    dL = {"三年": 3, "五年": 5, "十八年": 0}
+
+    productsid = LIST['productID']
+    pM_key = pM.get(LIST['cycle'], None)
+    dL_key = dL.get(LIST['deadline'])
+    money = LIST['number']
     for key, value in dL.items():
         if dL_key == key:
             if value != 0:
@@ -604,10 +618,15 @@ def count_money2(LIST):
         sum_money = dL_value * 12 * money
     else:
         sum_money = money
-    returncase = profit.objects.get(productsID=productsid, deadLine=dL_key, payMethod=pM_key).Returen
-    account_value = sum_money * 0.85
+    returncase = profit.objects.filter(productsID=productsid, deadLine=dL_key, payMethod=pM_key)[:1]
+    if returncase.exists():
+    	returncase = returncase[0].Returen
+    else:
+    	returncase = decimal.Decimal(0.35)
+    account_value = decimal.Decimal(sum_money) * decimal.Decimal(0.85)
     answer = account_value * (1 + returncase)
-    answer = "金额: " + str(answer)
+    answer = round(answer, 1)
+    answer = str(answer)
     return answer
 
 
@@ -663,14 +682,13 @@ def warning_give_money(request):
     '''
     提醒交费
     '''
-    email = request.session.get('user_name','')
-    DAO = user_login.objects.filter(email=email)[:1]
-    userid = DAO[0].id
-    DAOTable = table.objects.filter(userID=userid).order_by("effectDate")
-    for i in DAOTable:
-        pay_money = payment(request,i)
-        if pay_money != -1:
-            # str1 = "保险单号" + i.id + "需续缴费: " + pay_money + "元。"
-            return render(request, 'index.html', {i.id: pay_money})
+    userid = request.session.get('userid',None)
+    if userid != None:
+	    DAOTable = table.objects.filter(userID=userid).order_by("effectDate")
+	    for i in DAOTable:
+	        pay_money = payment(i)
+	        if pay_money != -1:
+	            # str1 = "保险单号" + i.id + "需续缴费: " + pay_money + "元。"
+	            return render(request, 'index.html', {i.id: pay_money})
 
 #end 逻辑

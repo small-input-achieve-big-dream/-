@@ -21,7 +21,7 @@
 					<h4><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">身故申请</font></font></h4>
 				</div>
 				<div class="card-body">
-					<form class="form-horizontal" method="POST" action="/compensate3.html/">
+					<form class="form-horizontal" method="POST" action="/compensate3.html/" enctype="multipart/form-data">
 						{% csrf_token %}
 						<div class="form-group row">
 							<label class="col-md-3 col-form-label">用户ID</label>
@@ -55,7 +55,7 @@
 							<label class="col-md-3 col-form-label"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">意外证明</font></font></label>
 							<div class="col-md-9">
 									<div class="form-group files color  mb-lg-0">
-										<input type="file" class="form-control1" multiple="" name = "img">
+										<input type="file" class="form-control1" name = "img">
 									</div>
 							</div>
 						</div>
@@ -64,7 +64,7 @@
 							<input type="hidden" name="userid" value="{{userid}}">
 							<input type="hidden" name="tableid" value="{{tableid}}">
 							<input type="hidden" name="money" value="{{money}}">
-							<button class="btn btn-primary mt-1 mb-0" type="submit">Submit</button>
+							<button class="btn btn-primary mt-1 mb-0" type="submit">提交</button>
 						</center>
 					</form>
 				</div>

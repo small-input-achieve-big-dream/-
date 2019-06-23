@@ -99,7 +99,9 @@
 
 					<div class="card">
 						<div class="card-header">
-							<h4>{{ answer }}</h4>
+							{% if answer%}
+								<h4>金额:{{ answer }}</h4>
+							{% endif %}
 						</div>
 						<div class="card-body">
 							<form class="form-horizontal" action = "" method="post">
@@ -116,28 +118,25 @@
 										<input class="form-control" type="text" value="" name = "recognizee_ID">
 									</div>
 								</div>
-								<div class="form-group row">
-									<label class="col-md-3 col-form-label">出生日期</label>
-									<div class="col-md-9">
-										<input name="date" class="form-control" type="date" name = "age">
-									</div>
-								</div>
 								<div class="form-group row mb-0">
 									<label class="col-md-3 col-form-label">交费方式</label>
 									<div class="col-md-9">
-										<select class="form-control" name = "approach">
+										<select class="form-control" name = "cycle">
 											<option>单次</option>
 											<option>周交</option>
 											<option>月交</option>
-											<option>年交</option>
 										</select>
 									</div>
 								</div>
 								<br>
 								<div class="form-group row mb-0">
-									<label class="col-md-3 col-form-label">年龄</label>
+									<label class="col-md-3 col-form-label">交费期限</label>
 									<div class="col-md-9">
-										<input name="number" class="form-control" type="number">
+										<select class="form-control" name = "deadline">
+											<option>三年</option>
+											<option>五年</option>
+											<option>十八年</option>
+										</select>
 									</div>
 								</div>
 								<br>

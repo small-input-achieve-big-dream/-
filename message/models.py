@@ -44,6 +44,8 @@ class accident_Application(models.Model):
 	accident_verify = models.CharField(max_length = 200)
 	#身故证明(图片形式)
 	image = models.ImageField(upload_to='static')
+	#图片链接
+	image_src = models.CharField(max_length = 50)
 	#审批状态
 	state = models.BooleanField()	
 	#身故保险金
@@ -83,20 +85,29 @@ class trade_records(models.Model):
 	class Meta:
 		db_table = "trade_records"
 
-#保险收益明细表
+# 保险收益明细表
 class profit(models.Model):
-	#产品ID
-	productsID = models.IntegerField()
-	#保险期限
-	deadline = models.CharField(max_length = 30)
-	#单次交费回报率
-	oneReturen = models.IntegerField()
-	#周交费回报率
-	weekReturen = models.IntegerField()
-	#月交费回报率
-	monthReturn = models.IntegerField()
-	class Meta:
-		db_table = "profit"
+    # 产品ID
+    productsID = models.IntegerField()
+     # 保险年限
+    deadLINE = (
+	(3,"交3年"),
+	(5,"交5年"),
+	(18,"交至18岁"),
+    )
+    deadLine = models.SmallIntegerField    (choices=deadLINE ,default=1,verbose_name="交费年限")
+    # 保险交费方式
+    payMETHOD = (
+	(0,"week"),
+	(1,"month"),
+	(2,"one time"),
+    )
+    payMethod = models.SmallIntegerField    (choices=payMETHOD,default=1,verbose_name="交费方式")
+    # 交费回报率—最大长度为3带2个小数位
+    Returen = models.DecimalField(max_digits=3, decimal_places=2)
+
+    class Meta:
+        db_table = "profit"
 
 #保单表
 class table(models.Model):
@@ -118,6 +129,8 @@ class table(models.Model):
 	money = models.IntegerField()
 	#状态
 	state = models.BooleanField()
+	#教育金
+	education_money = models.DecimalField(decimal_places=2,max_digits=19)
 	class Meta:
 		db_table = "table"
 

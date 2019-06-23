@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 	{% include "head2.html" %}
+	{% block head %}
+
+	{% endblock %}
 	<body class="app ">
 
 		<div id="spinner"></div>
@@ -59,5 +62,8 @@
 		<!--Scripts js-->
 		<script src="/static/assets/js/scripts.js"></script>
 
+		{% block js %}
+
+		{% endblock %}
 	</body>
 </html>

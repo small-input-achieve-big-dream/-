@@ -28,31 +28,32 @@
 								</tr>
 							</thead>
 							<tbody>
-								{% for models in LIST%}
-									{% for item in models%}
-										<tr>
-											<td class="align-middle text-center">
-												<div class="custom-control custom-control-inline custom-checkbox custom-control-nameless m-0 align-top">
-													<input class="custom-control-input" id="{{item.userID}}" type="checkbox" name = "deleitem" value="{{item.userID}}"> <label class="custom-control-label" for="{{item.userID}}"></label>
-												</div>
-											</td>
-											<td class="align-middle text-center"><img class="avatar avatar-md rounded-circle" alt="image" src="/static/assets/img/avatar/avatar-1.jpeg"></td>
-											<td class="text-nowrap align-middle">{{ item.name }}</td>
-											<td class="text-nowrap align-middle"><span>{{ item.userID }}</span></td>
+								{% for item in LIST%}
+									<tr>
+										<td class="align-middle text-center">
+											<div class="custom-control custom-control-inline custom-checkbox custom-control-nameless m-0 align-top">
+												<input class="custom-control-input" id="{{item.userID}}" type="checkbox" name = "deleitem" value="{{item.userID}}"> <label class="custom-control-label" for="{{item.userID}}"></label>
+											</div>
+										</td>
+										</form>
+										<td class="align-middle text-center"><img class="avatar avatar-md rounded-circle" alt="image" src="/static/assets/img/avatar/avatar-1.jpeg"></td>
+										<td class="text-nowrap align-middle">{{ item.name }}</td>
+										<td class="text-nowrap align-middle"><span>{{ item.userID }}</span></td>
+										<form action="/relationship.html/" method="GET">
 											<td class="text-center align-middle">
 												<div class="btn-group align-top">
-													<button class="btn btn-sm btn-primary badge" type="button"><i class="fa fa-trash"></i></button>
+													<input type="hidden" name="userID" value="{{item.userID}}">	
+													<button class="btn btn-sm btn-primary badge" type="submit"><i class="fa fa-trash"></i></button>
 												</div>
 											</td>
-										</tr>
-									{% endfor %}
+										</form>
+									</tr>
 								{% endfor %}
 							</tbody>
 						</table>
 					</div>
 				</div>
 			</div>
-		</form>
 				
 					
 		</div>
