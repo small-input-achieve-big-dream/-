@@ -65,34 +65,34 @@
             
 			<!--6大特色  多重守护-->
 			<div class="floor pro" id="anchor">
-				<h2 class="m-bt">6大特色  多重守护</h2>
+				<h2 class="m-bt">{{ productsName }}</h2>
 				<div class="boxmain-inner">
 					<div class="pro-l fl">
 						<ul class="pro-ul clearfix">
 							<li class="pro-li">
 								<img class="pro-img" src="/static/images/img01.png" />
-								<h3>教育年金，专款专用</h3>
-								<p>领钱早，15岁起开始领钱，连续11年固定领取，教育深造<br />婚嫁，皆有保障。</p>
+								<h3>投保人年龄</h3>
+								<p>{{ applicant_range_age}}</p>
 							</li>
 							<li class="pro-li"><img class="pro-img" src="/static/images/img02.png" />
-								<h3>{{ c.cout }}重大疾病，百万保障</h3>
-								<p>保85种重疾，其中白血病、川崎病、深度昏迷、严重脑损伤、<br />严重Ⅲ度烧伤等5种特定重大疾病双倍赔付，最高100万。</p>
+								<h3>被担保人年龄</h3>
+								<p>{{ recog_range_age }}</p>
 							</li>
 							<li class="pro-li"><img class="pro-img" src="/static/images/img03.png" />
-								<h3>住院津贴，贴心呵护</h3>
-								<p>最高300元/天，补贴天数最多可达600天。社保报销之后还能<br />领取。</p>
+								<h3>保障金额</h3>
+								<p>{{ money_range }}</p>
 							</li>
 							<li class="pro-li"><img class="pro-img" src="/static/images/img04.png" />
-								<h3>意外医疗，保障更全</h3>
-								<p>附加长期意外医疗，门诊&住院都能赔。保险期间内累计可赔<br />付10倍保额，累计最高20万。 </p>
+								<h3>特点</h3>
+								<p>{{ feature }} </p>
 							</li>
 								<li class="pro-li"><img class="pro-img" src="/static/images/img05.png" />
-								<h3>豁免保费，延续关爱</h3>
-								<p>如果投保人在等待期后（意外伤害无等待期限制）不幸身故或<br />罹患重疾，可免交后继保费，人性设计更显关爱。</p>
+								<h3>交费年限</h3>
+								<p>{{ payMethod }}</p>
 							</li>
 							<li class="pro-li"><img class="pro-img" src="/static/images/img06.png" />
-								<h3>灵活定制，性价比高</h3>
-								<p>交费年限灵活选择；重疾、住院、意外医疗、定寿、豁免等<br />附加保障可按需自由搭配。</p>
+								<h3>保险期限</h3>
+								<p>{{ time_range }}</p>
 							</li>
 						</ul>
 					</div>
@@ -121,16 +121,17 @@
 								<div class="form-group row mb-0">
 									<label class="col-md-3 col-form-label">交费方式</label>
 									<div class="col-md-9">
-										<select class="form-control" name = "cycle">
+										<select class="form-control" name = "payCycle">
 											<option>单次</option>
 											<option>周交</option>
 											<option>月交</option>
+											<option>年交</option>
 										</select>
 									</div>
 								</div>
 								<br>
 								<div class="form-group row mb-0">
-									<label class="col-md-3 col-form-label">交费期限</label>
+									<label class="col-md-3 col-form-label">交费年限</label>
 									<div class="col-md-9">
 										<select class="form-control" name = "deadline">
 											<option>三年</option>
@@ -193,18 +194,15 @@
 				<h2 class="m-bt">投保须知</h2>
 				<div class="boxmain-inner">
 					<ul class="clearfix">
-						<li><span>投保人年龄</span>{{age_range}}</li>
-						<li><span>被保人年龄</span>{{recognizee_age_range}}</li>
-						<li><span>保障金额</span>最低1万元</li>
-						<li><span>保障期限</span>{{date}}</li>
-						<li><span>交费年限</span>3年/5年/10年</li>
-						<li><span>交费方式</span>年交/半年交/季交/月交</li>
+						<li><span>投保人年龄</span>{{ applicant_range_age}}</li>
+						<li><span>被保人年龄</span>{{ recog_range_age }}</li>
+						<li><span>保障金额</span>{{ money_range }}</li>
+						<li><span>保障期限</span>{{time_range}}</li>
+						<li><span>交费年限</span>{{ payRange }}</li>
+						<li><span>交费方式</span>{{ payMethod }}</li>
 					</ul>
 					<dl>
-						<dt><p>产品名称：{{product_name }}</p></dt>
-						<dd>
-							<p>投保地区：<span id="fname">{{ product_des }}</span></p>
-						</dd>
+						<dt><p>产品名称：{{ productsName }}</p></dt>
 					</dl>
 				</div>
 			<!--ifooterbj end-->

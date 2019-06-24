@@ -33,7 +33,7 @@
 							<input type="hidden" name = "name" value = "{{name}}">
 							<p class="mb-1"><span class="text-muted">身份证: </span> {{recognizee_ID}}</p>
 							<input type="hidden" name = "recognizee" value = "{{recognizee}}">
-							<p class="mb-1"><span class="text-muted">产品类型: </span> {{productsStyle}}</p>
+							<p class="mb-1"><span class="text-muted">产品类型: </span> {{feature}}</p>
 						</div>
 					</div><!-- end col -->
 				</div>
@@ -48,7 +48,7 @@
 										<tr>
 											<th class="border-0 text-uppercase  font-weight-bold">产品ID</th>
 											<th class="border-0 text-uppercase  font-weight-bold">产品名称</th>
-											<th class="border-0 text-uppercase font-weight-bold">交费年限</th>
+											<th class="border-0 text-uppercase font-weight-bold">截止时间</th>
 											<th class="border-0 text-uppercase  font-weight-bold">交费周期</th>
 											<th class="border-0 text-uppercase  font-weight-bold">预计回报</th>
 											<th class="border-0 text-uppercase  font-weight-bold">投入金额</th>
@@ -60,10 +60,10 @@
 											<input type="hidden" name = "productID" value = "{{productID}}">
 											<td>{{productsName}}</td>
 											<input type="hidden" name = "productsName" value = "{{productsName}}">
-											<td>{{date}}</td>
+											<td>{{loseDate}}</td>
 											<td>{{payCycle}}</td>
 											<input type="hidden" name = "cycle" value = "{{cycle}}">
-											<td>$321</td>
+											<td>${{return_money}}</td>
 											<td>${{money}}</td>
 											<input type="hidden" name = "number" value = "{{number}}">
 										</tr>

@@ -20,7 +20,7 @@ from django.forms.models import model_to_dict
 from message.alipay import alipay
 import datetime
 import decimal
-
+from dateutil.relativedelta import relativedelta
 #--------视图-------#
 
 def getIndex(request):
@@ -59,9 +59,11 @@ def getservices(request):
 		num = Dict.get('productID', None)
 		if num != None:
 			items = products.objects.filter(id = num)[:1]
-			if items.exists():
+			test = products.objects.filter(productID = num)[:1]
+			if items.exists() and test.exists():
 				LIST = model_to_dict(items[0])
-				LIST['productID'] = num
+				LIST.update(model_to_dict(test[0]))
+				print(LIST)
 				return render(request, 'services.html', LIST)
 	if request.method == "POST":
 		LIST = request.POST.dict()
@@ -95,7 +97,6 @@ def login(request):
 				Dao = user_login.objects.filter(telephone = name, password = pwd)[:1]
 		except Exception as e:
 			return render(request, 'login.html', {'error': '用户名格式不对'})
-		print(Dao)
 		if Dao.exists():
 			ID = Dao[0].id
 			request.session['userid'] = ID
@@ -103,6 +104,8 @@ def login(request):
 			request.session['telephone'] = Dao[0].telephone
 			request.session['power'] = Dao[0].power
 			print(request.session.get('user_name', None))
+			warning_give_money(request)
+			create_compensate_Records(ID)
 			return render(request, 'index.html', {'user_name': Dao[0].email})
 		else:
 			return render(request, 'login.html', {'error': '用户或密码错误'})
@@ -221,7 +224,8 @@ def register(request):
 				telephone=int(tel),
 				email=str(em),
 				password=str(pwd),
-				power='0'
+				power='0',
+				money = '0',
 			)
 			return render(request, "login.html", locals())
 
@@ -288,19 +292,14 @@ def get_finish_pay(request):
 
 #-----------KA tmp-----------#
 def get_admin(request):
-
-
 	ID = request.session.get('userid', None)
 	if ID == None:
 		return render(request, 'index.html')
-
-	number = table.objects.filter(userID=ID)
+	number = table.objects.filter(userID=ID, state=1)[:1]
 	order = len(number)
 	Applicant = applicant.objects.filter(userID = ID)[:1]
-	relation = realtionship.objects.filter(userID = ID)
-
-
-
+	relation = realtionship.objects.filter(userID = ID)[:1]
+	user = user_login.objects.get(id=request.session.get('userid'))
 	if Applicant.exists():
 		LIST = {
 			"name": Applicant[0].name,
@@ -308,7 +307,8 @@ def get_admin(request):
 			"address": Applicant[0].address,
 			"order": order,
 			"score":order*10,
-			"rela":len(relation)
+			"rela":len(relation),
+			"money": user.money,
 		}
 		return render(request, 'admin.html', LIST)
 	else:
@@ -325,7 +325,7 @@ def get_verify(request):
 		idcard = request.POST.get('idcard')
 		name = request.POST.get('name')
 		address = request.POST.get('address')
-
+		print(address)
 		if applicant_real.objects.filter(userID = idcard).exists() == True:
 			if applicant_real.objects.filter(name = name).exists() == True:
 				if not applicant.objects.filter(idcard = idcard).exists():
@@ -337,15 +337,41 @@ def get_verify(request):
 						style = '0',
 						score = '0'
 					)
+					return render(request, "admin.html")
 				else:
-					return render(request, "verify.html", {"error": 已有该信息})
+					return render(request, "verify.html", {"error": "已有该信息"})
 			return render(request, "admin.html")
 		else:
 			return render(request, "verify.html", locals())
 
 def get_inform(request):
-	
-	return render(request, "inform.html")
+	ID = request.session.get('userid', None)
+	if ID == None:
+		return render(request, "admin.html")
+	if request.method == "POST":
+		method = request.POST.get('method', None)
+		if request.POST.get('system', None):
+			if method != '2':
+				message = information.objects.filter(userid=ID, state=method, style="系统信息")
+			else:
+				message = information.objects.filter(userid=ID, style="系统信息")
+			return render(request,'inform.html', {"LIST":message, "method": method})
+		elif request.POST.get('method', None):
+			if method != '2':
+				message = information.objects.filter(userid=ID, state=method, style="支付信息")
+			else:
+				message = information.objects.filter(userid=ID, style="支付信息")
+			return render(request,'inform.html', {"LIST":message, "method": method})
+	elif request.method == "GET":
+		method = request.GET.get('method', None)
+		if method == '1':
+			message = information.objects.filter(userid=ID, state=1)
+			return render(request, 'inform.html', {"LIST": message, "method": 1})
+		elif method == '0':
+			message = information.objects.filter(userid=ID, state=0)
+			return render(request, 'inform.html', {"LIST": message, "method": 0})
+	message = information.objects.filter(userid=ID)
+	return render(request, "inform.html", {"LIST": message, "method": 2})
 
 def get_complain(request):
 	if request.method == 'POST':
@@ -362,6 +388,7 @@ def get_complain(request):
 			style = "系统信息",
 			msg = "您的投诉信息已经收获",
 			title = "投诉成功",
+			state = '0',
 		)
 		return render(request, "complain.html", {"inform": "投诉成功"})
 	return render(request, "complain.html")
@@ -375,7 +402,7 @@ def get_compensate(request):
 	print(accident_Set)
 	for Obj in accident_Set:
 		tmp = model_to_dict(Obj)
-		item = table.objects.get(id=Obj.tableID)
+		item = table.objects.get(id=Obj.tableID, userID=ID)
 		tmp.update(model_to_dict(item))
 		LIST.append(tmp)
 	print(LIST)
@@ -389,6 +416,17 @@ def pay(request):
 		DICT = request.POST.dict()
 		print(DICT)
 		try:
+			if DICT['cycle'] == "单次":
+				delta = relativedelta(days = 0)
+			elif DICT['cycle'] == "周交":
+				delta = relativedelta(years = -1)
+			elif DICT['cycle'] == "月交":
+				delta = relativedelta(years = -3)
+			table_num = table.objects.filter(productsID = DICT["productID"], userID = request.session.get("userid", None),
+			 recognizee_ID = DICT["recognizee"], state = 1)
+			if table_num.exists():
+				return render(request, "404.html", {"code_error": "已经购买过该保单"})
+			time = datetime.datetime.today() - delta
 			table.objects.create(
 				productsID = DICT["productID"],
 				userID = request.session.get("userid", None),
@@ -398,17 +436,26 @@ def pay(request):
 				money = DICT["number"],
 				state = 0,
 				education_money=DICT["return_money"],
+				loseDate = time,
 			)
-			table_num = table.objects.filter(productsID = DICT["productID"], userID = request.session.get("userid", None),
-			 recognizee_ID = DICT["recognizee"], payCycle = DICT["cycle"], money = DICT["number"])
+			table_num = table.objects.filter(loseDate = time)
 			if table_num.exists():
 				paytool = alipay.get_payment()
-				print(DICT["name"], table_num[0].id, DICT["number"])
-				url = paytool.get(DICT["name"], table_num[0].id, DICT["number"])
+				total_num = 100 + len(trade_records.objects.all())
+				print(DICT["productID"], table_num[0].id, DICT["number"])
+				url = paytool.get(DICT["productID"], str(table_num[0].id) + ' ' + str(total_num), DICT["number"])
+				title = "请按时付款保单号%s的保单" % table_num[0].id
+				print(len(url))
+				information.objects.create(
+		            	userid=request.session.get("userid", None),
+		            	style="支付信息",
+		            	msg= url,
+		            	title= title,
+		            	state=0,
+		            )
 				return redirect(url)
 		except Exception as e:
-			print(e.args)
-			return render(request, "admin.html")
+			return render(request, "404.html", {"code_error": e.args})
 	return render(request, "admin.html")
 
 def get_mytable(request):
@@ -455,7 +502,7 @@ def get_showtable(request):
 				LIST.update(model_to_dict(user[0]))
 				LIST.update(model_to_dict(product[0]))
 				print(LIST)
-				LIST['return_money'] = count_money2(LIST)
+				LIST['return_money'] = LIST['education_money']
 				return render(request, "showtable.html", LIST)
 	return render(request, "showtable.html")
 
@@ -473,6 +520,7 @@ def get_table_detail(request):
 				LIST.update(model_to_dict(user[0]))
 				LIST.update(model_to_dict(product[0]))
 				LIST['return_money'] = count_money2(LIST)
+				print(LIST)
 				return render(request, "table_detail.html", LIST)
 	return render(request, "404.html", {"code_error":"不能直接访问"})
 
@@ -535,8 +583,9 @@ def apply_compensate1(request):
 	for i in items:
 		tmp = model_to_dict(i)
 		conn = products.objects.get(id = i.productsID)
-		tmp.update(model_to_dict(conn))
-		LIST.append(tmp)
+		conn = model_to_dict(conn)
+		conn.update(tmp)
+		LIST.append(conn)
 	print(LIST)
 	return render(request, "compensate1.html", {"LIST": LIST})
 
@@ -574,6 +623,14 @@ def apply_compensate3(request):
 		)
 	return render(request, 'compensate3.html')
 
+def get_inform_detail(request):
+	if request.method == "GET" and request.GET.get('id', None) != None:
+		ID = request.GET.get('id', None)
+		LIST = information.objects.get(id=ID)
+		LIST.state = 1
+		LIST.save()
+	return render(request, 'inform_detail.html', {"LIST": LIST})
+
 #end 视图
 
 #----------逻辑------------#
@@ -586,11 +643,12 @@ def upload_trade_record(LIST, request):
 	"""
 	if not trade_records.objects.filter(tableID=LIST['out_trade_no'], trade_money=LIST['total_amount']).exists():
 		conn = trade_records()
-		conn.tableID = LIST['out_trade_no']
+		conn.tableID = LIST['out_trade_no'].split(' ')[0]
+		ID = conn.tableID
 		conn.trade_money = LIST['total_amount']
 		conn.userID = request.session.get('userid', None)
 		conn.save()
-		conn = table.objects.get(id=LIST['out_trade_no'])
+		conn = table.objects.get(id=ID)
 		if conn != None:
 			conn.state = True
 			conn.save()
@@ -614,9 +672,13 @@ def count_money2(LIST):
     dL = {"三年": 3, "五年": 5, "十八年": 0}
 
     productsid = LIST['productID']
-    pM_key = pM.get(LIST['cycle'], None)
+    if LIST.get('cycle', None):
+    	pM_key = pM.get(LIST['cycle'], None)
+    else:
+    	pM_key = pM.get(LIST['payCycle'], None)
     dL_key = dL.get(LIST['deadline'])
     money = LIST['number']
+    print(productsid, pM_key, dL_key, money)
     for key, value in dL.items():
         if dL_key == key:
             if value != 0:
@@ -627,12 +689,15 @@ def count_money2(LIST):
                 today = datetime.datetime.now()
                 dL_value = 18 + birthday.year - today.year
             break
-    if pM_key == 0:
-        sum_money = dL_value * 52 * money
-    elif pM_key == 1:
-        sum_money = dL_value * 12 * money
-    else:
-        sum_money = money
+    try:
+	    if pM_key == 0:
+	        sum_money = dL_value * 52 * money
+	    elif pM_key == 1:
+	        sum_money = dL_value * 12 * money
+	    else:
+	        sum_money = money
+    except Exception as e:
+    	sum_money = money
     returncase = profit.objects.filter(productsID=productsid, deadLine=dL_key, payMethod=pM_key)[:1]
     if returncase.exists():
     	returncase = returncase[0].Returen
@@ -649,35 +714,42 @@ def create_compensate_Records(userid):
     """
     发钱【用户登录之后，检查可发钱保单并发钱，存对应一条理赔记录】
     """
+    if userid == None:
+    	return
     table_list = table.objects.filter(userID=userid)
     for tablecase in table_list:
-        if tablecase.losestate == False:    # 保单有效
+        if tablecase.state == True:    # 保单有效
             #------------ # effectDate = tablecase.effectDate.year - tablecase.loseDate.year   # 处理年份# payCycle = tablecase.get_payMethod_display()
             today = datetime.datetime.now()
-            if today > tablecase.endDate:   # 已交完钱 发教育金
+            if today > tablecase.loseDate:   # 已交完钱 发教育金
                 tableid = tablecase.pk
                 education_money = tablecase.education_money
+                education_money = round(education_money,0)
+                user = user_login.objects.get(id=userid)
+                user.money = str(int(user.money) + int(education_money))
+                user.save()
                 compensate_Records.objects.create(
                     tableID=tableid,
-                    count=str(education_money)
+                    count=education_money,
+                    userid = userid,
                 )
-                tablecase.losestate = True  # 发完钱保单失效
+                tablecase.state = False  # 发完钱保单失效
+                tablecase.save()
 
 
 def payment(tablecase):
     '''
     用户交钱
     '''
-    pM = {0:7,1:30,2:-1}
+    pM = {"周交":7, "月交":30, "单次": -1}
     tableid = tablecase.id
-    pM_key = tablecase.payMethod
-    for key, value in pM.items():  # 看交费方式 除去单次交费方式 其他两种方式要交钱
-        if pM_key == key:
-            cycle_day = value
+    cycle_day = pM[tablecase.payCycle]
+    if cycle_day == -1:
+    	return -1
     today = datetime.datetime.now()
-    recent_day = trade_Records.objects.filter(tableID=tableid).order_by('startTime')[-1].startTime.year
+    recent_day = trade_records.objects.filter(tableID=tableid).order_by('-startTime')[0].startTime
     minus_day = (today - recent_day).days
-    if (tablecase.losestate is False) and (cycle_day > 0) and (minus_day >= cycle_day):  # 保单有效 + 2交费方式 + 到可以交费日期
+    if (tablecase.state is True) and (cycle_day > 0) and (minus_day >= cycle_day):  # 保单有效 + 2交费方式 + 到可以交费日期
         if minus_day == cycle_day:           # 不缺 今日=交钱日期
             pay_money = tablecase.money
             return pay_money
@@ -688,9 +760,10 @@ def payment(tablecase):
                 return  pay_money
                 # return render(request, 'finish_pay.html', pay_money)  # 给交钱界面 显示交钱金额
             else:                            # 保单失效
-                tablecase.losestate = True
+                tablecase.state = False
                 tablecase.save()
                 return -1
+    return -1
 
 
 def warning_give_money(request):
@@ -699,11 +772,24 @@ def warning_give_money(request):
     '''
     userid = request.session.get('userid',None)
     if userid != None:
-	    DAOTable = table.objects.filter(userID=userid).order_by("effectDate")
+	    DAOTable = table.objects.filter(userID=userid, state = 1).order_by("effectDate")
+	    pay = alipay.get_payment()
 	    for i in DAOTable:
+	        if datetime.datetime.now() > i.loseDate:
+	        	continue
 	        pay_money = payment(i)
+	        print(pay_money)
 	        if pay_money != -1:
-	            # str1 = "保险单号" + i.id + "需续缴费: " + pay_money + "元。"
-	            return render(request, 'index.html', {i.id: pay_money})
+	        	title = "保单号%s的保单已到期请付款，请按时付款" % i.id
+	        	total_num = 100 + len(trade_records.objects.all())
+	        	url = pay.get(i.id, str(i.id) + ' ' + str(total_num), i.money)
+	        	if not information.objects.filter(userid=userid, msg= url).exists():
+		            information.objects.create(
+		            	userid=userid,
+		            	style="支付信息",
+		            	msg= url,
+		            	title= title,
+		            	state=0,
+		            )
 
 #end 逻辑

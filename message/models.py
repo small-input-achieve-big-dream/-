@@ -17,18 +17,10 @@ import datetime
 class compensate_Records(models.Model):
 	#投保人ID
 	userid = models.CharField(max_length = 30)
-	#理赔ID
-	compensateID = models.IntegerField()
 	#保单ID
 	tableID = models.IntegerField()
 	#订单创建时间
 	startTime = models.DateTimeField(default = datetime.datetime.now)
-	#订单修改时间
-	changeTime = models.DateTimeField(auto_now = True)
-	#经办人ID
-	changerID = models.IntegerField()
-	#修改内容
-	content = models.CharField(max_length = 60)
 	#发放教育金额
 	count = models.IntegerField()
 	class Meta:
@@ -57,18 +49,18 @@ class accident_Application(models.Model):
 class products(models.Model):
 	#产品名
 	productsName = models.CharField(max_length = 30)
-	#产品类型
-	productsStyle = models.CharField(max_length = 30)
+	#产品ID
+	productID = models.IntegerField()
 	#产品描述
 	productsDes = models.CharField(max_length = 60)
-	#投保人年龄范围
-	age_range = models.CharField(max_length = 60)
-	#被保人年龄范围
-	recognizee_age_range = models.CharField(max_length = 60)
-	#保险期限
-	date = models.CharField(max_length = 60)
-	#已成交单数
-	dealCount = models.IntegerField()
+	#投保人
+	applicant_range_age = models.CharField(max_length = 255)
+	recog_range_age = models.CharField(max_length=255)
+	money_range = models.CharField(max_length=255)
+	time_range = models.CharField(max_length=255)
+	payRange = models.CharField(max_length=255)
+	payMethod = models.CharField(max_length=255)
+	feature = models.CharField(max_length=255)
 	class Meta:
 		db_table = "products"
 
@@ -144,6 +136,8 @@ class user_login(models.Model):
 	password = models.CharField(max_length = 60)
 	#用户权限
 	power = models.IntegerField()
+	#余额
+	money = models.CharField(max_length = 15)
 	#上次查询时间
 	changeTime = models.DateTimeField(default = datetime.datetime.now)
 	class Meta:
@@ -223,10 +217,12 @@ class information(models.Model):
 	#信息类型
 	style = models.CharField(max_length = 20)
 	#详细信息
-	msg = models.CharField(max_length = 200)
+	msg = models.CharField(max_length = 1000)
 	#标题
 	title = models.CharField(max_length = 30)
 	#发送时间
 	createTime = models.DateTimeField(auto_now = True)
+	#状态
+	state = models.BooleanField()
 	class Meta:
 		db_table = "information"

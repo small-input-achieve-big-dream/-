@@ -7,22 +7,19 @@
 <div class="email-app mb-4">
 	<div class="inbox p-0">
 		<div class="card-body">
-			<div class="mailsearch mb-0">
-				<input class="form-control" type="search" placeholder="Search" aria-label="搜索">
-				<button class="btn btn-primary" type="submit"><i class="ion ion-search"></i></button>
-			</div>
-			<div class="toolbar d-none d-lg-block ">
-				<div class="btn-group mt-3 ">
-					<button type="button" class="btn btn-sm btn-light">
-						<span class="fa fa-envelope">系统通知信息</span>
-					</button>
-					<button type="button" class="btn btn-sm btn-light">
-						<span class="fa fa-star">支付通知信息</span>
-					</button>
-					<button type="button" class="btn btn-sm btn-light">
-						<span class="fa fa-star-o">用户信息</span>
-					</button>
-				</div>
+			<form action="/inform.html/" method="post">
+				{% csrf_token %}
+				<div class="toolbar d-none d-lg-block ">
+					<div class="btn-group mt-3 ">
+						<input type="hidden" name="method" value = "{{method}}">
+						<button type="submit" class="btn btn-sm btn-light" value="system" name = "system">
+							<span class="fa fa-envelope">系统通知信息</span>
+						</button>
+						<button type="submit" class="btn btn-sm btn-light" value="pay" name = "pay">
+							<span class="fa fa-star">支付通知信息</span>
+						</button>
+			</form>
+					</div>
 				<!-- <iframe data-v-637a89c0="" src="/index.html" frameborder="0" style="height: 100px; width: 100px;"></iframe> -->
 				<div class="btn-group float-right mt-3 d-none d-lg-block">
 					<button type="button" class="btn btn-sm btn-light">
@@ -35,7 +32,34 @@
 			</div>
 		</div>
 		 <ul class="mail_list list-group list-unstyled">
-
+		 	{% for item in LIST %}
+		 	<li class="list-group-item">
+				<div class="media">
+					<div class="pull-left">
+						<div class="controls">
+							<div class="checkbox">
+								<input id="basic_checkbox_1" type="checkbox">
+								<label for="basic_checkbox_1"></label>
+							</div>
+							<a class="favourite text-muted hidden-sm-down" href="javascript:void(0);" data-toggle="active">
+								{% ifequal item.state 1%}
+									<i class="zmdi zmdi-star-outline"></i>
+								{% else %}
+									<i class="zmdi zmdi-star"></i>
+								{% endifequal %}
+							</a>
+						</div>
+					</div>
+					<div class="media-body">
+						<div class="media-heading">
+							<a class="mr-2" href="/inform_detail.html/?id={{item.id}}">{{item.title}}</a><span class="badge bg-warning mb-1">{{item.style}}</span>
+							<small class="float-right text-muted"><time class="hidden-sm-down" datetime="2017">{{item.createTime}}</time><i class="zmdi zmdi-attachment-alt ml-2"></i> </small>
+						</div>
+						<p class="msg">{{item.msg}}</p>
+					</div>
+				</div>
+			</li>
+			{% endfor %}
 		</ul>
 	</div>
 </div>

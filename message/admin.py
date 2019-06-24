@@ -7,7 +7,7 @@ class accident_Application_Admin(admin.ModelAdmin):
 
 @admin.register(compensate_Records)
 class compensate_Records_Admin(admin.ModelAdmin):
-    list_display =  ('compensateID' ,'tableID','startTime','changeTime','changerID','count')
+    list_display =  ('tableID','startTime', 'count')
 
 @admin.register(user_login)
 class user_login_Admin(admin.ModelAdmin):
